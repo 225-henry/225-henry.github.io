@@ -38,15 +38,15 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    height: 200vh;
+    height: 150vh;
     padding: 20px;
 }
 
-.box {
-    width: 150px;
-    height: 200px;
-    background-color: blue;
-    margin: 20px;
+.image-box {
+    width: 200px;
+    height: 200px; 
+    object-fit: cover;
+    margin: 0;
 }
 @media (max-width: 768px) {
     .right-section {
