@@ -17,18 +17,24 @@ body {
     flex-direction: column;
     padding: 10px 20px;
     background: transparent;
-    backdrop-filter: blur(5px);
 }
 
 .navbar a {
     text-decoration: none;
-    color: blue;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
+.navbar a:first-child {
+    color: blue;
+}
+
+.navbar a:last-child {
+    color: rgb(0, 195, 255);
+}
+
 .container {
-    margin-top: 80px;
+    margin-top: 500px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -43,7 +49,7 @@ body {
     margin: 20px;
 }
 /* Responsive for smaller screens */
-@media (max-width: 768px) {
+@media (max-width: 100%) {
     .right-section {
         width: 90%;
         position: relative;
@@ -52,47 +58,66 @@ body {
         margin-top: 50px;
     }
 }
-    /* Left-side contact and news */
-    .left-section {
-        position: absolute;
-        left: 20spx;
-        top: 25%;
-    }
-    .left-section a {
-        display: block;
-        color: #2D6CEB;
-        text-decoration: none;
-        font-size: 14px;
-    }
-    .left-section a:hover {
-        text-decoration: underline;
-    }
-    .news {
-        color: rgb(0, 195, 255);
-        font-weight: bold;
-        font-size: 16px;
-        margin-top: 10px;
-    }
-    /* Right-side content */
-    .right-section {
-        position: absolute;
-        right: 20px;
-        top: 25%;
-        width: 30%;
-        font-size: 14px;
-        line-height: 1.5;
-    }
-    .right-section strong {
-        display: block;
-        margin-top: 15px;
-    }
-    /* Responsive for smaller screens */
-    @media (max-width: 768px) {
-        .right-section {
-            width: 90%;
-            position: relative;
-            right: auto;
-            top: auto;
-            margin-top: 50px;
-        }
-    }
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    box-sizing: border-box;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    max-width: calc(100% - 20px); /* 20px padding on each side */
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .left-section {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    gap: 99px;
+  }
+
+  .right-section {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding-top: 100px; /* Align with bio */
+  }
+
+  .section {
+    margin-bottom: 20spx;
+  }
+
+  .section-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .bio {
+    color: rgb(0, 195, 255);
+  }
+
+  .experience {
+    color: rgb(0, 195, 255);
+  }
+
+  .education {
+    color: rgb(0, 195, 255);
+    margin-top: 93px;
+  }
+  .education-info {
+    margin-top: 60px;
+  }
+  .experience-text {
+    margin-top: 59px; /* Move experience text downward */
+  }
