@@ -49,13 +49,13 @@ body {
     margin: 20px;
 }
 /* Responsive for smaller screens */
-@media (max-width: 100%) {
+@media (max-width: 768px) {
     .right-section {
-        width: 90%;
+        width: 100%;
         position: relative;
         right: auto;
         top: auto;
-        margin-top: 50px;
+        margin-top: 0;
     }
 }
 body {
@@ -74,7 +74,7 @@ body {
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
-    max-width: calc(100% - 20px); /* 20px padding on each side */
+    max-width: calc(100% - 20px);
     padding: 20px;
     box-sizing: border-box;
   }
@@ -83,7 +83,6 @@ body {
     width: 20%;
     display: flex;
     flex-direction: column;
-    gap: 99px;
   }
 
   .right-section {
@@ -91,7 +90,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 40px;
-    padding-top: 100px; /* Align with bio */
+    padding-top: 100px;
   }
 
   .section {
@@ -105,19 +104,22 @@ body {
 
   .bio {
     color: rgb(0, 195, 255);
+    margin-top: 99px;
   }
+  
 
   .experience {
     color: rgb(0, 195, 255);
+    margin-top: 99px;
   }
 
   .education {
     color: rgb(0, 195, 255);
-    margin-top: 93px;
+    margin-top: 190px;
   }
   .education-info {
     margin-top: 60px;
   }
   .experience-text {
-    margin-top: 59px; /* Move experience text downward */
+    margin-top: 59px;
   }
