@@ -1,10 +1,4 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
+* body {
     font-family: Arial, sans-serif;
 }
 
@@ -41,14 +35,49 @@ body {
     height: 150vh;
     padding: 20px;
 }
-
-.image-box1 {
+  .square {
+    position: absolute;
+  }
+  .blue {
+    background-image: url('https://cdn.jsdelivr.net/gh/225-henry/blogImage@main/studio%206%201.jpg');
+    background-size: cover;
+    background-position: center;
+    width: 216px;
+    height: 288px;
+    top: 350px;
+    left: calc(10% + 30px);
+    transform: translate(-50%, -50%);
+  }
+  .red-top {
+    background-image: url('https://cdn.jsdelivr.net/gh/225-henry/blogImage@main/_DSF8550.jpg');
+    background-size: cover;
+    background-position: center;
     width: 200px;
-    height: 200px; 
-    object-fit: cover;
-    margin: 0;
-    left: 50px;
-}
+    height: 200px;
+    top: 306px;
+    left: 38%;
+    transform: translate(-50%, -50%);
+  }
+  .red-bottom {
+    background-image: url('https://cdn.jsdelivr.net/gh/225-henry/blogImage@main/hong%20niao.png');
+    background-size: cover;
+    background-position: center;
+    width: 150px;
+    height: 150px;
+    top: 100px;
+    left: 55%;
+    transform: translate(-50%, 50%);
+  }
+  .green {
+    background-image: url('https://cdn.jsdelivr.net/gh/225-henry/blogImage@main/Reserve_View_Poster1.jpg');
+    background-size: cover;
+    background-position: center;
+    width: 260px;
+    height: 367px;
+    top: 390px;
+    left: 80%;
+    transform: translate(-50%, -50%);
+  }
 @media (max-width: 768px) {
     .right-section {
         width: 100%;
