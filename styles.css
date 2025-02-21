@@ -1,48 +1,46 @@
 * {
-    box-sizing: border_box;
     margin: 0;
     padding: 0;
-    font-family: 'Kumbh Sans', sans-serif;
+    box-sizing: border-box;
 }
 
-#logo {
-    color: #2D6CEB;
-    text-decoration:none;
-    font-size: 1.5rem;
-}
-#logo2{
-    color:rgb(0, 195, 255);
-    text-decoration:none;
-    font-size: 1.5rem;
-}
 body {
-    background-color: white;
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
 }
-.header {
-    position: absolute;
-    top: 20px;
-    left: 20px;
+
+.navbar {
+    position: fixed;
+    top: 15px;
+    left: 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 20px;
+    background: transparent;
+    backdrop-filter: blur(5px);
 }
+
+.navbar a {
+    text-decoration: none;
+    color: blue;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
 .container {
+    margin-top: 80px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
-    height: 80vh;
-    gap: 30px;
-    padding-top: 50px;
+    height: 200vh;
+    padding: 20px;
 }
+
 .box {
-    background-color: rgb(72, 255, 0);
     width: 150px;
     height: 200px;
-}
-.box.large {
-    width: 200px;
-    height: 150px;
+    background-color: blue;
+    margin: 20px;
 }
 /* Responsive for smaller screens */
 @media (max-width: 768px) {
