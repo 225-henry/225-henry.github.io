@@ -29,24 +29,18 @@
 
 .container {
     margin-top: 300px;
-    display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    height: 150vh;
-    padding: 20px;
 }
-  .square {
-    position: absolute;
-  }
   .blue {
     background-image: url('https://cdn.jsdelivr.net/gh/225-henry/blogImage@main/studio%206%201.jpg');
     background-size: cover;
     background-position: center;
     width: 216px;
     height: 288px;
-    top: 350px;
-    left: calc(10% + 30px);
+    top: 100px;
+    left: 120px;
     transform: translate(-50%, -50%);
+    position: relative;
   }
   .red-top {
     background-image: url('https://cdn.jsdelivr.net/gh/225-henry/blogImage@main/_DSF8550.jpg');
@@ -54,29 +48,32 @@
     background-position: center;
     width: 200px;
     height: 200px;
-    top: 306px;
-    left: 38%;
+    top: 56px;
+    left: 60px;
     transform: translate(-50%, -50%);
+    position: relative;
   }
   .red-bottom {
-    background-image: url('https://cdn.jsdelivr.net/gh/225-henry/blogImage@main/hong%20niao.png');
+    background-image: url('https://cdn.jsdelivr.net/gh/225-henry/blogImage@main/studio%205%201.jpg');
     background-size: cover;
     background-position: center;
-    width: 150px;
-    height: 150px;
-    top: 100px;
-    left: 55%;
+    width: 228px;
+    height: 144px;
+    top: -115px;
+    left: 80px;
     transform: translate(-50%, 50%);
+    position: relative;
   }
   .green {
-    background-image: url('https://cdn.jsdelivr.net/gh/225-henry/blogImage@main/_DSF7389.jpg');
+    background-image: url('https://cdn.jsdelivr.net/gh/225-henry/blogImage@main/_DSF8187.JPG');
     background-size: cover;
     background-position: center;
     width: 260px;
     height: 367px;
-    top: 390px;
-    left: 80%;
+    top: 140px;
+    right: 0px;
     transform: translate(-50%, -50%);
+    position: relative;
   }
 @media (max-width: 768px) {
     .right-section {
