@@ -34,7 +34,7 @@ body {
 }
 
 .container {
-    margin-top: 500px;
+    margin-top: 300px;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -42,11 +42,12 @@ body {
     padding: 20px;
 }
 
-.image-box {
+.image-box1 {
     width: 200px;
     height: 200px; 
     object-fit: cover;
     margin: 0;
+    left: 50px;
 }
 @media (max-width: 768px) {
     .right-section {
