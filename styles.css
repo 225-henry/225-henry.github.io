@@ -48,7 +48,6 @@ body {
     background-color: blue;
     margin: 20px;
 }
-/* Responsive for smaller screens */
 @media (max-width: 768px) {
     .right-section {
         width: 100%;
