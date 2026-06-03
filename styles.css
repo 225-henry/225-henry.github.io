@@ -251,6 +251,7 @@ img {
 
   .info-image {
     justify-self: start;
+    margin-top: 6vh;
   }
 
   .project-index {
