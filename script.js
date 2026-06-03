@@ -34,10 +34,12 @@ if (projectIndex) {
     const card = createProjectCard(image);
     const width = 210 + Math.round(Math.random() * 300);
     const mobileWidth = 220 + Math.round(Math.random() * 140);
+    const phoneWidth = 38 + Math.round(Math.random() * 34);
     const shouldAddVoid = index > 0 && index % (3 + Math.floor(Math.random() * 3)) === 0;
 
     card.style.setProperty("--card-width", `${width}px`);
     card.style.setProperty("--mobile-card-width", `${mobileWidth}px`);
+    card.style.setProperty("--phone-card-width", `${phoneWidth}%`);
     card.style.setProperty("--space-top", `${30 + Math.round(Math.random() * 190)}px`);
     card.style.setProperty("--space-right", `${35 + Math.round(Math.random() * 180)}px`);
     card.style.setProperty("--space-bottom", `${55 + Math.round(Math.random() * 220)}px`);

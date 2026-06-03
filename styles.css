@@ -145,15 +145,15 @@ img {
   }
 
   .project-index {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 72px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 46px 28px;
     padding-top: 16vh;
   }
 
   .project-card {
-    flex-basis: auto;
-    width: 100%;
+    flex: 0 0 var(--phone-card-width, 46%);
+    width: auto;
     margin: 0;
   }
 }
