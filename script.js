@@ -32,10 +32,33 @@ if (projectIndex) {
 
   shuffledImages.forEach((image, index) => {
     const card = createProjectCard(image);
-    const width = 210 + Math.round(Math.random() * 300);
-    const mobileWidth = 220 + Math.round(Math.random() * 140);
-    const phoneWidth = 38 + Math.round(Math.random() * 34);
-    const shouldAddVoid = index > 0 && index % (3 + Math.floor(Math.random() * 3)) === 0;
+    const isGif = image.src.toLowerCase().includes(".gif");
+    const sizeRoll = Math.random();
+    const width =
+      isGif
+        ? 560 + Math.round(Math.random() * 220)
+        : sizeRoll < 0.32
+        ? 170 + Math.round(Math.random() * 120)
+        : sizeRoll < 0.74
+          ? 290 + Math.round(Math.random() * 170)
+          : 400 + Math.round(Math.random() * 160);
+    const mobileWidth =
+      isGif
+        ? 350 + Math.round(Math.random() * 120)
+        : sizeRoll < 0.32
+        ? 180 + Math.round(Math.random() * 80)
+        : sizeRoll < 0.74
+          ? 230 + Math.round(Math.random() * 120)
+          : 320 + Math.round(Math.random() * 120);
+    const phoneWidth =
+      isGif
+        ? 72 + Math.round(Math.random() * 14)
+        : sizeRoll < 0.32
+        ? 34 + Math.round(Math.random() * 14)
+        : sizeRoll < 0.74
+          ? 42 + Math.round(Math.random() * 18)
+          : 58 + Math.round(Math.random() * 20);
+    const shouldAddVoid = index > 0 && (index % 2 === 0 || Math.random() > 0.58);
 
     card.style.setProperty("--card-width", `${width}px`);
     card.style.setProperty("--mobile-card-width", `${mobileWidth}px`);
@@ -48,8 +71,8 @@ if (projectIndex) {
 
     if (shouldAddVoid) {
       card.classList.add("has-void");
-      card.style.setProperty("--void-width", `${220 + Math.round(Math.random() * 180)}px`);
-      card.style.setProperty("--void-height", `${120 + Math.round(Math.random() * 180)}px`);
+      card.style.setProperty("--void-width", `${460 + Math.round(Math.random() * 520)}px`);
+      card.style.setProperty("--void-height", `${320 + Math.round(Math.random() * 500)}px`);
     }
 
     projectIndex.appendChild(card);
