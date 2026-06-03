@@ -82,7 +82,7 @@ function createLayoutItem(image, index) {
       "--phone-space-bottom": `${randomBetween(12, 58)}px`,
       "--phone-space-left": `${randomBetween(0, 12)}px`,
       "--phone-offset-x": `${randomBetween(-24, 24)}px`,
-      "--phone-offset-y": `${randomBetween(-36, 36)}px`,
+      "--phone-offset-y": `${randomBetween(0, 28)}px`,
       "--space-top": `${randomBetween(30, 220)}px`,
       "--space-right": `${randomBetween(35, 215)}px`,
       "--space-bottom": `${randomBetween(55, 275)}px`,
