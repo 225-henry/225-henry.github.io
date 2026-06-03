@@ -241,8 +241,47 @@ window.portfolioImages = [
   },
   {
     number: "048",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUUSYDS2_1-200-plan-1.8adwm04q0d.jpg",
+    alt: "",
+    title: "a failed option"
+  },
+  {
+    number: "049",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUUSYDS2_1-200-plan-3.26m4jk301x.jpg",
+    alt: "",
+    title: "a failed option"
+  },
+  {
+    number: "050",
     src: "https://225-henry.github.io/picx-images-hosting/USYDS2_1-200-plan-2.2rvs5rg3sr.webp",
     alt: "",
     title: "a failed option"
+  },
+  {
+    number: "051",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUUSYDS2_sketch-2.51espch6kj.jpg",
+    alt: "",
+    title: "a weird dream"
+  },
+  {
+    number: "052",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUUSYDS2_sketch2.7p48zpa7wk.jpg",
+    alt: "",
+    title: "cockatoo island after the character of island has been wiped"
+  },
+  {
+    number: "053",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUOS_Ground-floor.73uldel3cw.jpg",
+    alt: "",
+  },
+  {
+    number: "054",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUOS_First-floor.5mogbngym6.jpg",
+    alt: "",
+  },
+  {
+    number: "055",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUOS_Unit-plan.2dpceztgzm.jpg",
+    alt: "",
   },
 ];
