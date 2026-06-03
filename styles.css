@@ -59,9 +59,18 @@ img {
 .nav a,
 .number,
 .caption {
-  font-size: 16px;
   font-weight: 300;
   text-transform: lowercase;
+}
+
+.mark,
+.nav a {
+  font-size: 16px;
+}
+
+.number,
+.caption {
+  font-size: 13px;
 }
 
 .project-card .number,
