@@ -132,8 +132,8 @@ img {
   position: absolute;
   right: 0;
   bottom: 0;
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
   background: #25abe2;
   content: "";
   opacity: 0;
@@ -195,7 +195,7 @@ img {
 .info-page p,
 .info-links a {
   margin: 0;
-  font-family: Futura, "Futura PT", Arial, sans-serif;
+  font-family: "Gilmer Regular", Gilmer, Arial, sans-serif;
   font-size: clamp(17px, 2.2vw, 30px);
   font-weight: 300;
   line-height: 1.12;
@@ -268,17 +268,17 @@ img {
   .project-index {
     display: flex;
     flex-wrap: wrap;
-    gap: 46px 28px;
+    gap: 26px 18px;
     padding-top: 16vh;
   }
 
   .project-card {
     flex: 0 0 var(--phone-card-width, 46%);
     width: auto;
-    margin: 0;
+    margin: var(--phone-space-top, 0) var(--phone-space-right, 0) var(--phone-space-bottom, 0) var(--phone-space-left, 0);
   }
 
   .project-card a {
-    transform: none;
+    transform: translate(var(--phone-offset-x, 0), var(--phone-offset-y, 0));
   }
 }

@@ -92,6 +92,12 @@ if (projectIndex) {
     card.style.setProperty("--card-width", `${width}px`);
     card.style.setProperty("--mobile-card-width", `${mobileWidth}px`);
     card.style.setProperty("--phone-card-width", `${phoneWidth}%`);
+    card.style.setProperty("--phone-space-top", `${Math.round(Math.random() * 64)}px`);
+    card.style.setProperty("--phone-space-right", `${Math.round(Math.random() * 28)}px`);
+    card.style.setProperty("--phone-space-bottom", `${28 + Math.round(Math.random() * 86)}px`);
+    card.style.setProperty("--phone-space-left", `${Math.round(Math.random() * 22)}px`);
+    card.style.setProperty("--phone-offset-x", `${Math.round(Math.random() * 30 - 15)}px`);
+    card.style.setProperty("--phone-offset-y", `${Math.round(Math.random() * 64 - 32)}px`);
     card.style.setProperty("--space-top", `${30 + Math.round(Math.random() * 190)}px`);
     card.style.setProperty("--space-right", `${35 + Math.round(Math.random() * 180)}px`);
     card.style.setProperty("--space-bottom", `${55 + Math.round(Math.random() * 220)}px`);
