@@ -63,12 +63,12 @@ function createLayoutItem(image, index) {
           : randomBetween(320, 440);
   const phoneWidth =
     isGif
-      ? randomBetween(58, 70)
+      ? randomBetween(46, 60)
       : sizeRoll < 0.32
-        ? randomBetween(30, 42)
+        ? randomBetween(22, 34)
         : sizeRoll < 0.74
-          ? randomBetween(34, 48)
-          : randomBetween(46, 62);
+          ? randomBetween(28, 42)
+          : randomBetween(38, 54);
 
   return {
     type: "image",
@@ -77,12 +77,12 @@ function createLayoutItem(image, index) {
       "--card-width": `${width}px`,
       "--mobile-card-width": `${mobileWidth}px`,
       "--phone-card-width": `${phoneWidth}%`,
-      "--phone-space-top": `${randomBetween(0, 64)}px`,
-      "--phone-space-right": `${randomBetween(0, 28)}px`,
-      "--phone-space-bottom": `${randomBetween(28, 114)}px`,
-      "--phone-space-left": `${randomBetween(0, 22)}px`,
-      "--phone-offset-x": `${randomBetween(-15, 15)}px`,
-      "--phone-offset-y": `${randomBetween(-32, 32)}px`,
+      "--phone-space-top": `${randomBetween(0, 42)}px`,
+      "--phone-space-right": `${randomBetween(0, 14)}px`,
+      "--phone-space-bottom": `${randomBetween(12, 58)}px`,
+      "--phone-space-left": `${randomBetween(0, 12)}px`,
+      "--phone-offset-x": `${randomBetween(-24, 24)}px`,
+      "--phone-offset-y": `${randomBetween(-36, 36)}px`,
       "--space-top": `${randomBetween(30, 220)}px`,
       "--space-right": `${randomBetween(35, 215)}px`,
       "--space-bottom": `${randomBetween(55, 275)}px`,

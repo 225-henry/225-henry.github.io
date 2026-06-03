@@ -240,7 +240,7 @@ img {
 
 @media (max-width: 860px) {
   .viewer-title {
-    top: 52px;
+    top: 62px;
     width: calc(100vw - 32px);
     font-size: clamp(14px, 4vw, 20px);
   }
@@ -280,8 +280,9 @@ img {
   .project-index {
     display: flex;
     flex-wrap: wrap;
-    gap: 26px 18px;
+    gap: 14px 10px;
     padding-top: 16vh;
+    align-items: flex-start;
   }
 
   .project-card {
