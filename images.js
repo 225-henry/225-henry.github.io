@@ -239,4 +239,10 @@ window.portfolioImages = [
     src: "https://225-henry.github.io/picx-images-hosting/LIUUSYDS1_model-image4.jpg",
     alt: "",
   },
+  {
+    number: "048",
+    src: "https://225-henry.github.io/picx-images-hosting/USYDS2_1-200-plan-2.2rvs5rg3sr.webp",
+    alt: "",
+    title: "a failed option"
+  },
 ];

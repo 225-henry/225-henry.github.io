@@ -51,9 +51,15 @@ img {
 .nav a,
 .number,
 .caption {
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 300;
   text-transform: lowercase;
+}
+
+.mark,
+.nav a {
+  font-family: "Bodoni MT", Bodoni, "Didot", serif;
+  font-weight: 400;
 }
 
 .nav {
@@ -78,6 +84,13 @@ img {
   align-items: flex-start;
 }
 
+.layout-void {
+  flex: 0 0 var(--void-width, 360px);
+  height: var(--void-height, 220px);
+  margin: var(--void-margin, 0);
+  pointer-events: none;
+}
+
 .project-card {
   flex: 0 0 var(--card-width, 280px);
   margin: var(--space-top, 80px) var(--space-right, 90px) var(--space-bottom, 100px) var(--space-left, 0);
@@ -88,6 +101,8 @@ img {
   position: relative;
   display: grid;
   gap: 8px;
+  transform: translate(var(--offset-x, 0), var(--offset-y, 0));
+  cursor: zoom-in;
 }
 
 .project-card a::after {
@@ -109,6 +124,36 @@ img {
   background: #f3f3f3;
 }
 
+.project-card[data-number="026"] img {
+  clip-path: inset(3px);
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: clamp(18px, 4vw, 56px);
+  background: rgba(255, 255, 255, 0.78);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 220ms ease;
+}
+
+.lightbox.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox img {
+  max-width: min(92vw, 1200px);
+  max-height: 88vh;
+  width: auto;
+  height: auto;
+  cursor: zoom-out;
+}
+
 .number {
   color: var(--muted);
 }
@@ -119,7 +164,56 @@ img {
   padding-top: 6px;
 }
 
+.info-page {
+  display: grid;
+  grid-template-columns: minmax(260px, 720px) minmax(220px, 1fr);
+  gap: clamp(32px, 7vw, 120px);
+  padding: 0 clamp(16px, 3vw, 36px) 18vh;
+  align-items: start;
+}
+
+.info-page h1,
+.info-page p,
+.info-links a {
+  margin: 0;
+  font-family: Futura, "Futura PT", Arial, sans-serif;
+  font-size: clamp(17px, 2.2vw, 30px);
+  font-weight: 400;
+  line-height: 1.12;
+}
+
+.info-page p {
+  text-align: justify;
+}
+
+.info-page p + p {
+  margin-top: 1.08em;
+}
+
+.info-links {
+  display: grid;
+  margin-top: 1.08em;
+}
+
+.info-page a:hover {
+  color: #25abe2;
+}
+
+.info-image {
+  width: min(100%, 560px);
+  margin: 0;
+  justify-self: center;
+}
+
 @media (max-width: 860px) {
+  .info-page {
+    grid-template-columns: 1fr;
+  }
+
+  .info-image {
+    justify-self: start;
+  }
+
   .project-index {
     gap: clamp(56px, 12vw, 120px);
   }
@@ -131,6 +225,10 @@ img {
 
   .project-card.has-void {
     margin: 0;
+  }
+
+  .layout-void {
+    display: none;
   }
 }
 
@@ -155,5 +253,9 @@ img {
     flex: 0 0 var(--phone-card-width, 46%);
     width: auto;
     margin: 0;
+  }
+
+  .project-card a {
+    transform: none;
   }
 }
