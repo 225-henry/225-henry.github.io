@@ -61,12 +61,13 @@ window.portfolioImages = [
     number: "012",
     src: "https://225-henry.github.io/picx-images-hosting/LIUUSYDID_14_visulisation.77e79ysmmt.jpg",
     alt: "",
+    title: "I was listening to Omnipotent Youth Society while doing this project"
   },
   {
     number: "013",
     src: "https://225-henry.github.io/picx-images-hosting/LIUUSYDID_8-A2_FINAL_1_20_FACADESECTION.jpg",
     alt: "",
-    title: "wall, window, slab"
+    title: "wall, window and slab"
   },
   {
     number: "014",
@@ -142,6 +143,7 @@ window.portfolioImages = [
     number: "028",
     src: "https://225-henry.github.io/picx-images-hosting/LIUUSYDS1_full-size.gif",
     alt: "",
+    title: "the people in this image are moving"
   },
   {
     number: "029",
@@ -187,6 +189,7 @@ window.portfolioImages = [
     number: "037",
     src: "https://225-henry.github.io/picx-images-hosting/LIUUSYDS1_concept-sketch5.jpg ",
     alt: "",
+    title: "Is it non-stop?"
   },
   {
     number: "038",
@@ -233,6 +236,7 @@ window.portfolioImages = [
     number: "046",
     src: "https://225-henry.github.io/picx-images-hosting/LIUUSYDS1_model-image3.jpg",
     alt: "",
+    title: "what connection is more direct in a bathhouse than a pair of thongs"
   },
   {
     number: "047",
@@ -261,7 +265,7 @@ window.portfolioImages = [
     number: "051",
     src: "https://225-henry.github.io/picx-images-hosting/LIUUSYDS2_sketch-2.51espch6kj.jpg",
     alt: "",
-    title: "a weird dream"
+    title: "a dream has a lot stuff"
   },
   {
     number: "052",

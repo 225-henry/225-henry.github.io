@@ -1,7 +1,6 @@
 :root {
   --bg: #fff;
   --text: #050505;
-  --muted: #6f6f6f;
 }
 
 @font-face {
@@ -12,12 +11,20 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "ZauriSans";
+  src: url("fonts/ZauriSans-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 * {
   box-sizing: border-box;
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 body {
@@ -56,33 +63,19 @@ img {
 }
 
 .mark,
-.nav a,
-.number,
-.caption {
-  font-weight: 300;
+.nav a {
+  font-family: "Bodoni BT", "Bodoni MT", Bodoni, "Didot", serif;
+  font-size: 16px;
+  font-weight: 400;
   text-transform: lowercase;
 }
 
-.mark,
-.nav a {
-  font-size: 16px;
-}
-
 .number,
 .caption {
-  font-size: 13px;
-}
-
-.project-card .number,
-.project-card .caption {
   font-family: "Gilmer Regular", Gilmer, Arial, sans-serif;
+  font-size: 13px;
   font-weight: 400;
-}
-
-.mark,
-.nav a {
-  font-family: "Bodoni BT", "Bodoni MT", Bodoni, "Didot", serif;
-  font-weight: 400;
+  text-transform: lowercase;
 }
 
 .nav {
@@ -125,7 +118,6 @@ img {
   display: grid;
   gap: 8px;
   transform: translate(var(--offset-x, 0), var(--offset-y, 0));
-  cursor: zoom-in;
 }
 
 .project-card a::after {
@@ -147,40 +139,54 @@ img {
   background: #f3f3f3;
 }
 
-.lightbox {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  display: grid;
-  place-items: center;
-  padding: clamp(18px, 4vw, 56px);
-  background: transparent;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 220ms ease;
-}
-
-.lightbox.is-open {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.lightbox img {
-  max-width: min(92vw, 1200px);
-  max-height: 88vh;
-  width: auto;
-  height: auto;
-  cursor: zoom-out;
-}
-
 .number {
-  color: var(--muted);
+  color: #e80415;
 }
 
 .caption {
   display: flex;
   justify-content: space-between;
   padding-top: 6px;
+}
+
+.viewer-page {
+  display: grid;
+  gap: clamp(72px, 10vh, 140px);
+  padding: 12vh clamp(16px, 5vw, 72px) 18vh;
+}
+
+.viewer-title {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  z-index: 30;
+  width: min(760px, calc(100vw - 320px));
+  margin: 0;
+  transform: translateX(-50%);
+  text-align: center;
+  font-family: "Bodoni MT", "Bodoni BT", Bodoni, "Didot", serif;
+  font-size: clamp(16px, 2.2vw, 30px);
+  font-weight: 400;
+  line-height: 1.08;
+  overflow-wrap: break-word;
+  pointer-events: none;
+}
+
+.viewer-item {
+  width: min(100%, 1120px);
+  margin: 0 auto;
+}
+
+.viewer-item img {
+  width: 100%;
+  height: auto;
+}
+
+.viewer-item .number,
+.viewer-item .caption {
+  font-family: "Gilmer Regular", Gilmer, Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 400;
 }
 
 .info-page {
@@ -195,7 +201,7 @@ img {
 .info-page p,
 .info-links a {
   margin: 0;
-  font-family: "Gilmer Regular", Gilmer, Arial, sans-serif;
+  font-family: "ZauriSans", "Gilmer Regular", Arial, sans-serif;
   font-size: clamp(17px, 2.2vw, 30px);
   font-weight: 300;
   line-height: 1.12;
@@ -228,7 +234,17 @@ img {
   justify-self: center;
 }
 
+.info-image img {
+  cursor: pointer;
+}
+
 @media (max-width: 860px) {
+  .viewer-title {
+    top: 52px;
+    width: calc(100vw - 32px);
+    font-size: clamp(14px, 4vw, 20px);
+  }
+
   .info-page {
     grid-template-columns: 1fr;
   }
@@ -243,10 +259,6 @@ img {
 
   .project-card {
     flex-basis: min(100%, var(--mobile-card-width, 260px));
-    margin: 0;
-  }
-
-  .project-card.has-void {
     margin: 0;
   }
 

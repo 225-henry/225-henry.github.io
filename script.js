@@ -1,5 +1,8 @@
 const projectIndex = document.querySelector(".project-index");
 const images = window.portfolioImages || [];
+const imageMap = new Map(images.map((image) => [image.number, image]));
+const layoutStorageKey = "home-layout-v1";
+const returnImageKey = "home-return-image";
 
 function createProjectCard(image) {
   const card = document.createElement("article");
@@ -9,11 +12,13 @@ function createProjectCard(image) {
 
   card.className = "project-card";
   card.dataset.number = image.number;
-  link.href = `#project-${image.number}`;
+  link.href = `viewer.html?image=${encodeURIComponent(image.number)}`;
   number.className = "number";
   number.textContent = image.number;
-  picture.src = image.src;
+  picture.src = image.src.trim();
   picture.alt = image.alt || "";
+  picture.loading = "lazy";
+  picture.decoding = "async";
 
   link.append(number, picture);
 
@@ -25,107 +30,149 @@ function createProjectCard(image) {
   }
 
   card.appendChild(link);
+
+  link.addEventListener("click", () => {
+    sessionStorage.setItem(returnImageKey, image.number);
+  });
+
   return card;
 }
 
-const lightbox = document.createElement("div");
-const lightboxImage = document.createElement("img");
-
-lightbox.className = "lightbox";
-lightbox.setAttribute("aria-hidden", "true");
-lightbox.appendChild(lightboxImage);
-document.body.appendChild(lightbox);
-
-function openLightbox(image) {
-  lightboxImage.src = image.src;
-  lightboxImage.alt = image.alt || "";
-  lightbox.classList.add("is-open");
-  lightbox.setAttribute("aria-hidden", "false");
+function randomBetween(min, max) {
+  return min + Math.round(Math.random() * (max - min));
 }
 
-function closeLightbox() {
-  lightbox.classList.remove("is-open");
-  lightbox.setAttribute("aria-hidden", "true");
+function createLayoutItem(image, index) {
+  const isGif = image.src.toLowerCase().includes(".gif");
+  const sizeRoll = Math.random();
+  const width =
+    isGif
+      ? randomBetween(560, 780)
+      : sizeRoll < 0.32
+        ? randomBetween(210, 330)
+        : sizeRoll < 0.74
+          ? randomBetween(290, 460)
+          : randomBetween(400, 560);
+  const mobileWidth =
+    isGif
+      ? randomBetween(350, 470)
+      : sizeRoll < 0.32
+        ? randomBetween(210, 290)
+        : sizeRoll < 0.74
+          ? randomBetween(230, 350)
+          : randomBetween(320, 440);
+  const phoneWidth =
+    isGif
+      ? randomBetween(58, 70)
+      : sizeRoll < 0.32
+        ? randomBetween(30, 42)
+        : sizeRoll < 0.74
+          ? randomBetween(34, 48)
+          : randomBetween(46, 62);
+
+  return {
+    type: "image",
+    number: image.number,
+    styles: {
+      "--card-width": `${width}px`,
+      "--mobile-card-width": `${mobileWidth}px`,
+      "--phone-card-width": `${phoneWidth}%`,
+      "--phone-space-top": `${randomBetween(0, 64)}px`,
+      "--phone-space-right": `${randomBetween(0, 28)}px`,
+      "--phone-space-bottom": `${randomBetween(28, 114)}px`,
+      "--phone-space-left": `${randomBetween(0, 22)}px`,
+      "--phone-offset-x": `${randomBetween(-15, 15)}px`,
+      "--phone-offset-y": `${randomBetween(-32, 32)}px`,
+      "--space-top": `${randomBetween(30, 220)}px`,
+      "--space-right": `${randomBetween(35, 215)}px`,
+      "--space-bottom": `${randomBetween(55, 275)}px`,
+      "--space-left": `${randomBetween(0, 130)}px`,
+      "--offset-x": `${randomBetween(-45, 45)}px`,
+      "--offset-y": `${randomBetween(-60, 60)}px`,
+      "--card-align": ["flex-start", "center", "flex-end"][Math.floor(Math.random() * 3)]
+    }
+  };
 }
 
-lightbox.addEventListener("click", closeLightbox);
+function createVoidItem() {
+  return {
+    type: "void",
+    styles: {
+      "--void-width": `${randomBetween(260, 780)}px`,
+      "--void-height": `${randomBetween(160, 580)}px`,
+      "--void-margin": `${randomBetween(0, 140)}px ${randomBetween(0, 220)}px`
+    }
+  };
+}
 
-document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") {
-    closeLightbox();
-  }
-});
-
-if (projectIndex) {
+function createRandomLayout() {
   const shuffledImages = [...images].sort(() => Math.random() - 0.5);
+  const layout = [];
 
   shuffledImages.forEach((image, index) => {
-    const card = createProjectCard(image);
-    const isGif = image.src.toLowerCase().includes(".gif");
-    const sizeRoll = Math.random();
-    const width =
-      isGif
-        ? 560 + Math.round(Math.random() * 220)
-        : sizeRoll < 0.32
-        ? 210 + Math.round(Math.random() * 120)
-        : sizeRoll < 0.74
-          ? 290 + Math.round(Math.random() * 170)
-          : 400 + Math.round(Math.random() * 160);
-    const mobileWidth =
-      isGif
-        ? 350 + Math.round(Math.random() * 120)
-        : sizeRoll < 0.32
-        ? 210 + Math.round(Math.random() * 80)
-        : sizeRoll < 0.74
-          ? 230 + Math.round(Math.random() * 120)
-          : 320 + Math.round(Math.random() * 120);
-    const phoneWidth =
-      isGif
-        ? 58 + Math.round(Math.random() * 12)
-        : sizeRoll < 0.32
-        ? 30 + Math.round(Math.random() * 12)
-        : sizeRoll < 0.74
-          ? 34 + Math.round(Math.random() * 14)
-          : 46 + Math.round(Math.random() * 16);
-    const shouldAddVoid = index > 0 && (index % 2 === 0 || Math.random() > 0.58);
-
-    card.style.setProperty("--card-width", `${width}px`);
-    card.style.setProperty("--mobile-card-width", `${mobileWidth}px`);
-    card.style.setProperty("--phone-card-width", `${phoneWidth}%`);
-    card.style.setProperty("--phone-space-top", `${Math.round(Math.random() * 64)}px`);
-    card.style.setProperty("--phone-space-right", `${Math.round(Math.random() * 28)}px`);
-    card.style.setProperty("--phone-space-bottom", `${28 + Math.round(Math.random() * 86)}px`);
-    card.style.setProperty("--phone-space-left", `${Math.round(Math.random() * 22)}px`);
-    card.style.setProperty("--phone-offset-x", `${Math.round(Math.random() * 30 - 15)}px`);
-    card.style.setProperty("--phone-offset-y", `${Math.round(Math.random() * 64 - 32)}px`);
-    card.style.setProperty("--space-top", `${30 + Math.round(Math.random() * 190)}px`);
-    card.style.setProperty("--space-right", `${35 + Math.round(Math.random() * 180)}px`);
-    card.style.setProperty("--space-bottom", `${55 + Math.round(Math.random() * 220)}px`);
-    card.style.setProperty("--space-left", `${Math.round(Math.random() * 130)}px`);
-    card.style.setProperty("--offset-x", `${Math.round(Math.random() * 90 - 45)}px`);
-    card.style.setProperty("--offset-y", `${Math.round(Math.random() * 120 - 60)}px`);
-    card.style.setProperty("--card-align", ["flex-start", "center", "flex-end"][Math.floor(Math.random() * 3)]);
-
-    if (shouldAddVoid) {
-      card.classList.add("has-void");
-      card.style.setProperty("--void-width", `${460 + Math.round(Math.random() * 520)}px`);
-      card.style.setProperty("--void-height", `${320 + Math.round(Math.random() * 500)}px`);
-    }
-
-    card.addEventListener("click", (event) => {
-      event.preventDefault();
-      openLightbox(image);
-    });
-
-    projectIndex.appendChild(card);
+    layout.push(createLayoutItem(image, index));
 
     if (index > 0 && (index % 4 === 0 || Math.random() > 0.78)) {
-      const voidElement = document.createElement("div");
-      voidElement.className = "layout-void";
-      voidElement.style.setProperty("--void-width", `${260 + Math.round(Math.random() * 520)}px`);
-      voidElement.style.setProperty("--void-height", `${160 + Math.round(Math.random() * 420)}px`);
-      voidElement.style.setProperty("--void-margin", `${Math.round(Math.random() * 140)}px ${Math.round(Math.random() * 220)}px`);
-      projectIndex.appendChild(voidElement);
+      layout.push(createVoidItem());
     }
   });
+
+  return layout;
 }
+
+function applyStyles(element, styles) {
+  Object.entries(styles).forEach(([property, value]) => {
+    element.style.setProperty(property, value);
+  });
+}
+
+function renderLayout(layout) {
+  layout.forEach((item) => {
+    if (item.type === "void") {
+      const voidElement = document.createElement("div");
+      voidElement.className = "layout-void";
+      applyStyles(voidElement, item.styles);
+      projectIndex.appendChild(voidElement);
+      return;
+    }
+
+    const image = imageMap.get(item.number);
+
+    if (!image) {
+      return;
+    }
+
+    const card = createProjectCard(image);
+    applyStyles(card, item.styles);
+
+    projectIndex.appendChild(card);
+  });
+}
+
+function scrollToReturnedImage() {
+  const imageNumber = sessionStorage.getItem(returnImageKey);
+
+  if (!imageNumber) {
+    return;
+  }
+
+  const returnedCard = document.querySelector(`.project-card[data-number="${imageNumber}"]`);
+
+  if (returnedCard) {
+    returnedCard.scrollIntoView({ block: "center", inline: "nearest", behavior: "auto" });
+    sessionStorage.removeItem(returnImageKey);
+  }
+}
+
+if (projectIndex) {
+  const navigationEntry = performance.getEntriesByType("navigation")[0];
+  const isReload = navigationEntry?.type === "reload";
+  const savedLayout = sessionStorage.getItem(layoutStorageKey);
+  const layout = !isReload && savedLayout ? JSON.parse(savedLayout) : createRandomLayout();
+
+  sessionStorage.setItem(layoutStorageKey, JSON.stringify(layout));
+  renderLayout(layout);
+  scrollToReturnedImage();
+}
+
+window.addEventListener("pageshow", scrollToReturnedImage);
