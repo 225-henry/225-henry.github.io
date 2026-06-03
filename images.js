@@ -130,7 +130,7 @@ window.portfolioImages = [
   },
   {
     number: "026",
-    src: "https://225-henry.github.io/picx-images-hosting/LIUUSYDS1_section.jpg",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUUSYDS1_section.45ib9xpqlp.jpg",
     alt: "",
   },
   {
