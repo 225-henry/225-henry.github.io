@@ -4,6 +4,17 @@ const imageMap = new Map(images.map((image) => [image.number, image]));
 const layoutStorageKey = "home-layout-v1";
 const returnImageKey = "home-return-image";
 const hoverSquareColors = ["#25abe2", "#e80415", "#fef900"];
+const homeImageLimit = 50;
+const homeImageGroups = [
+  { range: ["001", "014"] },
+  { range: ["015", "020"] },
+  { range: ["021", "044"] },
+  { range: ["045", "047"] },
+  { range: ["048", "052"] },
+  { range: ["053", "055"] },
+  { range: ["056", "065"], max: 4 },
+  { range: ["066", "075"], max: 4 }
+];
 
 function createProjectCard(image, isPriority = false) {
   const card = document.createElement("article");
@@ -42,6 +53,45 @@ function createProjectCard(image, isPriority = false) {
 
 function randomBetween(min, max) {
   return min + Math.round(Math.random() * (max - min));
+}
+
+function numberValue(number) {
+  return Number.parseInt(number, 10);
+}
+
+function shuffleList(list) {
+  return [...list].sort(() => Math.random() - 0.5);
+}
+
+function getImagesInRange(start, end) {
+  const startValue = numberValue(start);
+  const endValue = numberValue(end);
+
+  return images.filter((image) => {
+    const value = numberValue(image.number);
+    return value >= startValue && value <= endValue;
+  });
+}
+
+function getBalancedHomeImages() {
+  const groupedImages = homeImageGroups
+    .map(({ range, max }) => {
+      const [start, end] = range;
+      const group = shuffleList(getImagesInRange(start, end));
+      return typeof max === "number" ? group.slice(0, max) : group;
+    })
+    .filter((group) => group.length > 0);
+  const selectedImages = [];
+
+  while (selectedImages.length < homeImageLimit && groupedImages.some((group) => group.length > 0)) {
+    groupedImages.forEach((group) => {
+      if (selectedImages.length < homeImageLimit && group.length > 0) {
+        selectedImages.push(group.shift());
+      }
+    });
+  }
+
+  return selectedImages;
 }
 
 function createLayoutItem(image, index) {
@@ -109,13 +159,13 @@ function createVoidItem() {
 }
 
 function createRandomLayout() {
-  const shuffledImages = [...images].sort(() => Math.random() - 0.5);
+  const shuffledImages = shuffleList(getBalancedHomeImages());
   const layout = [];
 
   shuffledImages.forEach((image, index) => {
     layout.push(createLayoutItem(image, index));
 
-    if (index > 0 && (index % 4 === 0 || Math.random() > 0.78)) {
+    if (index > 0 && (index % 6 === 0 || Math.random() > 0.88)) {
       layout.push(createVoidItem());
     }
   });

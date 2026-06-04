@@ -80,10 +80,11 @@ img {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: flex-end;
   gap: 2px;
   padding: 16px clamp(16px, 3vw, 36px);
   background: transparent;
+  text-align: right;
 }
 
 .mark,
@@ -221,6 +222,7 @@ img {
   gap: clamp(32px, 7vw, 120px);
   padding: 0 clamp(16px, 3vw, 36px) 18vh;
   align-items: start;
+  margin-top: -54px;
 }
 
 .info-page h1,
@@ -356,7 +358,7 @@ img {
 
 @media (max-width: 560px) {
   .topbar {
-    align-items: flex-start;
+    align-items: flex-end;
     background: transparent;
   }
 

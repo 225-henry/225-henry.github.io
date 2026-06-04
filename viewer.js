@@ -25,6 +25,14 @@ const imageGroups = [
   {
     range: ["053", "055"],
     title: "Now Now Our Home Competition/ Collaborate with Toshio Ozaki/ Summer 2026"
+  },
+  {
+    range: ["056", "065"],
+    title: "House with a Thick Wall/ tutor: Andrea Ileris/Tri 1 2023/ University of NSW"
+  },
+  {
+    range: ["066", "075"],
+    title: "Cable temple/ tutor: Toshio Ozaki/Tri 2 2023 Graduation Project/ University of NSW"
   }
 ];
 

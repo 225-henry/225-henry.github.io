@@ -214,7 +214,7 @@
   {
     number: "051",
     src: "https://225-henry.github.io/picx-images-hosting/LIUUSYDS2_sketch-2.51espch6kj.jpg",
-    title: "a dream has a lot stuff"
+    title: "a dream has lotta stuff"
   },
   {
     number: "052",
@@ -232,5 +232,85 @@
   {
     number: "055",
     src: "https://225-henry.github.io/picx-images-hosting/LIUOS_Unit-plan.2dpceztgzm.jpg",
+  },
+  {
+    number: "056",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUUNSWS5_ground-floor-1-1-100-site-plan.1ziwpd2j82.jpg",
+  },
+  {
+    number: "057",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUUNSWS5_first-floor-plan.9ddly4n6xq.jpg",
+  },
+  {
+    number: "058",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUUNSWS5_diagram.1ziwpd2j8b.jpg",
+  },
+  {
+    number: "059",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUUNSWS5_diagram2.5xba61djvg.jpg",
+  },
+  {
+    number: "060",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUUNSWS5_sections-01.3d5ftedl90.jpg",
+  },
+  {
+    number: "061",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUUNSWS5_facade-study.8s3ybtsqn0.jpg",
+  },
+  {
+    number: "062",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUUNSWS5_Untitled-2.2kskbnwzix.jpg",
+  },
+  {
+    number: "063",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUUNSWS5_Untitled-1.2rvs73j4yg.jpg",
+  },
+  {
+    number: "064",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUUNSWS5_studio-5-1.6ikxsc805z.jpg",
+  },
+  {
+    number: "065",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUUNSWS5_studi54psd.5fl8hgc6ae.jpg",
+  },
+  {
+    number: "066",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUUNSWS6_panels.39ltvokdhl.jpg",
+  },
+  {
+    number: "067",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUUNSWS6_platform.5xba61detm.jpg",
+  },
+  {
+    number: "068",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUUNSWS6_studio-6-ground-floor-plan.2kskbnwugw.jpg",
+  },
+  {
+    number: "069",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUUNSWS6_studio-6first-floor-plan.73ulen2bem.jpg",
+  },
+  {
+    number: "070",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUUNSWS6_studio-6-long-section-1.86uapiy5a9.jpg",
+  },
+  {
+    number: "071",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUUNSWS6_cross-section-1.60uw3r6hj9.jpg",
+  },
+  {
+    number: "072",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUUNSWS6_diagram-4.8adwn8r806.jpg",
+  },
+  {
+    number: "073",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUUNSWS6_studio-3.70azgx98op.jpg",
+  },
+  {
+    number: "074",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUUNSWS5_studio-5-1.6ikxsc805z.jpg",
+  },
+  {
+    number: "075",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUUNSWS6_studio-6-1.99u00etz5o.jpg",
   },
 ];
