@@ -3,8 +3,9 @@ const images = window.portfolioImages || [];
 const imageMap = new Map(images.map((image) => [image.number, image]));
 const layoutStorageKey = "home-layout-v1";
 const returnImageKey = "home-return-image";
+const hoverSquareColors = ["#25abe2", "#e80415", "#fef900"];
 
-function createProjectCard(image) {
+function createProjectCard(image, isPriority = false) {
   const card = document.createElement("article");
   const link = document.createElement("a");
   const number = document.createElement("span");
@@ -17,8 +18,9 @@ function createProjectCard(image) {
   number.textContent = image.number;
   picture.src = image.src.trim();
   picture.alt = image.alt || "";
-  picture.loading = "lazy";
+  picture.loading = isPriority ? "eager" : "lazy";
   picture.decoding = "async";
+  picture.fetchPriority = isPriority ? "high" : "low";
 
   link.append(number, picture);
 
@@ -89,7 +91,8 @@ function createLayoutItem(image, index) {
       "--space-left": `${randomBetween(0, 130)}px`,
       "--offset-x": `${randomBetween(-45, 45)}px`,
       "--offset-y": `${randomBetween(-60, 60)}px`,
-      "--card-align": ["flex-start", "center", "flex-end"][Math.floor(Math.random() * 3)]
+      "--card-align": ["flex-start", "center", "flex-end"][Math.floor(Math.random() * 3)],
+      "--hover-square-color": hoverSquareColors[Math.floor(Math.random() * hoverSquareColors.length)]
     }
   };
 }
@@ -127,6 +130,8 @@ function applyStyles(element, styles) {
 }
 
 function renderLayout(layout) {
+  let imageCount = 0;
+
   layout.forEach((item) => {
     if (item.type === "void") {
       const voidElement = document.createElement("div");
@@ -142,7 +147,8 @@ function renderLayout(layout) {
       return;
     }
 
-    const card = createProjectCard(image);
+    const card = createProjectCard(image, imageCount < 6);
+    imageCount += 1;
     applyStyles(card, item.styles);
 
     projectIndex.appendChild(card);

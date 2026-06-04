@@ -88,11 +88,6 @@ img {
   border-bottom: 1px solid transparent;
 }
 
-.nav a:hover,
-.mark:hover {
-  color: #25abe2;
-}
-
 .project-index {
   display: flex;
   flex-wrap: wrap;
@@ -120,27 +115,32 @@ img {
   transform: translate(var(--offset-x, 0), var(--offset-y, 0));
 }
 
+.project-card a:hover,
+.project-card a:hover .number,
+.project-card a:hover .caption {
+  color: inherit !important;
+}
+
 .project-card a::after {
   position: absolute;
   right: 0;
   bottom: 0;
+  z-index: 2;
   width: 25px;
   height: 25px;
-  background: #25abe2;
+  background: var(--hover-square-color, #25abe2);
   content: "";
   opacity: 0;
+  pointer-events: none;
 }
 
-.project-card a:hover::after {
+.project-card:hover a::after,
+.project-card a:focus-visible::after {
   opacity: 1;
 }
 
 .project-card img {
   background: #f3f3f3;
-}
-
-.number {
-  color: #e80415;
 }
 
 .caption {
@@ -199,7 +199,11 @@ img {
 
 .info-page h1,
 .info-page p,
-.info-links a {
+.info-links a,
+.info-links span,
+.info-section h2,
+.info-row,
+.experience-list {
   margin: 0;
   font-family: "ZauriSans", "Gilmer Regular", Arial, sans-serif;
   font-size: clamp(17px, 2.2vw, 30px);
@@ -215,9 +219,51 @@ img {
   margin-top: 1.08em;
 }
 
+.info-section {
+  margin-top: 1.08em;
+}
+
+.info-section:first-of-type {
+  margin-top: 2.16em;
+}
+
+.info-section h2 {
+  font-weight: 400;
+  margin-bottom: 1.08em;
+}
+
+.info-row,
+.experience-list li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.experience-list {
+  display: grid;
+  gap: 0;
+  margin-top: 1.08em;
+  padding: 0;
+  list-style: none;
+}
+
+.mention-note {
+  align-self: flex-end;
+  font-size: 0.82em;
+}
+
+.experience-date {
+  margin-top: 1.08em;
+}
+
 .info-links {
   display: grid;
   margin-top: 1.08em;
+}
+
+.chinese-name {
+  font-family: "宋体", SimSun, "Songti SC", serif;
 }
 
 .info-note {
@@ -226,14 +272,6 @@ img {
   left: clamp(16px, 3vw, 36px);
   width: min(720px, calc(100vw - 32px));
   margin-top: 0;
-}
-
-.info-page a:hover {
-  color: #25abe2;
-}
-
-.info-page .highlight-link {
-  color: #25abe2;
 }
 
 .info-image {
