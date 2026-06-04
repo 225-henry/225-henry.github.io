@@ -201,7 +201,7 @@ img {
 .experience-list {
   margin: 0;
   font-size: clamp(17px, 2.2vw, 30px);
-  font-weight: 300;
+  font-weight: 250;
   line-height: 1.12;
 }
 
@@ -222,7 +222,7 @@ img {
 }
 
 .info-section h2 {
-  font-weight: 400;
+  font-weight: 300;
   margin-bottom: 1.08em;
 }
 
@@ -258,7 +258,6 @@ img {
 
 .chinese-name {
   font-family: SimSun, "Songti SC", "宋体", serif;
-  letter-spacing: -0.12em;
 }
 
 .romanized-name {
