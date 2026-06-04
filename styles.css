@@ -91,7 +91,9 @@ img {
 .project-index {
   display: flex;
   flex-wrap: wrap;
-  padding: 0 clamp(16px, 3vw, 36px) 12vh;
+  justify-content: flex-start;
+  margin-top: -72px;
+  padding: 0 clamp(16px, 3vw, 36px) 12vh clamp(16px, 3vw, 36px);
   align-items: flex-start;
 }
 
@@ -106,7 +108,7 @@ img {
   flex: 0 0 var(--card-width, 280px);
   margin: var(--space-top, 80px) var(--space-right, 90px) var(--space-bottom, 100px) var(--space-left, 0);
   align-self: var(--card-align, flex-start);
-  transform: translate(var(--offset-x, 0), var(--offset-y, 0));
+  transform: translate(calc(var(--offset-x, 0) + var(--opening-clear, 0px)), var(--offset-y, 0));
 }
 
 .project-card a {
@@ -346,7 +348,6 @@ img {
   .mark,
   .nav a {
     font-size: 17px;
-    font-weight: 550;
   }
 
   .info-page {
@@ -371,7 +372,9 @@ img {
     display: flex;
     flex-wrap: wrap;
     gap: 34px 24px;
-    padding-top: 16vh;
+    justify-content: flex-start;
+    margin-top: -48px;
+    padding: 0 12px 12vh;
     align-items: flex-start;
   }
 
@@ -379,6 +382,6 @@ img {
     flex: 0 0 min(var(--phone-card-max, 38%), var(--phone-card-width, 40%));
     width: auto;
     margin: var(--phone-space-top, 0) var(--phone-space-right, 0) var(--phone-space-bottom, 0) var(--phone-space-left, 0);
-    transform: translate(var(--phone-offset-x, 0), var(--phone-offset-y, 0));
+    transform: translate(calc(var(--phone-offset-x, 0) + var(--opening-clear, 0px)), var(--phone-offset-y, 0));
   }
 }
