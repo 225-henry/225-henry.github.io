@@ -220,6 +220,14 @@ img {
   margin-top: 1.08em;
 }
 
+.info-note {
+  position: fixed;
+  bottom: 16px;
+  left: clamp(16px, 3vw, 36px);
+  width: min(720px, calc(100vw - 32px));
+  margin-top: 0;
+}
+
 .info-page a:hover {
   color: #25abe2;
 }
@@ -252,6 +260,11 @@ img {
   .info-image {
     justify-self: start;
     margin-top: 6vh;
+  }
+
+  .info-note {
+    position: static;
+    margin-top: 16vh;
   }
 
   .project-index {

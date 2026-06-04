@@ -14,7 +14,7 @@ window.portfolioImages = [
     number: "003",
     src: "https://225-henry.github.io/picx-images-hosting/LIUUSYDID_1-A2_FINAL_1_200_TYPICALPLAN.2a5qg4eut9.jpg",
     alt: "",
-    title: "rythem"
+    title: "rhythm"
   },
   {
     number: "004",
