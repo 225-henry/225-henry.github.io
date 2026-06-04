@@ -364,6 +364,19 @@ img {
     padding-top: 24px;
   }
 
+  .experience-list .with-note {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+    align-items: end;
+  }
+
+  .mention-note {
+    justify-self: end;
+    white-space: nowrap;
+    font-size: 0.58em;
+  }
+
   .project-index {
     display: flex;
     flex-wrap: wrap;
