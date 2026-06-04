@@ -359,6 +359,11 @@ img {
     font-size: 20px;
   }
 
+  .info-page {
+    margin-top: 0;
+    padding-top: 24px;
+  }
+
   .project-index {
     display: flex;
     flex-wrap: wrap;
