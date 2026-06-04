@@ -8,7 +8,7 @@ const imageGroups = [
   },
   {
     range: ["015", "020"],
-    title: "Precedent Study: House of Brazil (Le Corbusier) + Student Residence (Bruther+Baukunst)"
+    title: "Precedent Study: House of Brazil (Le Corbusier) + Student Residence (Bruther+Baukunst)/ tutor: Jessica Spresser/ Sem 1 2025/ University of Syd"
   },
   {
     range: ["021", "044"],
