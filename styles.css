@@ -12,14 +12,6 @@
 }
 
 @font-face {
-  font-family: "ZauriSans";
-  src: url("fonts/ZauriSans-Regular.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
   font-family: "Fangzheng Yaoti";
   src: url("fonts/%E6%96%B9%E6%AD%A3%E5%A7%9A%E4%BD%93%E7%AE%80%E4%BD%93.ttf") format("truetype");
   font-weight: 400;
@@ -98,8 +90,8 @@ img {
 .mark,
 .nav a {
   font-family: "Bodoni BT", "Bodoni MT", Bodoni, "Didot", serif;
-  font-size: 20px;
-  font-weight: 400;
+  font-size: 25px;
+  font-weight: 550;
   text-transform: lowercase;
 }
 
@@ -114,11 +106,6 @@ img {
 .nav {
   display: flex;
   gap: 18px;
-}
-
-.nav a,
-.mark {
-  border-bottom: 1px solid transparent;
 }
 
 .project-index {
@@ -146,12 +133,6 @@ img {
   position: relative;
   display: grid;
   gap: 8px;
-}
-
-.project-card a:hover,
-.project-card a:hover .number,
-.project-card a:hover .caption {
-  color: inherit !important;
 }
 
 .project-card a::after {
@@ -233,10 +214,8 @@ img {
   margin-top: -54px;
 }
 
-.info-page h1,
 .info-page p,
 .info-links a,
-.info-links span,
 .info-section h2,
 .info-row,
 .experience-list {
@@ -253,10 +232,6 @@ img {
 
 .info-page .intro-line {
   text-align: left;
-}
-
-.info-page p + p {
-  margin-top: 1.08em;
 }
 
 .info-section {
@@ -304,6 +279,11 @@ img {
 
 .chinese-name {
   font-family: "Fangzheng Yaoti", "方正姚体简体", "FZYaoti", "Microsoft YaHei", SimSun, serif;
+  letter-spacing: -0.12em;
+}
+
+.romanized-name {
+  font-size: 0.78em;
 }
 
 .info-note {
@@ -372,6 +352,11 @@ img {
 
   .nav {
     gap: 12px;
+  }
+
+  .mark,
+  .nav a {
+    font-size: 20px;
   }
 
   .project-index {

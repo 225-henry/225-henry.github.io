@@ -113,12 +113,15 @@ if (viewer) {
   const groupInfo = getGroupInfo(selectedNumber);
   const groupTitle = document.createElement("h1");
   const group = rotateFromSelected(groupInfo.images, selectedNumber);
+  const fragment = document.createDocumentFragment();
 
   groupTitle.className = "viewer-title";
   groupTitle.textContent = groupInfo.title;
-  viewer.appendChild(groupTitle);
+  fragment.appendChild(groupTitle);
 
   group.forEach((image, index) => {
-    viewer.appendChild(createViewerImage(image, index));
+    fragment.appendChild(createViewerImage(image, index));
   });
+
+  viewer.appendChild(fragment);
 }

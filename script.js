@@ -44,10 +44,6 @@ function createProjectCard(image, isPriority = false) {
 
   card.appendChild(link);
 
-  link.addEventListener("click", () => {
-    sessionStorage.setItem(returnImageKey, image.number);
-  });
-
   return card;
 }
 
@@ -60,7 +56,14 @@ function numberValue(number) {
 }
 
 function shuffleList(list) {
-  return [...list].sort(() => Math.random() - 0.5);
+  const shuffled = [...list];
+
+  for (let index = shuffled.length - 1; index > 0; index -= 1) {
+    const randomIndex = Math.floor(Math.random() * (index + 1));
+    [shuffled[index], shuffled[randomIndex]] = [shuffled[randomIndex], shuffled[index]];
+  }
+
+  return shuffled;
 }
 
 function getImagesInRange(start, end) {
@@ -99,28 +102,28 @@ function createLayoutItem(image, index) {
   const sizeRoll = Math.random();
   const width =
     isGif
-      ? randomBetween(560, 780)
+      ? randomBetween(500, 660)
       : sizeRoll < 0.32
         ? randomBetween(210, 330)
         : sizeRoll < 0.74
-          ? randomBetween(290, 460)
-          : randomBetween(400, 560);
+          ? randomBetween(290, 430)
+          : randomBetween(380, 490);
   const mobileWidth =
     isGif
-      ? randomBetween(350, 470)
+      ? randomBetween(330, 420)
       : sizeRoll < 0.32
         ? randomBetween(210, 290)
         : sizeRoll < 0.74
           ? randomBetween(230, 350)
-          : randomBetween(320, 440);
+          : randomBetween(300, 390);
   const phoneWidth =
     isGif
-      ? randomBetween(46, 60)
+      ? randomBetween(44, 54)
       : sizeRoll < 0.32
         ? randomBetween(22, 34)
         : sizeRoll < 0.74
           ? randomBetween(28, 42)
-          : randomBetween(38, 54);
+          : randomBetween(36, 48);
 
   return {
     type: "image",
@@ -181,13 +184,14 @@ function applyStyles(element, styles) {
 
 function renderLayout(layout) {
   let imageCount = 0;
+  const fragment = document.createDocumentFragment();
 
   layout.forEach((item) => {
     if (item.type === "void") {
       const voidElement = document.createElement("div");
       voidElement.className = "layout-void";
       applyStyles(voidElement, item.styles);
-      projectIndex.appendChild(voidElement);
+      fragment.appendChild(voidElement);
       return;
     }
 
@@ -201,8 +205,10 @@ function renderLayout(layout) {
     imageCount += 1;
     applyStyles(card, item.styles);
 
-    projectIndex.appendChild(card);
+    fragment.appendChild(card);
   });
+
+  projectIndex.appendChild(fragment);
 }
 
 function scrollToReturnedImage() {
@@ -225,6 +231,14 @@ if (projectIndex) {
   const isReload = navigationEntry?.type === "reload";
   const savedLayout = sessionStorage.getItem(layoutStorageKey);
   const layout = !isReload && savedLayout ? JSON.parse(savedLayout) : createRandomLayout();
+
+  projectIndex.addEventListener("click", (event) => {
+    const card = event.target.closest(".project-card");
+
+    if (card) {
+      sessionStorage.setItem(returnImageKey, card.dataset.number);
+    }
+  });
 
   sessionStorage.setItem(layoutStorageKey, JSON.stringify(layout));
   renderLayout(layout);
