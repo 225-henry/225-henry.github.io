@@ -3,14 +3,6 @@
   --text: #050505;
 }
 
-@font-face {
-  font-family: "Fangzheng Yaoti";
-  src: url("fonts/%E6%96%B9%E6%AD%A3%E5%A7%9A%E4%BD%93%E7%AE%80%E4%BD%93.ttf") format("truetype");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
 * {
   box-sizing: border-box;
 }
@@ -259,7 +251,7 @@ img {
 }
 
 .chinese-name {
-  font-family: "Fangzheng Yaoti", "FZYaoti", "Microsoft YaHei", SimSun, serif;
+  font-family: SimSun, "Songti SC", "宋体", serif;
   letter-spacing: -0.12em;
 }
 
