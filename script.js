@@ -100,6 +100,7 @@ function getBalancedHomeImages() {
 function createLayoutItem(image, index) {
   const isGif = image.src.toLowerCase().includes(".gif");
   const sizeRoll = Math.random();
+  const isOpeningImage = index < 4;
   const width =
     isGif
       ? randomBetween(500, 660)
@@ -138,7 +139,7 @@ function createLayoutItem(image, index) {
       "--phone-space-left": `${randomBetween(6, 18)}px`,
       "--phone-offset-x": `${randomBetween(-8, 8)}px`,
       "--phone-offset-y": `${randomBetween(0, 20)}px`,
-      "--space-top": `${randomBetween(30, 220)}px`,
+      "--space-top": `${isOpeningImage ? randomBetween(0, 34) : randomBetween(30, 220)}px`,
       "--space-right": `${randomBetween(35, 215)}px`,
       "--space-bottom": `${randomBetween(55, 275)}px`,
       "--space-left": `${randomBetween(0, 130)}px`,

@@ -4,14 +4,6 @@
 }
 
 @font-face {
-  font-family: "Gilmer Regular";
-  src: url("fonts/Gilmer%20Regular.otf") format("opentype");
-  font-weight: 550;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
   font-family: "Fangzheng Yaoti";
   src: url("fonts/%E6%96%B9%E6%AD%A3%E5%A7%9A%E4%BD%93%E7%AE%80%E4%BD%93.ttf") format("truetype");
   font-weight: 400;
@@ -31,7 +23,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-family: Roboto, Arial, sans-serif;
   font-size: 14px;
   font-weight: 300;
   line-height: 1.35;
@@ -91,7 +83,7 @@ img {
 
 .mark,
 .nav a {
-  font-family: "Bodoni BT", "Bodoni MT", Bodoni, "Didot", serif;
+  font-family: Roboto, Arial, sans-serif;
   font-size: 25px;
   font-weight: 550;
   text-transform: lowercase;
@@ -99,7 +91,7 @@ img {
 
 .number,
 .caption {
-  font-family: "Gilmer Regular", Gilmer, Arial, sans-serif;
+  font-family: Roboto, Arial, sans-serif;
   font-size: 13px;
   font-weight: 400;
   text-transform: lowercase;
@@ -107,7 +99,7 @@ img {
 
 .project-card .number,
 .viewer-item .number {
-  font-family: SimHei, "Microsoft YaHei", Arial, sans-serif;
+  font-family: Roboto, Arial, sans-serif;
 }
 
 .nav {
@@ -120,7 +112,7 @@ img {
 .project-index {
   display: flex;
   flex-wrap: wrap;
-  padding: 12vh clamp(16px, 3vw, 36px);
+  padding: clamp(8px, 2vh, 24px) clamp(16px, 3vw, 36px) 12vh;
   align-items: flex-start;
 }
 
@@ -185,15 +177,19 @@ img {
   top: 16px;
   left: 50%;
   z-index: 30;
-  width: min(760px, calc(100vw - 320px));
+  width: min(720px, calc(100vw - 380px));
   margin: 0;
   transform: translateX(-50%);
   text-align: center;
-  font-family: SimHei, "Microsoft YaHei", Arial, sans-serif;
+  font-family: Roboto, Arial, sans-serif;
   font-size: clamp(16px, 2.2vw, 30px);
   font-weight: 400;
-  line-height: 1.08;
-  overflow-wrap: break-word;
+  line-height: 1.18;
+  letter-spacing: 0;
+  word-spacing: normal;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
   pointer-events: none;
 }
 
@@ -209,14 +205,14 @@ img {
 
 .viewer-item .number,
 .viewer-item .caption {
-  font-family: "Gilmer Regular", Gilmer, Arial, sans-serif;
+  font-family: Roboto, Arial, sans-serif;
   font-size: 13px;
   font-weight: 400;
 }
 
 .project-card .number,
 .viewer-item .number {
-  font-family: SimHei, "Microsoft YaHei", Arial, sans-serif;
+  font-family: Roboto, Arial, sans-serif;
 }
 
 .info-page {
@@ -318,10 +314,15 @@ img {
   cursor: pointer;
 }
 
+@media (max-width: 1100px) {
+  .viewer-title {
+    top: 74px;
+    width: calc(100vw - 32px);
+  }
+}
+
 @media (max-width: 860px) {
   .viewer-title {
-    top: 62px;
-    width: calc(100vw - 32px);
     font-size: clamp(14px, 4vw, 20px);
   }
 
