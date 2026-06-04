@@ -105,7 +105,8 @@ img {
   text-transform: lowercase;
 }
 
-.project-card .number {
+.project-card .number,
+.viewer-item .number {
   font-family: SimHei, "Microsoft YaHei", Arial, sans-serif;
 }
 
