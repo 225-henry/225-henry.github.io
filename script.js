@@ -106,8 +106,8 @@ function createLayoutItem(image, index) {
   const sizeRoll = Math.random();
   const isOpeningImage = index < 4;
   const titleLength = image.title ? image.title.length : 0;
-  const titleBoost = titleLength > 18 ? clamp((titleLength - 18) * 3, 0, 80) : 0;
-  const phoneTitleBoost = titleLength > 14 ? clamp((titleLength - 14) * 0.65, 0, 14) : 0;
+  const titleBoost = titleLength > 22 ? clamp((titleLength - 22) * 1.6, 0, 46) : 0;
+  const phoneTitleBoost = titleLength > 18 ? clamp((titleLength - 18) * 0.35, 0, 8) : 0;
   const widthBase =
     isGif
       ? randomBetween(450, 580)
@@ -132,10 +132,10 @@ function createLayoutItem(image, index) {
         : sizeRoll < 0.74
           ? randomBetween(22, 32)
           : randomBetween(28, 38);
-  const width = clamp(widthBase + titleBoost, 210, 500);
-  const mobileWidth = clamp(mobileWidthBase + titleBoost * 0.55, 210, 400);
-  const phoneWidth = clamp(phoneWidthBase + phoneTitleBoost, 18, 50);
-  const phoneMaxWidth = titleLength > 30 ? 54 : titleLength > 18 ? 48 : 38;
+  const width = clamp(widthBase + titleBoost, 210, 470);
+  const mobileWidth = clamp(mobileWidthBase + titleBoost * 0.4, 210, 370);
+  const phoneWidth = clamp(phoneWidthBase + phoneTitleBoost, 18, 44);
+  const phoneMaxWidth = titleLength > 30 ? 48 : titleLength > 18 ? 42 : 38;
 
   return {
     type: "image",
