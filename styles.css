@@ -75,10 +75,22 @@ img {
   justify-content: flex-start;
   align-items: flex-start;
   gap: 2px;
-  margin-left: auto;
   padding: 16px clamp(16px, 3vw, 36px);
   background: transparent;
   text-align: left;
+}
+
+.topbar::before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -1;
+  width: 96px;
+  height: 96px;
+  background: #fff;
+  border-radius: 50%;
+  content: "";
+  transform: translate(-50%, -50%);
 }
 
 .mark,
@@ -112,7 +124,7 @@ img {
 .project-index {
   display: flex;
   flex-wrap: wrap;
-  padding: clamp(8px, 2vh, 24px) clamp(16px, 3vw, 36px) 12vh;
+  padding: 0 clamp(16px, 3vw, 36px) 12vh;
   align-items: flex-start;
 }
 
@@ -217,11 +229,15 @@ img {
 
 .info-page {
   display: grid;
-  grid-template-columns: minmax(260px, 720px) minmax(220px, 1fr);
+  grid-template-columns: minmax(220px, 1fr) minmax(260px, 1200px);
   gap: clamp(32px, 7vw, 120px);
   padding: 0 clamp(16px, 3vw, 36px) 18vh;
   align-items: start;
   margin-top: -54px;
+}
+
+.info-copy {
+  grid-column: 2;
 }
 
 .info-page p,
@@ -275,7 +291,7 @@ img {
 
 .mention-note {
   align-self: flex-end;
-  font-size: 0.82em;
+  font-size: 0.68em;
 }
 
 .experience-date {
@@ -299,12 +315,14 @@ img {
 .info-note {
   position: fixed;
   bottom: 16px;
-  left: clamp(16px, 3vw, 36px);
-  width: min(720px, calc(100vw - 32px));
+  right: clamp(16px, 3vw, 36px);
+  width: min(1200px, calc(100vw - 32px));
   margin-top: 0;
 }
 
 .info-image {
+  grid-column: 1;
+  grid-row: 1;
   width: min(100%, 560px);
   margin: 36vh 0 0;
   justify-self: center;
@@ -331,6 +349,12 @@ img {
     padding-bottom: 24vh;
   }
 
+  .info-copy,
+  .info-image {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
   .info-image {
     justify-self: start;
     margin-top: 6vh;
@@ -339,7 +363,7 @@ img {
   .info-note {
     position: fixed;
     bottom: 16px;
-    left: clamp(16px, 3vw, 36px);
+    right: clamp(16px, 3vw, 36px);
     width: min(720px, calc(100vw - 32px));
     margin-top: 0;
   }
@@ -361,7 +385,7 @@ img {
 
 @media (max-width: 560px) {
   .topbar {
-    align-items: flex-end;
+    align-items: flex-start;
     background: transparent;
   }
 
