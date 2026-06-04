@@ -105,6 +105,10 @@ img {
   text-transform: lowercase;
 }
 
+.project-card .number {
+  font-family: SimHei, "Microsoft YaHei", Arial, sans-serif;
+}
+
 .nav {
   display: flex;
   width: 100%;
@@ -360,7 +364,7 @@ img {
 
   .mark,
   .nav a {
-    font-size: 20px;
+    font-size: 15px;
   }
 
   .info-page {
@@ -384,13 +388,13 @@ img {
   .project-index {
     display: flex;
     flex-wrap: wrap;
-    gap: 14px 10px;
+    gap: 34px 24px;
     padding-top: 16vh;
     align-items: flex-start;
   }
 
   .project-card {
-    flex: 0 0 var(--phone-card-width, 46%);
+    flex: 0 0 min(38%, var(--phone-card-width, 40%));
     width: auto;
     margin: var(--phone-space-top, 0) var(--phone-space-right, 0) var(--phone-space-bottom, 0) var(--phone-space-left, 0);
     transform: translate(var(--phone-offset-x, 0), var(--phone-offset-y, 0));
