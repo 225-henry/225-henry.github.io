@@ -43,6 +43,11 @@ a {
   text-decoration: none;
 }
 
+a:not(.project-card a):hover,
+a:not(.project-card a):focus-visible {
+  color: #25abe2 !important;
+}
+
 img {
   display: block;
   width: 100%;
@@ -106,13 +111,13 @@ img {
   flex: 0 0 var(--card-width, 280px);
   margin: var(--space-top, 80px) var(--space-right, 90px) var(--space-bottom, 100px) var(--space-left, 0);
   align-self: var(--card-align, flex-start);
+  transform: translate(var(--offset-x, 0), var(--offset-y, 0));
 }
 
 .project-card a {
   position: relative;
   display: grid;
   gap: 8px;
-  transform: translate(var(--offset-x, 0), var(--offset-y, 0));
 }
 
 .project-card a:hover,
@@ -132,11 +137,13 @@ img {
   content: "";
   opacity: 0;
   pointer-events: none;
+  visibility: hidden;
 }
 
 .project-card:hover a::after,
 .project-card a:focus-visible::after {
   opacity: 1;
+  visibility: visible;
 }
 
 .project-card img {
@@ -213,6 +220,10 @@ img {
 
 .info-page p {
   text-align: justify;
+}
+
+.info-page .intro-line {
+  text-align: left;
 }
 
 .info-page p + p {
@@ -293,6 +304,7 @@ img {
 
   .info-page {
     grid-template-columns: 1fr;
+    padding-bottom: 24vh;
   }
 
   .info-image {
@@ -301,8 +313,11 @@ img {
   }
 
   .info-note {
-    position: static;
-    margin-top: 16vh;
+    position: fixed;
+    bottom: 16px;
+    left: clamp(16px, 3vw, 36px);
+    width: min(720px, calc(100vw - 32px));
+    margin-top: 0;
   }
 
   .project-index {
@@ -312,6 +327,7 @@ img {
   .project-card {
     flex-basis: min(100%, var(--mobile-card-width, 260px));
     margin: 0;
+    transform: none;
   }
 
   .layout-void {
@@ -341,9 +357,6 @@ img {
     flex: 0 0 var(--phone-card-width, 46%);
     width: auto;
     margin: var(--phone-space-top, 0) var(--phone-space-right, 0) var(--phone-space-bottom, 0) var(--phone-space-left, 0);
-  }
-
-  .project-card a {
     transform: translate(var(--phone-offset-x, 0), var(--phone-offset-y, 0));
   }
 }
