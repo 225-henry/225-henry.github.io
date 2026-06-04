@@ -51,6 +51,10 @@ function randomBetween(min, max) {
   return min + Math.round(Math.random() * (max - min));
 }
 
+function clamp(value, min, max) {
+  return Math.min(Math.max(value, min), max);
+}
+
 function numberValue(number) {
   return Number.parseInt(number, 10);
 }
@@ -101,23 +105,26 @@ function createLayoutItem(image, index) {
   const isGif = image.src.toLowerCase().includes(".gif");
   const sizeRoll = Math.random();
   const isOpeningImage = index < 4;
-  const width =
+  const titleLength = image.title ? image.title.length : 0;
+  const titleBoost = titleLength > 18 ? clamp((titleLength - 18) * 3, 0, 80) : 0;
+  const phoneTitleBoost = titleLength > 14 ? clamp((titleLength - 14) * 0.65, 0, 14) : 0;
+  const widthBase =
     isGif
-      ? randomBetween(500, 660)
+      ? randomBetween(450, 580)
       : sizeRoll < 0.32
         ? randomBetween(210, 330)
         : sizeRoll < 0.74
           ? randomBetween(290, 430)
-          : randomBetween(380, 490);
-  const mobileWidth =
+          : randomBetween(360, 440);
+  const mobileWidthBase =
     isGif
-      ? randomBetween(330, 420)
+      ? randomBetween(310, 380)
       : sizeRoll < 0.32
         ? randomBetween(210, 290)
         : sizeRoll < 0.74
           ? randomBetween(230, 350)
-          : randomBetween(300, 390);
-  const phoneWidth =
+          : randomBetween(280, 350);
+  const phoneWidthBase =
     isGif
       ? randomBetween(32, 40)
       : sizeRoll < 0.32
@@ -125,6 +132,10 @@ function createLayoutItem(image, index) {
         : sizeRoll < 0.74
           ? randomBetween(22, 32)
           : randomBetween(28, 38);
+  const width = clamp(widthBase + titleBoost, 210, 500);
+  const mobileWidth = clamp(mobileWidthBase + titleBoost * 0.55, 210, 400);
+  const phoneWidth = clamp(phoneWidthBase + phoneTitleBoost, 18, 50);
+  const phoneMaxWidth = titleLength > 30 ? 54 : titleLength > 18 ? 48 : 38;
 
   return {
     type: "image",
@@ -133,6 +144,7 @@ function createLayoutItem(image, index) {
       "--card-width": `${width}px`,
       "--mobile-card-width": `${mobileWidth}px`,
       "--phone-card-width": `${phoneWidth}%`,
+      "--phone-card-max": `${phoneMaxWidth}%`,
       "--phone-space-top": `${randomBetween(4, 56)}px`,
       "--phone-space-right": `${randomBetween(8, 22)}px`,
       "--phone-space-bottom": `${randomBetween(26, 72)}px`,

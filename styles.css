@@ -15,10 +15,6 @@
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: auto;
-}
-
 body {
   margin: 0;
   background: var(--bg);
@@ -76,42 +72,21 @@ img {
   align-items: flex-start;
   gap: 2px;
   padding: 16px clamp(16px, 3vw, 36px);
-  background: transparent;
   text-align: left;
-}
-
-.topbar::before {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  z-index: -1;
-  width: 96px;
-  height: 96px;
-  background: #fff;
-  border-radius: 50%;
-  content: "";
-  transform: translate(-50%, -50%);
 }
 
 .mark,
 .nav a {
-  font-family: Roboto, Arial, sans-serif;
   font-size: 25px;
-  font-weight: 550;
+  font-weight: 400;
   text-transform: lowercase;
 }
 
 .number,
 .caption {
-  font-family: Roboto, Arial, sans-serif;
   font-size: 13px;
   font-weight: 400;
   text-transform: lowercase;
-}
-
-.project-card .number,
-.viewer-item .number {
-  font-family: Roboto, Arial, sans-serif;
 }
 
 .nav {
@@ -176,6 +151,7 @@ img {
   display: flex;
   justify-content: space-between;
   padding-top: 6px;
+  white-space: nowrap;
 }
 
 .viewer-page {
@@ -193,12 +169,9 @@ img {
   margin: 0;
   transform: translateX(-50%);
   text-align: center;
-  font-family: Roboto, Arial, sans-serif;
   font-size: clamp(16px, 2.2vw, 30px);
   font-weight: 400;
   line-height: 1.18;
-  letter-spacing: 0;
-  word-spacing: normal;
   overflow-wrap: normal;
   word-break: normal;
   hyphens: none;
@@ -208,23 +181,6 @@ img {
 .viewer-item {
   width: min(100%, 1120px);
   margin: 0 auto;
-}
-
-.viewer-item img {
-  width: 100%;
-  height: auto;
-}
-
-.viewer-item .number,
-.viewer-item .caption {
-  font-family: Roboto, Arial, sans-serif;
-  font-size: 13px;
-  font-weight: 400;
-}
-
-.project-card .number,
-.viewer-item .number {
-  font-family: Roboto, Arial, sans-serif;
 }
 
 .info-page {
@@ -246,7 +202,6 @@ img {
 .info-row,
 .experience-list {
   margin: 0;
-  font-family: Roboto, Arial, sans-serif;
   font-size: clamp(17px, 2.2vw, 30px);
   font-weight: 300;
   line-height: 1.12;
@@ -304,7 +259,7 @@ img {
 }
 
 .chinese-name {
-  font-family: "Fangzheng Yaoti", "方正姚体简体", "FZYaoti", "Microsoft YaHei", SimSun, serif;
+  font-family: "Fangzheng Yaoti", "FZYaoti", "Microsoft YaHei", SimSun, serif;
   letter-spacing: -0.12em;
 }
 
@@ -386,7 +341,6 @@ img {
 @media (max-width: 560px) {
   .topbar {
     align-items: flex-start;
-    background: transparent;
   }
 
   .nav {
@@ -425,7 +379,7 @@ img {
   }
 
   .project-card {
-    flex: 0 0 min(38%, var(--phone-card-width, 40%));
+    flex: 0 0 min(var(--phone-card-max, 38%), var(--phone-card-width, 40%));
     width: auto;
     margin: var(--phone-space-top, 0) var(--phone-space-right, 0) var(--phone-space-bottom, 0) var(--phone-space-left, 0);
     transform: translate(var(--phone-offset-x, 0), var(--phone-offset-y, 0));
