@@ -19,6 +19,14 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: "Fangzheng Yaoti";
+  src: url("fonts/%E6%96%B9%E6%AD%A3%E5%A7%9A%E4%BD%93%E7%AE%80%E4%BD%93.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -233,7 +241,7 @@ img {
 .info-row,
 .experience-list {
   margin: 0;
-  font-family: "ZauriSans", "Gilmer Regular", Arial, sans-serif;
+  font-family: Roboto, Arial, sans-serif;
   font-size: clamp(17px, 2.2vw, 30px);
   font-weight: 300;
   line-height: 1.12;
@@ -295,7 +303,7 @@ img {
 }
 
 .chinese-name {
-  font-family: "宋体", SimSun, "Songti SC", serif;
+  font-family: "Fangzheng Yaoti", "方正姚体简体", "FZYaoti", "Microsoft YaHei", SimSun, serif;
 }
 
 .info-note {

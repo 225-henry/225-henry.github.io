@@ -12,8 +12,8 @@ const homeImageGroups = [
   { range: ["045", "047"] },
   { range: ["048", "052"] },
   { range: ["053", "055"] },
-  { range: ["056", "065"], max: 4 },
-  { range: ["066", "075"], max: 4 }
+  { range: ["056", "065"], max: 2 },
+  { range: ["066", "075"], max: 2 }
 ];
 
 function createProjectCard(image, isPriority = false) {

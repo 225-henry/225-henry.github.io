@@ -120,10 +120,12 @@
   {
     number: "029",
     src: "https://225-henry.github.io/picx-images-hosting/LIUUSYDS1_pod.jpg",
+    title: "diagram by my partner coco chen"
   },
   {
     number: "030",
     src: "https://225-henry.github.io/picx-images-hosting/LIUUSYDS1_seat.jpg",
+    title: "diagram by my partner coco chen"
   },
   {
     number: "031",
@@ -307,10 +309,6 @@
   },
   {
     number: "074",
-    src: "https://225-henry.github.io/picx-images-hosting/LIUUNSWS6_studio-6(1).3ns9mjsocb.jpg",
-  },
-  {
-    number: "075",
     src: "https://225-henry.github.io/picx-images-hosting/LIUUNSWS6_studio-6-1.99u00etz5o.jpg",
   },
 ];
