@@ -43,9 +43,28 @@ a {
   text-decoration: none;
 }
 
-a:not(.project-card a):hover,
-a:not(.project-card a):focus-visible {
-  color: #25abe2 !important;
+a:not(.project-card a) {
+  position: relative;
+}
+
+a:not(.project-card a)::before {
+  position: absolute;
+  top: 50%;
+  left: -0.95em;
+  width: 0;
+  height: 0;
+  border-top: 0.36em solid transparent;
+  border-bottom: 0.36em solid transparent;
+  border-left: 0.62em solid var(--text-hover-color, #25abe2);
+  content: "";
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+a:not(.project-card a):hover::before,
+a:not(.project-card a):focus-visible::before {
+  opacity: 1;
 }
 
 img {
