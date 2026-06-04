@@ -307,7 +307,7 @@
   },
   {
     number: "074",
-    src: "https://225-henry.github.io/picx-images-hosting/LIUUNSWS5_studio-5-1.6ikxsc805z.jpg",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUUNSWS6_studio-6(1).3ns9mjsocb.jpg",
   },
   {
     number: "075",
