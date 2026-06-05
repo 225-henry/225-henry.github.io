@@ -1,7 +1,7 @@
 const projectIndex = document.querySelector(".project-index");
 const images = window.portfolioImages || [];
 const imageMap = new Map(images.map((image) => [image.number, image]));
-const layoutStorageKey = "home-layout-v24";
+const layoutStorageKey = "home-layout-v27";
 const returnImageKey = "home-return-image";
 const returnScrollKey = "home-return-scroll";
 const returnModeKey = "home-return-mode";
@@ -178,20 +178,20 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
           : randomBetween(360, 440);
   const mobileWidthBase =
     isGif
-      ? randomBetween(290, 350)
+      ? randomBetween(280, 325)
       : sizeRoll < 0.32
         ? randomBetween(210, 290)
         : sizeRoll < 0.74
-          ? randomBetween(230, 330)
-          : randomBetween(260, 325);
+          ? randomBetween(220, 305)
+          : randomBetween(250, 300);
   const phoneWidthBase =
     isGif
-      ? randomBetween(32, 37)
+      ? randomBetween(31, 35)
       : sizeRoll < 0.32
         ? randomBetween(24, 30)
         : sizeRoll < 0.74
-          ? randomBetween(27, 32)
-          : randomBetween(30, 35);
+          ? randomBetween(26, 30)
+          : randomBetween(28, 32);
   const firstRowDesktopWidth =
     desktopFirstRowStyle === 1
       ? (index % 3 === 0 ? randomBetween(440, 560) : randomBetween(200, 330))
@@ -211,29 +211,30 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
         ? randomBetween(0, 90)
         : randomBetween(0, 180);
   const width = isOpeningImage ? firstRowDesktopWidth : clamp(widthBase + titleBoost, 200, 430);
-  const mobileWidth = clamp(mobileWidthBase + titleBoost * 0.4, 200, 340);
-  const tabletWidth = clamp(Math.round(mobileWidth * 0.9), 180, 310);
-  const firstRowPhoneWidth =
+  const mobileWidth = clamp(mobileWidthBase + titleBoost * 0.25, 200, 310);
+  const tabletWidth = clamp(Math.round(mobileWidth * 0.9), 180, 285);
+  const openingPhoneWidths =
     firstRowStyle === 1
-      ? randomBetween(48, 56)
+      ? [42, 28, 34, 25]
       : firstRowStyle === 3
-        ? randomBetween(24, 28)
-        : randomBetween(32, 36);
-  const firstRowPhoneMax = firstRowStyle === 1 ? 58 : firstRowStyle === 3 ? 30 : 38;
+        ? [24, 31, 25, 29]
+        : [32, 25, 34, 27];
+  const firstRowPhoneWidth = openingPhoneWidths[index % openingPhoneWidths.length] + randomBetween(-2, 2);
+  const firstRowPhoneMax = isOpeningImage ? firstRowPhoneWidth + 2 : firstRowStyle === 1 ? 52 : firstRowStyle === 3 ? 29 : 36;
   const firstRowSpaceRight =
     firstRowStyle === 3
-      ? randomBetween(5, 12)
+      ? randomBetween(6, 24)
       : firstRowStyle === 1
-        ? randomBetween(16, 28)
-        : randomBetween(18, 34);
+        ? randomBetween(8, 36)
+        : randomBetween(6, 38);
   const firstRowSpaceLeft =
     firstRowStyle === 3
-      ? randomBetween(5, 10)
+      ? randomBetween(0, 28)
       : firstRowStyle === 1
-        ? randomBetween(5, 12)
-        : randomBetween(8, 18);
-  const phoneWidth = isOpeningImage ? firstRowPhoneWidth : clamp(phoneWidthBase + phoneTitleBoost, 24, 42);
-  const phoneMaxWidth = isOpeningImage ? firstRowPhoneMax : titleLength > 30 ? 43 : titleLength > 18 ? 39 : 38;
+        ? randomBetween(0, 30)
+        : randomBetween(0, 34);
+  const phoneWidth = isOpeningImage ? firstRowPhoneWidth : clamp(phoneWidthBase + phoneTitleBoost * 0.6, 24, 38);
+  const phoneMaxWidth = isOpeningImage ? firstRowPhoneMax : titleLength > 30 ? 39 : titleLength > 18 ? 37 : 35;
 
   return {
     type: "image",
@@ -255,7 +256,7 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
       "--offset-x": `${randomBetween(0, 45)}px`,
       "--offset-y": `${randomBetween(0, 60)}px`,
       "--card-align": ["flex-start", "center", "flex-end"][Math.floor(Math.random() * 3)],
-      "--phone-card-align": ["flex-start", "center", "flex-end"][Math.floor(Math.random() * 3)],
+      "--phone-card-align": isOpeningImage ? ["flex-start", "center", "flex-end", "center"][index % 4] : ["flex-start", "center", "flex-end"][Math.floor(Math.random() * 3)],
       "--hover-marker-color": hoverMarkerColors[Math.floor(Math.random() * hoverMarkerColors.length)]
     }
   };
