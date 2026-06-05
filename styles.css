@@ -100,8 +100,8 @@ img {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  margin-top: var(--header-safe-space);
-  padding: 0 clamp(16px, 3vw, 36px) 12vh clamp(16px, 3vw, 36px);
+  margin-top: 10px;
+  padding: 0 10px 12vh;
   align-items: flex-start;
 }
 
@@ -116,7 +116,7 @@ img {
   flex: 0 0 var(--card-width, 280px);
   margin: var(--space-top, 80px) var(--space-right, 90px) var(--space-bottom, 100px) var(--space-left, 0);
   align-self: var(--card-align, flex-start);
-  transform: translate(calc(var(--offset-x, 0) + var(--opening-clear, 0px)), var(--offset-y, 0));
+  transform: translate(calc(var(--offset-x, 0) + var(--opening-clear, 0px)), calc(var(--offset-y, 0) + var(--header-drop, 0px)));
 }
 
 .project-card a {
@@ -371,8 +371,8 @@ img {
     flex-wrap: wrap;
     gap: 34px 24px;
     justify-content: flex-start;
-    margin-top: var(--header-safe-space);
-    padding: 0 12px 12vh;
+    margin-top: 10px;
+    padding: 0 10px 12vh;
     align-items: flex-start;
   }
 
@@ -389,6 +389,6 @@ img {
     width: auto;
     align-self: var(--phone-card-align, flex-start);
     margin: var(--phone-space-top, 0) var(--phone-space-right, 0) var(--phone-space-bottom, 0) var(--phone-space-left, 0);
-    transform: translate(calc(var(--phone-offset-x, 0) + var(--phone-opening-clear, 0px)), var(--phone-offset-y, 0));
+    transform: translate(calc(var(--phone-offset-x, 0) + var(--phone-opening-clear, 0px)), calc(var(--phone-offset-y, 0) + var(--header-drop, 0px)));
   }
 }

@@ -1,7 +1,7 @@
 const projectIndex = document.querySelector(".project-index");
 const images = window.portfolioImages || [];
 const imageMap = new Map(images.map((image) => [image.number, image]));
-const layoutStorageKey = "home-layout-v7";
+const layoutStorageKey = "home-layout-v8";
 const returnImageKey = "home-return-image";
 const hoverSquareColors = ["#25abe2", "#e80415", "#fef900"];
 const homeImageLimit = 60;
@@ -262,6 +262,30 @@ function scrollToReturnedImage() {
   }
 }
 
+function keepCardsClearOfHeader() {
+  const header = document.querySelector(".topbar");
+
+  if (!header) {
+    return;
+  }
+
+  const headerBounds = header.getBoundingClientRect();
+
+  document.querySelectorAll(".project-card").forEach((card) => {
+    card.style.setProperty("--header-drop", "0px");
+    const cardBounds = card.getBoundingClientRect();
+    const overlapsHeader =
+      cardBounds.left < headerBounds.right + 10 &&
+      cardBounds.right > headerBounds.left &&
+      cardBounds.top < headerBounds.bottom + 10 &&
+      cardBounds.bottom > headerBounds.top;
+
+    if (overlapsHeader) {
+      card.style.setProperty("--header-drop", `${Math.ceil(headerBounds.bottom - cardBounds.top + 10)}px`);
+    }
+  });
+}
+
 if (projectIndex) {
   const navigationEntry = performance.getEntriesByType("navigation")[0];
   const isReload = navigationEntry?.type === "reload";
@@ -278,7 +302,12 @@ if (projectIndex) {
 
   sessionStorage.setItem(layoutStorageKey, JSON.stringify(layout));
   renderLayout(layout);
+  keepCardsClearOfHeader();
   scrollToReturnedImage();
 }
 
-window.addEventListener("pageshow", scrollToReturnedImage);
+window.addEventListener("pageshow", () => {
+  keepCardsClearOfHeader();
+  scrollToReturnedImage();
+});
+window.addEventListener("resize", keepCardsClearOfHeader);
