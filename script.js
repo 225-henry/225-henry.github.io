@@ -295,6 +295,8 @@ function keepCardsClearOfHeader() {
   }
 
   const headerBounds = header.getBoundingClientRect();
+  const headerRight = headerBounds.right + 10;
+  const headerBottom = headerBounds.height + 10;
 
   document.querySelectorAll(".project-card").forEach((card) => {
     card.style.setProperty("--header-drop", "0px");
@@ -303,15 +305,18 @@ function keepCardsClearOfHeader() {
       return;
     }
 
-    const cardBounds = card.getBoundingClientRect();
+    const viewportBounds = card.getBoundingClientRect();
+    const cardBounds = {
+      top: viewportBounds.top + window.scrollY,
+      right: viewportBounds.right
+    };
     const overlapsHeader =
-      cardBounds.left < headerBounds.right + 10 &&
+      viewportBounds.left < headerRight &&
       cardBounds.right > headerBounds.left &&
-      cardBounds.top < headerBounds.bottom + 10 &&
-      cardBounds.bottom > headerBounds.top;
+      cardBounds.top < headerBottom;
 
     if (overlapsHeader) {
-      card.style.setProperty("--header-drop", `${Math.ceil(headerBounds.bottom - cardBounds.top + 10)}px`);
+      card.style.setProperty("--header-drop", `${Math.ceil(headerBottom - cardBounds.top)}px`);
     }
   });
 }
@@ -338,11 +343,5 @@ if (projectIndex) {
 }
 
 window.addEventListener("pageshow", () => {
-  markFirstRowCards();
-  keepCardsClearOfHeader();
   scrollToReturnedImage();
-});
-window.addEventListener("resize", () => {
-  markFirstRowCards();
-  keepCardsClearOfHeader();
 });
