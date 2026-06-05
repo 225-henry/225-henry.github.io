@@ -8,7 +8,6 @@ if (workLink) {
 
     if (cameFromHome) {
       event.preventDefault();
-      sessionStorage.setItem("home-return-mode", "scroll");
       window.history.back();
     }
   });
@@ -166,6 +165,14 @@ function warmImageCache(imageList) {
 if (viewer) {
   viewer.addEventListener("click", (event) => {
     if (event.target === viewer) {
+      const returnUrl = sessionStorage.getItem("viewer-return-url");
+
+      if (returnUrl) {
+        sessionStorage.removeItem("viewer-return-url");
+        window.location.href = returnUrl;
+        return;
+      }
+
       const cameFromHome = document.referrer.endsWith("index.html") || document.referrer.endsWith("/");
 
       if (cameFromHome) {

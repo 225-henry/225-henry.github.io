@@ -4,7 +4,6 @@ const imageMap = new Map(images.map((image) => [image.number, image]));
 const layoutStorageKey = "home-layout-v50";
 const returnImageKey = "home-return-image";
 const returnScrollKey = "home-return-scroll";
-const returnModeKey = "home-return-mode";
 const hoverMarkerColors = ["#25abe2", "#e80415", "#fef900"];
 const homeImageLimit = 60;
 const homeImageGroups = [
@@ -64,7 +63,10 @@ if ("scrollRestoration" in history) {
   history.scrollRestoration = "manual";
 }
 
-if (new URLSearchParams(window.location.search).has("refresh")) {
+const pageParams = new URLSearchParams(window.location.search);
+const returnScrollFromUrl = pageParams.get("scroll");
+
+if (pageParams.has("refresh") || pageParams.has("return")) {
   window.history.replaceState(null, "", window.location.pathname);
 }
 
@@ -186,9 +188,6 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
   const isGif = image.src.toLowerCase().includes(".gif");
   const sizeRoll = Math.random();
   const isOpeningImage = index < 4;
-  const titleLength = image.title ? image.title.length : 0;
-  const titleBoost = titleLength > 22 ? clamp((titleLength - 22) * 1.6, 0, 46) : 0;
-  const phoneTitleBoost = titleLength > 18 ? clamp((titleLength - 18) * 0.35, 0, 8) : 0;
   const widthBase =
     isGif
       ? randomBetween(330, 400)
@@ -231,8 +230,8 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
       : desktopFirstRowStyle === 3
         ? randomBetween(0, 52)
         : randomBetween(0, 92);
-  const width = isOpeningImage ? firstRowDesktopWidth : clamp(widthBase + titleBoost * 0.25, 265, 355);
-  const mobileWidth = clamp(mobileWidthBase + titleBoost * 0.15, 190, 285);
+  const width = isOpeningImage ? firstRowDesktopWidth : clamp(widthBase, 265, 355);
+  const mobileWidth = clamp(mobileWidthBase, 190, 285);
   const tabletWidth = clamp(Math.round(mobileWidth * 0.9), 170, 260);
   const openingPhoneWidths =
     firstRowStyle === 1
@@ -256,8 +255,8 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
       : firstRowStyle === 1
         ? randomBetween(0, 18)
         : randomBetween(0, 20);
-  const phoneWidth = isOpeningImage ? firstRowPhoneWidth : clamp(phoneWidthBase + phoneTitleBoost * 0.6, 24, 38);
-  const phoneMaxWidth = isOpeningImage ? firstRowPhoneMax : titleLength > 30 ? 36 : titleLength > 18 ? 34 : 32;
+  const phoneWidth = isOpeningImage ? firstRowPhoneWidth : clamp(phoneWidthBase, 24, 38);
+  const phoneMaxWidth = isOpeningImage ? firstRowPhoneMax : 32;
 
   return {
     type: "image",
@@ -382,11 +381,11 @@ function renderLayout(layout) {
   });
 
   projectIndex.appendChild(fragment);
-  warmImageCache(renderedImages.slice(3));
+  warmImageCache(renderedImages.slice(3, 15));
 }
 
 function restoreHomePosition() {
-  const scrollPosition = sessionStorage.getItem(returnScrollKey);
+  const scrollPosition = returnScrollFromUrl ?? sessionStorage.getItem(returnScrollKey);
 
   if (scrollPosition) {
     window.scrollTo(0, Number(scrollPosition));
@@ -491,8 +490,16 @@ function createWorkMenu() {
     link.style.setProperty("--text-hover-color", hoverMarkerColors[Math.floor(Math.random() * hoverMarkerColors.length)]);
     link.append(dot, title);
     link.addEventListener("click", () => {
-      sessionStorage.setItem(returnScrollKey, String(window.scrollY));
-      sessionStorage.setItem(returnModeKey, "scroll");
+      const currentPage = window.location.pathname.split("/").pop() || "index.html";
+      const currentScroll = String(window.scrollY);
+
+      if (currentPage === "index.html") {
+        sessionStorage.setItem("viewer-return-url", `index.html?return=${Date.now()}&scroll=${encodeURIComponent(currentScroll)}`);
+      } else {
+        sessionStorage.setItem("viewer-return-url", `${currentPage}${window.location.search}${window.location.hash}`);
+      }
+
+      sessionStorage.setItem(returnScrollKey, currentScroll);
       sessionStorage.removeItem(returnImageKey);
     });
     list.appendChild(link);
@@ -543,7 +550,6 @@ if (projectIndex) {
   if (isReload) {
     sessionStorage.removeItem(returnImageKey);
     sessionStorage.removeItem(returnScrollKey);
-    sessionStorage.removeItem(returnModeKey);
     window.scrollTo(0, 0);
   }
 
@@ -559,8 +565,17 @@ if (projectIndex) {
   renderLayout(layout);
   protectFirstRowFromHeader();
   restoreHomePosition();
+
+  if (returnScrollFromUrl) {
+    window.requestAnimationFrame(() => window.scrollTo(0, Number(returnScrollFromUrl)));
+    window.setTimeout(() => window.scrollTo(0, Number(returnScrollFromUrl)), 80);
+  }
 }
 
 window.addEventListener("pageshow", () => {
-  restoreHomePosition();
+  if (returnScrollFromUrl) {
+    window.scrollTo(0, Number(returnScrollFromUrl));
+  } else {
+    restoreHomePosition();
+  }
 });
