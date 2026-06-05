@@ -1,7 +1,7 @@
 const projectIndex = document.querySelector(".project-index");
 const images = window.portfolioImages || [];
 const imageMap = new Map(images.map((image) => [image.number, image]));
-const layoutStorageKey = "home-layout-v5";
+const layoutStorageKey = "home-layout-v6";
 const returnImageKey = "home-return-image";
 const hoverSquareColors = ["#25abe2", "#e80415", "#fef900"];
 const homeImageLimit = 60;
@@ -154,8 +154,8 @@ function createLayoutItem(image, index) {
           : randomBetween(28, 38);
   const width = clamp(widthBase + titleBoost, 210, 470);
   const mobileWidth = clamp(mobileWidthBase + titleBoost * 0.4, 210, 370);
-  const phoneWidth = clamp(phoneWidthBase + phoneTitleBoost, 18, 44);
-  const phoneMaxWidth = titleLength > 30 ? 48 : titleLength > 18 ? 42 : 38;
+  const phoneWidth = clamp(phoneWidthBase + phoneTitleBoost, 18, isOpeningImage ? 34 : 44);
+  const phoneMaxWidth = isOpeningImage ? 34 : titleLength > 30 ? 48 : titleLength > 18 ? 42 : 38;
 
   return {
     type: "image",
@@ -166,14 +166,14 @@ function createLayoutItem(image, index) {
       "--phone-card-width": `${phoneWidth}%`,
       "--phone-card-max": `${phoneMaxWidth}%`,
       "--phone-space-top": `${isOpeningImage ? 0 : randomBetween(4, 56)}px`,
-      "--phone-space-right": `${randomBetween(0, 34)}px`,
+      "--phone-space-right": `${isOpeningImage ? randomBetween(4, 12) : randomBetween(0, 34)}px`,
       "--phone-space-bottom": `${randomBetween(22, 92)}px`,
-      "--phone-space-left": `${randomBetween(0, 42)}px`,
-      "--phone-offset-x": `${randomBetween(0, 28)}px`,
+      "--phone-space-left": `${isOpeningImage ? randomBetween(0, 8) : randomBetween(0, 42)}px`,
+      "--phone-offset-x": `${isOpeningImage ? randomBetween(0, 8) : randomBetween(0, 28)}px`,
       "--phone-offset-y": `${randomBetween(0, 34)}px`,
       "--space-top": `${isOpeningImage ? 0 : randomBetween(30, 220)}px`,
       "--opening-clear": `${isOpeningImage ? 92 : 0}px`,
-      "--phone-opening-clear": `${index < 2 ? 92 : 0}px`,
+      "--phone-opening-clear": `${index < 2 ? 54 : 0}px`,
       "--space-right": `${randomBetween(35, 215)}px`,
       "--space-bottom": `${randomBetween(55, 275)}px`,
       "--space-left": `${randomBetween(0, 130)}px`,
