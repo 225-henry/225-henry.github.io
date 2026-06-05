@@ -1,7 +1,7 @@
 const projectIndex = document.querySelector(".project-index");
 const images = window.portfolioImages || [];
 const imageMap = new Map(images.map((image) => [image.number, image]));
-const layoutStorageKey = "home-layout-v29";
+const layoutStorageKey = "home-layout-v30";
 const returnImageKey = "home-return-image";
 const returnScrollKey = "home-return-scroll";
 const returnModeKey = "home-return-mode";
@@ -221,7 +221,8 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
         : [32, 25, 34, 27];
   const firstRowPhoneWidth = openingPhoneWidths[index % openingPhoneWidths.length] + randomBetween(-2, 2);
   const firstRowPhoneMax = isOpeningImage ? firstRowPhoneWidth + 2 : firstRowStyle === 1 ? 52 : firstRowStyle === 3 ? 29 : 36;
-  const phoneShift = index % 5 === 1 || index % 5 === 4 ? randomBetween(4, 14) : 0;
+  const openingPhoneShift = [18, 36, 12, 30][index % 4];
+  const phoneShift = isOpeningImage ? openingPhoneShift : index % 5 === 1 || index % 5 === 4 ? randomBetween(4, 14) : 0;
   const firstRowSpaceRight =
     firstRowStyle === 3
       ? randomBetween(4, 16)
