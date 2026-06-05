@@ -193,6 +193,12 @@ img {
 
 .project-card img {
   background: #f3f3f3;
+  opacity: 1;
+  transition: opacity 450ms ease;
+}
+
+.project-card.is-loading img {
+  opacity: 0;
 }
 
 .work-menu {
@@ -555,7 +561,7 @@ img {
   .project-index {
     display: flex;
     flex-wrap: wrap;
-    gap: 24px 14px;
+    gap: 18px 14px;
     justify-content: flex-start;
     margin-top: 10px;
     padding: 0 6px 12vh;
@@ -564,10 +570,10 @@ img {
 
   .layout-void {
     display: block;
-    flex: 0 0 clamp(64px, 21vw, 96px);
-    width: clamp(64px, 21vw, 96px);
-    height: clamp(48px, 13vw, 84px);
-    margin: clamp(4px, 1.6vw, 10px) clamp(5px, 2.4vw, 14px);
+    flex: 0 0 clamp(48px, 16vw, 74px);
+    width: clamp(48px, 16vw, 74px);
+    height: clamp(36px, 10vw, 60px);
+    margin: clamp(2px, 1vw, 6px) clamp(3px, 1.7vw, 9px);
   }
 
   .project-card {

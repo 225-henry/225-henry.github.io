@@ -1,7 +1,7 @@
 const projectIndex = document.querySelector(".project-index");
 const images = window.portfolioImages || [];
 const imageMap = new Map(images.map((image) => [image.number, image]));
-const layoutStorageKey = "home-layout-v35";
+const layoutStorageKey = "home-layout-v49";
 const returnImageKey = "home-return-image";
 const returnScrollKey = "home-return-scroll";
 const returnModeKey = "home-return-mode";
@@ -64,6 +64,16 @@ if ("scrollRestoration" in history) {
   history.scrollRestoration = "manual";
 }
 
+if (new URLSearchParams(window.location.search).has("refresh")) {
+  window.history.replaceState(null, "", window.location.pathname);
+}
+
+document.querySelector(".topbar .mark[aria-current='page']")?.addEventListener("click", (event) => {
+  event.preventDefault();
+  sessionStorage.removeItem(layoutStorageKey);
+  window.location.href = `${window.location.pathname}?refresh=${Date.now()}`;
+});
+
 function createProjectCard(image, options = {}) {
   const { isPriority = false } = options;
   const card = document.createElement("article");
@@ -82,6 +92,13 @@ function createProjectCard(image, options = {}) {
   picture.loading = isPriority ? "eager" : "lazy";
   picture.decoding = "async";
   picture.fetchPriority = isPriority ? "high" : "low";
+  picture.addEventListener("load", () => {
+    card.classList.remove("is-loading");
+  }, { once: true });
+
+  if (!picture.complete) {
+    card.classList.add("is-loading");
+  }
 
   link.append(number, picture);
 
@@ -174,12 +191,12 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
   const phoneTitleBoost = titleLength > 18 ? clamp((titleLength - 18) * 0.35, 0, 8) : 0;
   const widthBase =
     isGif
-      ? randomBetween(280, 340)
+      ? randomBetween(330, 400)
       : sizeRoll < 0.32
-        ? randomBetween(160, 230)
+        ? randomBetween(275, 320)
         : sizeRoll < 0.74
-          ? randomBetween(205, 285)
-          : randomBetween(235, 295);
+          ? randomBetween(250, 335)
+          : randomBetween(285, 355);
   const mobileWidthBase =
     isGif
       ? randomBetween(260, 300)
@@ -198,10 +215,10 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
           : randomBetween(27, 30);
   const firstRowDesktopWidth =
     desktopFirstRowStyle === 1
-      ? (index % 3 === 0 ? randomBetween(260, 330) : randomBetween(150, 220))
+      ? (index % 3 === 0 ? randomBetween(310, 390) : randomBetween(250, 300))
       : desktopFirstRowStyle === 3
-        ? (index % 2 === 0 ? randomBetween(140, 185) : randomBetween(220, 280))
-        : [randomBetween(145, 195), randomBetween(205, 270), randomBetween(250, 310), randomBetween(175, 235)][index % 4];
+        ? (index % 2 === 0 ? randomBetween(245, 280) : randomBetween(265, 330))
+        : [randomBetween(245, 285), randomBetween(260, 315), randomBetween(300, 365), randomBetween(260, 305)][index % 4];
   const firstRowDesktopRight =
     desktopFirstRowStyle === 1
       ? randomBetween(42, 180)
@@ -214,7 +231,7 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
       : desktopFirstRowStyle === 3
         ? randomBetween(0, 52)
         : randomBetween(0, 92);
-  const width = isOpeningImage ? firstRowDesktopWidth : clamp(widthBase + titleBoost * 0.25, 150, 295);
+  const width = isOpeningImage ? firstRowDesktopWidth : clamp(widthBase + titleBoost * 0.25, 265, 355);
   const mobileWidth = clamp(mobileWidthBase + titleBoost * 0.15, 190, 285);
   const tabletWidth = clamp(Math.round(mobileWidth * 0.9), 170, 260);
   const openingPhoneWidths =
@@ -251,17 +268,17 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
       "--tablet-card-width": `${tabletWidth}px`,
       "--phone-card-width": `${phoneWidth}%`,
       "--phone-card-max": `${phoneMaxWidth}%`,
-      "--phone-space-top": `${isOpeningImage ? 5 : randomBetween(5, 46)}px`,
-      "--phone-space-right": `${isOpeningImage ? firstRowSpaceRight : randomBetween(4, 18)}px`,
-      "--phone-space-bottom": `${randomBetween(12, 48)}px`,
-      "--phone-space-left": `${isOpeningImage ? firstRowSpaceLeft + phoneShift : randomBetween(4, 20) + phoneShift}px`,
-      "--space-top": `${isOpeningImage ? 0 : randomBetween(16, 86)}px`,
-      "--space-right": `${isOpeningImage ? firstRowDesktopRight : randomBetween(18, 84)}px`,
-      "--space-bottom": `${randomBetween(24, 92)}px`,
-      "--space-left": `${isOpeningImage ? firstRowDesktopLeft : randomBetween(0, 46)}px`,
-      "--offset-x": `${randomBetween(0, 28)}px`,
-      "--offset-y": `${randomBetween(0, 34)}px`,
-      "--card-align": ["flex-start", "center", "flex-end"][Math.floor(Math.random() * 3)],
+      "--phone-space-top": `${isOpeningImage ? 5 : randomBetween(4, 30)}px`,
+      "--phone-space-right": `${isOpeningImage ? Math.max(5, firstRowSpaceRight - 2) : randomBetween(5, 18)}px`,
+      "--phone-space-bottom": `${randomBetween(8, 32)}px`,
+      "--phone-space-left": `${isOpeningImage ? Math.max(0, firstRowSpaceLeft + phoneShift - 4) : randomBetween(5, 20) + Math.max(0, phoneShift - 4)}px`,
+      "--space-top": `${index === 0 ? 58 : isOpeningImage ? 0 : randomBetween(16, 86)}px`,
+      "--space-right": `${isOpeningImage ? firstRowDesktopRight : randomBetween(34, 94)}px`,
+      "--space-bottom": `${randomBetween(42, 104)}px`,
+      "--space-left": `${index === 0 ? Math.max(firstRowDesktopLeft, 180) : isOpeningImage ? firstRowDesktopLeft : randomBetween(10, 58)}px`,
+      "--offset-x": `${randomBetween(0, 16)}px`,
+      "--offset-y": `${randomBetween(0, 22)}px`,
+      "--card-align": ["flex-start", "center", "center", "flex-end"][index % 4],
       "--phone-card-align": isOpeningImage ? ["flex-start", "center", "flex-end", "center"][index % 4] : ["flex-start", "center", "flex-end"][Math.floor(Math.random() * 3)],
       "--hover-marker-color": hoverMarkerColors[Math.floor(Math.random() * hoverMarkerColors.length)]
     }
@@ -272,9 +289,9 @@ function createVoidItem() {
   return {
     type: "void",
     styles: {
-      "--void-width": `${randomBetween(160, 360)}px`,
-      "--void-height": `${randomBetween(70, 180)}px`,
-      "--void-margin": `${randomBetween(0, 54)}px ${randomBetween(12, 72)}px`
+      "--void-width": `${randomBetween(320, 520)}px`,
+      "--void-height": `${randomBetween(200, 340)}px`,
+      "--void-margin": `${randomBetween(36, 112)}px ${randomBetween(64, 150)}px`
     }
   };
 }
@@ -283,9 +300,9 @@ function createOpeningVoidItem() {
   return {
     type: "void",
     styles: {
-      "--void-width": `${randomBetween(120, 260)}px`,
-      "--void-height": `${randomBetween(54, 130)}px`,
-      "--void-margin": `${randomBetween(0, 24)}px ${randomBetween(12, 62)}px`
+      "--void-width": `${randomBetween(260, 420)}px`,
+      "--void-height": `${randomBetween(170, 290)}px`,
+      "--void-margin": `${randomBetween(28, 92)}px ${randomBetween(52, 132)}px`
     }
   };
 }
@@ -299,11 +316,11 @@ function createRandomLayout() {
   shuffledImages.forEach((image, index) => {
     layout.push(createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle));
 
-    if (index < 4 && Math.random() > 0.86) {
+    if (index < 4 && index % 2 === 1) {
       layout.push(createOpeningVoidItem());
     }
 
-    if (index > 0 && (index % 8 === 0 || Math.random() > 0.94)) {
+    if (index > 0 && (index % 2 === 0 || Math.random() > 0.82)) {
       layout.push(createVoidItem());
     }
   });
