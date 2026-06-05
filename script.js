@@ -1,7 +1,7 @@
 const projectIndex = document.querySelector(".project-index");
 const images = window.portfolioImages || [];
 const imageMap = new Map(images.map((image) => [image.number, image]));
-const layoutStorageKey = "home-layout-v23";
+const layoutStorageKey = "home-layout-v24";
 const returnImageKey = "home-return-image";
 const returnScrollKey = "home-return-scroll";
 const returnModeKey = "home-return-mode";
@@ -178,20 +178,20 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
           : randomBetween(360, 440);
   const mobileWidthBase =
     isGif
-      ? randomBetween(310, 380)
+      ? randomBetween(290, 350)
       : sizeRoll < 0.32
         ? randomBetween(210, 290)
         : sizeRoll < 0.74
-          ? randomBetween(230, 350)
-          : randomBetween(280, 350);
+          ? randomBetween(230, 330)
+          : randomBetween(260, 325);
   const phoneWidthBase =
     isGif
-      ? randomBetween(34, 40)
+      ? randomBetween(32, 37)
       : sizeRoll < 0.32
         ? randomBetween(24, 30)
         : sizeRoll < 0.74
-          ? randomBetween(28, 34)
-          : randomBetween(32, 38);
+          ? randomBetween(27, 32)
+          : randomBetween(30, 35);
   const firstRowDesktopWidth =
     desktopFirstRowStyle === 1
       ? (index % 3 === 0 ? randomBetween(440, 560) : randomBetween(200, 330))
@@ -233,7 +233,7 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
         ? randomBetween(5, 12)
         : randomBetween(8, 18);
   const phoneWidth = isOpeningImage ? firstRowPhoneWidth : clamp(phoneWidthBase + phoneTitleBoost, 24, 42);
-  const phoneMaxWidth = isOpeningImage ? firstRowPhoneMax : titleLength > 30 ? 46 : titleLength > 18 ? 42 : 40;
+  const phoneMaxWidth = isOpeningImage ? firstRowPhoneMax : titleLength > 30 ? 43 : titleLength > 18 ? 39 : 38;
 
   return {
     type: "image",
