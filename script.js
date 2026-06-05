@@ -81,13 +81,6 @@ function createProjectCard(image, options = {}) {
 
   link.append(number, picture);
 
-  if (image.title) {
-    const caption = document.createElement("span");
-    caption.className = "caption";
-    caption.textContent = image.title;
-    link.appendChild(caption);
-  }
-
   card.appendChild(link);
 
   return card;
