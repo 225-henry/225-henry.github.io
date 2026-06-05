@@ -1,7 +1,7 @@
 const projectIndex = document.querySelector(".project-index");
 const images = window.portfolioImages || [];
 const imageMap = new Map(images.map((image) => [image.number, image]));
-const layoutStorageKey = "home-layout-v31";
+const layoutStorageKey = "home-layout-v32";
 const returnImageKey = "home-return-image";
 const returnScrollKey = "home-return-scroll";
 const returnModeKey = "home-return-mode";
@@ -170,34 +170,34 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
   const phoneTitleBoost = titleLength > 18 ? clamp((titleLength - 18) * 0.35, 0, 8) : 0;
   const widthBase =
     isGif
-      ? randomBetween(390, 470)
+      ? randomBetween(360, 430)
       : sizeRoll < 0.32
-        ? randomBetween(210, 330)
+        ? randomBetween(200, 300)
         : sizeRoll < 0.74
-          ? randomBetween(280, 390)
-          : randomBetween(330, 395);
+          ? randomBetween(260, 360)
+          : randomBetween(300, 360);
   const mobileWidthBase =
     isGif
-      ? randomBetween(280, 325)
+      ? randomBetween(260, 300)
       : sizeRoll < 0.32
-        ? randomBetween(210, 290)
+        ? randomBetween(200, 270)
         : sizeRoll < 0.74
-          ? randomBetween(220, 305)
-          : randomBetween(250, 300);
+          ? randomBetween(210, 285)
+          : randomBetween(235, 280);
   const phoneWidthBase =
     isGif
-      ? randomBetween(31, 35)
+      ? randomBetween(29, 33)
       : sizeRoll < 0.32
-        ? randomBetween(24, 30)
+        ? randomBetween(23, 28)
         : sizeRoll < 0.74
-          ? randomBetween(26, 30)
-          : randomBetween(28, 32);
+          ? randomBetween(25, 28)
+          : randomBetween(27, 30);
   const firstRowDesktopWidth =
     desktopFirstRowStyle === 1
-      ? (index % 3 === 0 ? randomBetween(380, 480) : randomBetween(200, 310))
+      ? (index % 3 === 0 ? randomBetween(340, 430) : randomBetween(190, 290))
       : desktopFirstRowStyle === 3
-        ? (index % 2 === 0 ? randomBetween(170, 230) : randomBetween(300, 380))
-        : [randomBetween(180, 250), randomBetween(280, 360), randomBetween(340, 430), randomBetween(220, 310)][index % 4];
+        ? (index % 2 === 0 ? randomBetween(160, 220) : randomBetween(280, 340))
+        : [randomBetween(170, 235), randomBetween(260, 330), randomBetween(310, 380), randomBetween(210, 290)][index % 4];
   const firstRowDesktopRight =
     desktopFirstRowStyle === 1
       ? randomBetween(80, 340)
@@ -210,15 +210,15 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
       : desktopFirstRowStyle === 3
         ? randomBetween(0, 90)
         : randomBetween(0, 180);
-  const width = isOpeningImage ? firstRowDesktopWidth : clamp(widthBase + titleBoost, 200, 390);
-  const mobileWidth = clamp(mobileWidthBase + titleBoost * 0.25, 200, 310);
-  const tabletWidth = clamp(Math.round(mobileWidth * 0.9), 180, 285);
+  const width = isOpeningImage ? firstRowDesktopWidth : clamp(widthBase + titleBoost * 0.6, 190, 360);
+  const mobileWidth = clamp(mobileWidthBase + titleBoost * 0.15, 190, 285);
+  const tabletWidth = clamp(Math.round(mobileWidth * 0.9), 170, 260);
   const openingPhoneWidths =
     firstRowStyle === 1
-      ? [42, 28, 34, 25]
+      ? [38, 26, 31, 24]
       : firstRowStyle === 3
-        ? [24, 31, 25, 29]
-        : [32, 25, 34, 27];
+        ? [23, 28, 24, 27]
+        : [29, 24, 31, 25];
   const firstRowPhoneWidth = openingPhoneWidths[index % openingPhoneWidths.length] + randomBetween(-2, 2);
   const firstRowPhoneMax = isOpeningImage ? firstRowPhoneWidth + 2 : firstRowStyle === 1 ? 52 : firstRowStyle === 3 ? 29 : 36;
   const openingPhoneShift = [34, 48, 24, 42][index % 4];
@@ -236,7 +236,7 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
         ? randomBetween(0, 18)
         : randomBetween(0, 20);
   const phoneWidth = isOpeningImage ? firstRowPhoneWidth : clamp(phoneWidthBase + phoneTitleBoost * 0.6, 24, 38);
-  const phoneMaxWidth = isOpeningImage ? firstRowPhoneMax : titleLength > 30 ? 39 : titleLength > 18 ? 37 : 35;
+  const phoneMaxWidth = isOpeningImage ? firstRowPhoneMax : titleLength > 30 ? 36 : titleLength > 18 ? 34 : 32;
 
   return {
     type: "image",

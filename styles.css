@@ -523,7 +523,7 @@ img {
   }
 
   .project-card {
-    flex-basis: min(64vw, var(--tablet-card-width, var(--mobile-card-width, 260px)));
+    flex-basis: min(58vw, var(--tablet-card-width, var(--mobile-card-width, 240px)));
     margin-top: var(--header-drop, 0px);
     transform: none;
   }
