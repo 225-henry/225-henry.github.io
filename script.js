@@ -464,9 +464,15 @@ function createWorkMenu() {
 
   homeImageGroups.forEach((group) => {
     const link = document.createElement("a");
+    const dot = document.createElement("span");
+    const title = document.createElement("span");
+
+    dot.className = "work-menu-dot";
+    dot.textContent = "●";
+    title.textContent = group.title;
     link.href = `viewer.html?image=${encodeURIComponent(getGroupStart(group))}`;
-    link.textContent = group.title;
     link.style.setProperty("--text-hover-color", hoverMarkerColors[Math.floor(Math.random() * hoverMarkerColors.length)]);
+    link.append(dot, title);
     link.addEventListener("click", () => {
       sessionStorage.setItem(returnScrollKey, String(window.scrollY));
       sessionStorage.setItem(returnModeKey, "scroll");
