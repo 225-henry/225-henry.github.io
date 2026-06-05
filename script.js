@@ -1,7 +1,7 @@
 const projectIndex = document.querySelector(".project-index");
 const images = window.portfolioImages || [];
 const imageMap = new Map(images.map((image) => [image.number, image]));
-const layoutStorageKey = "home-layout-v30";
+const layoutStorageKey = "home-layout-v31";
 const returnImageKey = "home-return-image";
 const returnScrollKey = "home-return-scroll";
 const returnModeKey = "home-return-mode";
@@ -170,12 +170,12 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
   const phoneTitleBoost = titleLength > 18 ? clamp((titleLength - 18) * 0.35, 0, 8) : 0;
   const widthBase =
     isGif
-      ? randomBetween(420, 520)
+      ? randomBetween(390, 470)
       : sizeRoll < 0.32
         ? randomBetween(210, 330)
         : sizeRoll < 0.74
-          ? randomBetween(290, 430)
-          : randomBetween(360, 440);
+          ? randomBetween(280, 390)
+          : randomBetween(330, 395);
   const mobileWidthBase =
     isGif
       ? randomBetween(280, 325)
@@ -194,10 +194,10 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
           : randomBetween(28, 32);
   const firstRowDesktopWidth =
     desktopFirstRowStyle === 1
-      ? (index % 3 === 0 ? randomBetween(440, 560) : randomBetween(200, 330))
+      ? (index % 3 === 0 ? randomBetween(380, 480) : randomBetween(200, 310))
       : desktopFirstRowStyle === 3
-        ? (index % 2 === 0 ? randomBetween(170, 240) : randomBetween(320, 430))
-        : [randomBetween(180, 260), randomBetween(290, 390), randomBetween(390, 500), randomBetween(220, 330)][index % 4];
+        ? (index % 2 === 0 ? randomBetween(170, 230) : randomBetween(300, 380))
+        : [randomBetween(180, 250), randomBetween(280, 360), randomBetween(340, 430), randomBetween(220, 310)][index % 4];
   const firstRowDesktopRight =
     desktopFirstRowStyle === 1
       ? randomBetween(80, 340)
@@ -210,7 +210,7 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
       : desktopFirstRowStyle === 3
         ? randomBetween(0, 90)
         : randomBetween(0, 180);
-  const width = isOpeningImage ? firstRowDesktopWidth : clamp(widthBase + titleBoost, 200, 430);
+  const width = isOpeningImage ? firstRowDesktopWidth : clamp(widthBase + titleBoost, 200, 390);
   const mobileWidth = clamp(mobileWidthBase + titleBoost * 0.25, 200, 310);
   const tabletWidth = clamp(Math.round(mobileWidth * 0.9), 180, 285);
   const openingPhoneWidths =
@@ -221,8 +221,8 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
         : [32, 25, 34, 27];
   const firstRowPhoneWidth = openingPhoneWidths[index % openingPhoneWidths.length] + randomBetween(-2, 2);
   const firstRowPhoneMax = isOpeningImage ? firstRowPhoneWidth + 2 : firstRowStyle === 1 ? 52 : firstRowStyle === 3 ? 29 : 36;
-  const openingPhoneShift = [18, 36, 12, 30][index % 4];
-  const phoneShift = isOpeningImage ? openingPhoneShift : index % 5 === 1 || index % 5 === 4 ? randomBetween(4, 14) : 0;
+  const openingPhoneShift = [34, 48, 24, 42][index % 4];
+  const phoneShift = isOpeningImage ? openingPhoneShift : index % 5 === 1 || index % 5 === 4 ? randomBetween(10, 24) : randomBetween(2, 10);
   const firstRowSpaceRight =
     firstRowStyle === 3
       ? randomBetween(4, 16)
