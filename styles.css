@@ -82,7 +82,12 @@ img {
   text-transform: lowercase;
 }
 
-.number,
+.number {
+  font-size: clamp(17px, 2.2vw, 25px);
+  font-weight: 400;
+  text-transform: lowercase;
+}
+
 .caption {
   font-size: 13px;
   font-weight: 400;
@@ -375,10 +380,10 @@ img {
 
   .layout-void {
     display: block;
-    flex: 0 0 clamp(96px, 34vw, 150px);
-    width: clamp(96px, 34vw, 150px);
-    height: clamp(85px, 24vw, 160px);
-    margin: clamp(8px, 3vw, 22px) clamp(10px, 5vw, 28px);
+    flex: 0 0 clamp(72px, 25vw, 112px);
+    width: clamp(72px, 25vw, 112px);
+    height: clamp(58px, 16vw, 100px);
+    margin: clamp(5px, 2vw, 14px) clamp(6px, 3vw, 18px);
   }
 
   .project-card {

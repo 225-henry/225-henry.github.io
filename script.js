@@ -1,7 +1,7 @@
 const projectIndex = document.querySelector(".project-index");
 const images = window.portfolioImages || [];
 const imageMap = new Map(images.map((image) => [image.number, image]));
-const layoutStorageKey = "home-layout-v21";
+const layoutStorageKey = "home-layout-v22";
 const returnImageKey = "home-return-image";
 const hoverSquareColors = ["#25abe2", "#e80415", "#fef900"];
 const homeImageLimit = 60;
@@ -152,12 +152,12 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
           : randomBetween(280, 350);
   const phoneWidthBase =
     isGif
-      ? randomBetween(32, 40)
+      ? randomBetween(34, 40)
       : sizeRoll < 0.32
-        ? randomBetween(18, 26)
+        ? randomBetween(24, 30)
         : sizeRoll < 0.74
-          ? randomBetween(22, 32)
-          : randomBetween(28, 38);
+          ? randomBetween(28, 34)
+          : randomBetween(32, 38);
   const firstRowDesktopWidth =
     desktopFirstRowStyle === 1
       ? (index % 3 === 0 ? randomBetween(440, 560) : randomBetween(200, 330))
@@ -181,11 +181,11 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
   const tabletWidth = clamp(Math.round(mobileWidth * 0.9), 180, 310);
   const firstRowPhoneWidth =
     firstRowStyle === 1
-      ? randomBetween(54, 64)
+      ? randomBetween(48, 56)
       : firstRowStyle === 3
-        ? randomBetween(18, 25)
-        : randomBetween(28, 34);
-  const firstRowPhoneMax = firstRowStyle === 1 ? 66 : firstRowStyle === 3 ? 27 : 34;
+        ? randomBetween(24, 28)
+        : randomBetween(32, 36);
+  const firstRowPhoneMax = firstRowStyle === 1 ? 58 : firstRowStyle === 3 ? 30 : 38;
   const firstRowSpaceRight =
     firstRowStyle === 3
       ? randomBetween(5, 12)
@@ -198,8 +198,8 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
       : firstRowStyle === 1
         ? randomBetween(5, 12)
         : randomBetween(8, 18);
-  const phoneWidth = isOpeningImage ? firstRowPhoneWidth : clamp(phoneWidthBase + phoneTitleBoost, 18, 44);
-  const phoneMaxWidth = isOpeningImage ? firstRowPhoneMax : titleLength > 30 ? 48 : titleLength > 18 ? 42 : 38;
+  const phoneWidth = isOpeningImage ? firstRowPhoneWidth : clamp(phoneWidthBase + phoneTitleBoost, 24, 42);
+  const phoneMaxWidth = isOpeningImage ? firstRowPhoneMax : titleLength > 30 ? 46 : titleLength > 18 ? 42 : 40;
 
   return {
     type: "image",
@@ -212,11 +212,11 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
       "--phone-card-max": `${phoneMaxWidth}%`,
       "--phone-space-top": `${isOpeningImage ? 5 : randomBetween(5, 56)}px`,
       "--phone-space-right": `${isOpeningImage ? firstRowSpaceRight : randomBetween(5, 34)}px`,
-      "--phone-space-bottom": `${randomBetween(22, 92)}px`,
+      "--phone-space-bottom": `${randomBetween(16, 58)}px`,
       "--phone-space-left": `${isOpeningImage ? firstRowSpaceLeft : randomBetween(5, 42)}px`,
       "--space-top": `${isOpeningImage ? 0 : randomBetween(30, 220)}px`,
       "--space-right": `${isOpeningImage ? firstRowDesktopRight : randomBetween(35, 215)}px`,
-      "--space-bottom": `${randomBetween(55, 275)}px`,
+      "--space-bottom": `${randomBetween(45, 210)}px`,
       "--space-left": `${isOpeningImage ? firstRowDesktopLeft : randomBetween(0, 130)}px`,
       "--offset-x": `${randomBetween(0, 45)}px`,
       "--offset-y": `${randomBetween(0, 60)}px`,
@@ -232,7 +232,7 @@ function createVoidItem() {
     type: "void",
     styles: {
       "--void-width": `${randomBetween(260, 780)}px`,
-      "--void-height": `${randomBetween(160, 580)}px`,
+      "--void-height": `${randomBetween(120, 360)}px`,
       "--void-margin": `${randomBetween(0, 140)}px ${randomBetween(0, 220)}px`
     }
   };
@@ -242,9 +242,9 @@ function createOpeningVoidItem() {
   return {
     type: "void",
     styles: {
-      "--void-width": `${randomBetween(220, 520)}px`,
-      "--void-height": `${randomBetween(120, 320)}px`,
-      "--void-margin": `${randomBetween(0, 60)}px ${randomBetween(30, 180)}px`
+      "--void-width": `${randomBetween(160, 360)}px`,
+      "--void-height": `${randomBetween(80, 210)}px`,
+      "--void-margin": `${randomBetween(0, 36)}px ${randomBetween(18, 110)}px`
     }
   };
 }
@@ -258,7 +258,7 @@ function createRandomLayout() {
   shuffledImages.forEach((image, index) => {
     layout.push(createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle));
 
-    if (index < 4 && Math.random() > 0.55) {
+    if (index < 4 && Math.random() > 0.75) {
       layout.push(createOpeningVoidItem());
     }
 
