@@ -19,7 +19,7 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: Roboto, Arial, sans-serif;
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 300;
   line-height: 1.35;
   letter-spacing: 0;
@@ -36,7 +36,7 @@ a:not(.project-card a) {
 
 a:not(.project-card a)::before {
   position: absolute;
-  top: 50%;
+  top: 0.12em;
   left: -0.95em;
   width: 0;
   height: 0;
@@ -46,7 +46,6 @@ a:not(.project-card a)::before {
   content: "";
   opacity: 0;
   pointer-events: none;
-  transform: translateY(-50%);
 }
 
 a:not(.project-card a):hover::before,
@@ -75,21 +74,33 @@ img {
   text-align: left;
 }
 
+.mark-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35em;
+}
+
 .mark,
 .nav a {
-  font-size: clamp(17px, 2.2vw, 25px);
+  font-size: 17px;
+  font-weight: 550;
+  text-transform: lowercase;
+}
+
+.header-count {
+  font-size: 17px;
   font-weight: 400;
   text-transform: lowercase;
 }
 
 .number {
-  font-size: clamp(17px, 2.2vw, 25px);
+  font-size: 17px;
   font-weight: 400;
   text-transform: lowercase;
 }
 
 .caption {
-  font-size: 13px;
+  font-size: 17px;
   font-weight: 400;
   text-transform: lowercase;
 }
@@ -132,12 +143,14 @@ img {
 
 .project-card a::after {
   position: absolute;
-  right: 0;
-  bottom: 0;
+  top: 0;
+  left: -25px;
   z-index: 2;
-  width: 25px;
-  height: 25px;
-  background: var(--hover-square-color, #25abe2);
+  width: 0;
+  height: 0;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-left: 21px solid var(--hover-marker-color, #25abe2);
   content: "";
   opacity: 0;
   pointer-events: none;
@@ -152,6 +165,75 @@ img {
 
 .project-card img {
   background: #f3f3f3;
+}
+
+.work-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 18;
+  display: grid;
+  place-items: center;
+  padding: clamp(20px, 6vw, 72px);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.work-menu.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.work-menu-list {
+  display: grid;
+  gap: clamp(8px, 1.4vw, 18px);
+  width: max-content;
+  max-width: calc(100vw - 40px);
+  text-align: center;
+}
+
+.work-menu-list a {
+  justify-self: center;
+  padding: 0 0.22em;
+  background: linear-gradient(to right, rgb(255 255 255 / 0.82) 50%, rgb(255 255 255 / 0.96) 50%);
+  background-position: 0 0;
+  background-size: 200% 100%;
+  font-size: 17px;
+  line-height: 1.12;
+  white-space: nowrap;
+  transition: background-position 180ms ease, transform 180ms ease;
+}
+
+.work-menu-list a:hover,
+.work-menu-list a:focus-visible {
+  background-position: -100% 0;
+  transform: translateX(4px);
+}
+
+.work-menu.is-open .work-menu-list a {
+  animation: titleSlideIn 280ms ease both;
+}
+
+@keyframes titleSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 1100px) {
+  .work-menu-list {
+    width: min(100%, calc(100vw - 32px));
+  }
+
+  .work-menu-list a {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
 }
 
 .caption {
@@ -179,7 +261,7 @@ img {
   margin: 0;
   transform: translateX(-50%);
   text-align: center;
-  font-size: clamp(14px, 2vw, 26px);
+  font-size: 17px;
   font-weight: 400;
   line-height: 1.14;
   white-space: nowrap;
@@ -192,6 +274,15 @@ img {
 .viewer-item {
   width: min(100%, 1120px);
   margin: 0 auto;
+}
+
+.viewer-item img {
+  opacity: 1;
+  transition: opacity 420ms ease;
+}
+
+.viewer-item.is-loading img {
+  opacity: 0;
 }
 
 .info-page {
@@ -213,7 +304,7 @@ img {
 .info-row,
 .experience-list {
   margin: 0;
-  font-size: clamp(17px, 2.2vw, 30px);
+  font-size: 17px;
   font-weight: 250;
   line-height: 1.12;
 }
@@ -305,7 +396,7 @@ img {
 
 @media (max-width: 860px) {
   .viewer-title {
-    font-size: clamp(14px, 4vw, 20px);
+    font-size: 17px;
     white-space: normal;
     overflow-wrap: anywhere;
   }
@@ -392,5 +483,9 @@ img {
     align-self: var(--phone-card-align, flex-start);
     margin: calc(var(--phone-space-top, 5px) + var(--header-drop, 0px)) var(--phone-space-right, 5px) var(--phone-space-bottom, 5px) var(--phone-space-left, 5px);
     transform: none;
+  }
+
+  .number {
+    font-size: 17px;
   }
 }

@@ -3,20 +3,57 @@ const images = window.portfolioImages || [];
 const imageMap = new Map(images.map((image) => [image.number, image]));
 const layoutStorageKey = "home-layout-v22";
 const returnImageKey = "home-return-image";
-const hoverSquareColors = ["#25abe2", "#e80415", "#fef900"];
+const returnScrollKey = "home-return-scroll";
+const returnModeKey = "home-return-mode";
+const hoverMarkerColors = ["#25abe2", "#e80415", "#fef900"];
 const homeImageLimit = 60;
 const homeImageGroups = [
-  { range: ["001", "014"] },
-  { range: ["015", "020"] },
-  { range: ["021", "044"] },
-  { range: ["045", "047"] },
-  { range: ["048", "052"] },
-  { ranges: [["053", "055"], ["075", "078"]] },
-  { range: ["056", "065"], max: 3 },
-  { range: ["066", "074"], max: 3 },
-  { range: ["079", "082"] },
-  { range: ["083", "085"] },
-  { range: ["086", "087"] }
+  {
+    range: ["001", "014"],
+    title: "Omnipotent Youth Society/ tutor: Jessica Spresser/ Sem 1 2025/ University of Syd"
+  },
+  {
+    range: ["015", "020"],
+    title: "Precedent Study: House of Brazil (Le Corbusier) + Student Residence (Bruther+Baukunst)/ tutor: Jessica Spresser/ Sem 1 2025/ University of Syd"
+  },
+  {
+    range: ["021", "044"],
+    title: "the Continuous Line/ Collaborate with Coco Chen/ tutor: Jessica Spresser + Peter Besley/ Sem 2 2025/ University of Syd"
+  },
+  {
+    range: ["045", "047"],
+    title: "Super Transparent Shoe/ Collaborate with Coco Chen/ tutor: Jessica Spresser + Peter Besley/ Sem 2 2025/ University of Syd"
+  },
+  {
+    range: ["048", "052"],
+    title: "the Metropolitan Cockatoo Island Museum/ Collaborate with Coco Chen/ tutor: Catherine Lassen/ Sem 1 2026/ University of Syd"
+  },
+  {
+    ranges: [["053", "055"], ["075", "078"]],
+    title: "Now Now Our Home Competition/ Collaborate with Toshio Ozaki/ Summer 2026"
+  },
+  {
+    range: ["056", "065"],
+    max: 3,
+    title: "House with a Very Very Thick Wall/ tutor: Andrea Illeris/ Tri 1 2023/ University of NSW"
+  },
+  {
+    range: ["066", "074"],
+    max: 3,
+    title: "Cable temple/ tutor: Toshio Ozaki/Tri 2 2023 Graduation Project/ University of NSW"
+  },
+  {
+    range: ["079", "082"],
+    title: "refurbishment of an office building in Sydney/ Under supervisor of Toshio Ozaki at Ozaki Studio/ 2024"
+  },
+  {
+    range: ["083", "085"],
+    title: "a terrace house renovation in Sydney/ Under supervisor of Toshio Ozaki at Ozaki Studio/ 2024"
+  },
+  {
+    range: ["086", "087"],
+    title: "a family home in Sydney's Northern Beaches/ Under supervisor of Toshio Ozaki at Ozaki Studio/ 2024"
+  }
 ];
 
 if ("scrollRestoration" in history) {
@@ -92,6 +129,10 @@ function getImagesInRange(start, end) {
 function getImagesForGroup(group) {
   const ranges = group.ranges || [group.range];
   return ranges.flatMap(([start, end]) => getImagesInRange(start, end));
+}
+
+function getGroupStart(group) {
+  return (group.ranges || [group.range])[0][0];
 }
 
 function getBalancedHomeImages() {
@@ -222,7 +263,7 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
       "--offset-y": `${randomBetween(0, 60)}px`,
       "--card-align": ["flex-start", "center", "flex-end"][Math.floor(Math.random() * 3)],
       "--phone-card-align": ["flex-start", "center", "flex-end"][Math.floor(Math.random() * 3)],
-      "--hover-square-color": hoverSquareColors[Math.floor(Math.random() * hoverSquareColors.length)]
+      "--hover-marker-color": hoverMarkerColors[Math.floor(Math.random() * hoverMarkerColors.length)]
     }
   };
 }
@@ -327,7 +368,15 @@ function renderLayout(layout) {
   warmImageCache(renderedImages.slice(3));
 }
 
-function scrollToReturnedImage() {
+function restoreHomePosition() {
+  const scrollPosition = sessionStorage.getItem(returnScrollKey);
+
+  if (scrollPosition) {
+    window.scrollTo(0, Number(scrollPosition));
+    sessionStorage.removeItem(returnScrollKey);
+    return;
+  }
+
   const imageNumber = sessionStorage.getItem(returnImageKey);
 
   if (!imageNumber) {
@@ -402,6 +451,46 @@ function protectFirstRowFromHeader() {
   keepCardsClearOfHeader();
 }
 
+function createWorkMenu() {
+  const menu = document.querySelector("[data-work-menu]");
+  const workLink = document.querySelector(".mark");
+
+  if (!menu || !workLink) {
+    return;
+  }
+
+  const list = document.createElement("nav");
+  list.className = "work-menu-list";
+
+  homeImageGroups.forEach((group) => {
+    const link = document.createElement("a");
+    link.href = `viewer.html?image=${encodeURIComponent(getGroupStart(group))}`;
+    link.textContent = group.title;
+    link.style.setProperty("--text-hover-color", hoverMarkerColors[Math.floor(Math.random() * hoverMarkerColors.length)]);
+    link.addEventListener("click", () => {
+      sessionStorage.setItem(returnScrollKey, String(window.scrollY));
+      sessionStorage.setItem(returnModeKey, "scroll");
+      sessionStorage.removeItem(returnImageKey);
+    });
+    list.appendChild(link);
+  });
+
+  menu.appendChild(list);
+
+  workLink.addEventListener("click", (event) => {
+    event.preventDefault();
+    const isOpen = menu.classList.toggle("is-open");
+    menu.setAttribute("aria-hidden", String(!isOpen));
+  });
+
+  menu.addEventListener("click", (event) => {
+    if (event.target === menu) {
+      menu.classList.remove("is-open");
+      menu.setAttribute("aria-hidden", "true");
+    }
+  });
+}
+
 if (projectIndex) {
   const navigationEntry = performance.getEntriesByType("navigation")[0];
   const isReload = navigationEntry?.type === "reload";
@@ -410,6 +499,8 @@ if (projectIndex) {
 
   if (isReload) {
     sessionStorage.removeItem(returnImageKey);
+    sessionStorage.removeItem(returnScrollKey);
+    sessionStorage.removeItem(returnModeKey);
     window.scrollTo(0, 0);
   }
 
@@ -423,10 +514,11 @@ if (projectIndex) {
 
   sessionStorage.setItem(layoutStorageKey, JSON.stringify(layout));
   renderLayout(layout);
+  createWorkMenu();
   protectFirstRowFromHeader();
-  scrollToReturnedImage();
+  restoreHomePosition();
 }
 
 window.addEventListener("pageshow", () => {
-  scrollToReturnedImage();
+  restoreHomePosition();
 });

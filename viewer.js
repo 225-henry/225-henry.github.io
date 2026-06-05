@@ -1,5 +1,18 @@
 const viewer = document.querySelector("[data-viewer]");
 const viewerImages = window.portfolioImages || [];
+const workLink = document.querySelector(".mark");
+
+if (workLink) {
+  workLink.addEventListener("click", (event) => {
+    const cameFromHome = document.referrer.endsWith("index.html") || document.referrer.endsWith("/");
+
+    if (cameFromHome) {
+      event.preventDefault();
+      sessionStorage.setItem("home-return-mode", "scroll");
+      window.history.back();
+    }
+  });
+}
 
 const imageGroups = [
   {
@@ -28,7 +41,7 @@ const imageGroups = [
   },
   {
     range: ["056", "065"],
-    title: "House with a Thick Wall/ tutor: Andrea Ileris/Tri 1 2023/ University of NSW"
+    title: "House with a Very Very Thick Wall/ tutor: Andrea Illeris/ Tri 1 2023/ University of NSW"
   },
   {
     range: ["066", "074"],
@@ -89,13 +102,20 @@ function createViewerImage(image, index) {
   const number = document.createElement("figcaption");
   const picture = document.createElement("img");
 
-  figure.className = "viewer-item";
+  figure.className = "viewer-item is-loading";
   number.className = "number";
   number.textContent = image.number;
   picture.src = image.src.trim();
   picture.alt = image.alt || "";
   picture.loading = index === 0 ? "eager" : "lazy";
   picture.decoding = "async";
+  picture.addEventListener("load", () => {
+    figure.classList.remove("is-loading");
+  }, { once: true });
+
+  if (picture.complete) {
+    figure.classList.remove("is-loading");
+  }
 
   figure.append(number, picture);
 
@@ -129,7 +149,9 @@ function warmImageCache(imageList) {
 if (viewer) {
   viewer.addEventListener("click", (event) => {
     if (event.target === viewer) {
-      if (document.referrer.endsWith("index.html") || document.referrer.endsWith("/")) {
+      const cameFromHome = document.referrer.endsWith("index.html") || document.referrer.endsWith("/");
+
+      if (cameFromHome) {
         window.history.back();
       } else {
         window.location.href = "index.html";
