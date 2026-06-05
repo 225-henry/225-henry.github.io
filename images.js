@@ -297,7 +297,7 @@
   },
   {
     number: "071",
-    src: "https://225-henry.github.io/picx-images-hosting/LIUUNSWS6_cross-section-1.60uw3r6hj9.jpg",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUUNSWS6_cross-section-1.9o0fsmwz4k.jpg",
   },
   {
     number: "072",
