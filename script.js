@@ -1,7 +1,7 @@
 const projectIndex = document.querySelector(".project-index");
 const images = window.portfolioImages || [];
 const imageMap = new Map(images.map((image) => [image.number, image]));
-const layoutStorageKey = "home-layout-v11";
+const layoutStorageKey = "home-layout-v12";
 const returnImageKey = "home-return-image";
 const hoverSquareColors = ["#25abe2", "#e80415", "#fef900"];
 const homeImageLimit = 60;
@@ -123,7 +123,7 @@ function getBalancedHomeImages() {
   return groupedImages.flatMap((group, index) => group.slice(0, quotas[index]));
 }
 
-function createLayoutItem(image, index) {
+function createLayoutItem(image, index, phoneFirstRowCount) {
   const isGif = image.src.toLowerCase().includes(".gif");
   const sizeRoll = Math.random();
   const isOpeningImage = index < 4;
@@ -175,7 +175,7 @@ function createLayoutItem(image, index) {
       "--phone-offset-y": `${randomBetween(0, 34)}px`,
       "--space-top": `${isOpeningImage ? 0 : randomBetween(30, 220)}px`,
       "--opening-clear": `${isOpeningImage ? 92 : 0}px`,
-      "--phone-opening-clear": `${index < 2 ? 54 : 0}px`,
+      "--phone-opening-clear": `${index < phoneFirstRowCount ? 54 : 0}px`,
       "--space-right": `${randomBetween(35, 215)}px`,
       "--space-bottom": `${randomBetween(55, 275)}px`,
       "--space-left": `${randomBetween(0, 130)}px`,
@@ -201,10 +201,11 @@ function createVoidItem() {
 
 function createRandomLayout() {
   const shuffledImages = shuffleList(getBalancedHomeImages());
+  const phoneFirstRowCount = randomBetween(1, 3);
   const layout = [];
 
   shuffledImages.forEach((image, index) => {
-    layout.push(createLayoutItem(image, index));
+    layout.push(createLayoutItem(image, index, phoneFirstRowCount));
 
     if (index > 0 && (index % 6 === 0 || Math.random() > 0.88)) {
       layout.push(createVoidItem());
