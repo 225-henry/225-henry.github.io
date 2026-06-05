@@ -1,7 +1,7 @@
 const projectIndex = document.querySelector(".project-index");
 const images = window.portfolioImages || [];
 const imageMap = new Map(images.map((image) => [image.number, image]));
-const layoutStorageKey = "home-layout-v22";
+const layoutStorageKey = "home-layout-v23";
 const returnImageKey = "home-return-image";
 const returnScrollKey = "home-return-scroll";
 const returnModeKey = "home-return-mode";
@@ -251,10 +251,10 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
       "--tablet-card-width": `${tabletWidth}px`,
       "--phone-card-width": `${phoneWidth}%`,
       "--phone-card-max": `${phoneMaxWidth}%`,
-      "--phone-space-top": `${isOpeningImage ? 5 : randomBetween(5, 56)}px`,
-      "--phone-space-right": `${isOpeningImage ? firstRowSpaceRight : randomBetween(5, 34)}px`,
-      "--phone-space-bottom": `${randomBetween(16, 58)}px`,
-      "--phone-space-left": `${isOpeningImage ? firstRowSpaceLeft : randomBetween(5, 42)}px`,
+      "--phone-space-top": `${isOpeningImage ? 5 : randomBetween(5, 46)}px`,
+      "--phone-space-right": `${isOpeningImage ? firstRowSpaceRight : randomBetween(5, 28)}px`,
+      "--phone-space-bottom": `${randomBetween(12, 48)}px`,
+      "--phone-space-left": `${isOpeningImage ? firstRowSpaceLeft : randomBetween(5, 34)}px`,
       "--space-top": `${isOpeningImage ? 0 : randomBetween(30, 220)}px`,
       "--space-right": `${isOpeningImage ? firstRowDesktopRight : randomBetween(35, 215)}px`,
       "--space-bottom": `${randomBetween(45, 210)}px`,
