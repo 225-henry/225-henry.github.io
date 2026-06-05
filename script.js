@@ -56,6 +56,10 @@ const homeImageGroups = [
   }
 ];
 
+Object.keys(sessionStorage)
+  .filter((key) => key.startsWith("home-layout-") && key !== layoutStorageKey)
+  .forEach((key) => sessionStorage.removeItem(key));
+
 if ("scrollRestoration" in history) {
   history.scrollRestoration = "manual";
 }
