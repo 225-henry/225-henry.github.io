@@ -1,7 +1,7 @@
 const projectIndex = document.querySelector(".project-index");
 const images = window.portfolioImages || [];
 const imageMap = new Map(images.map((image) => [image.number, image]));
-const layoutStorageKey = "home-layout-v49";
+const layoutStorageKey = "home-layout-v50";
 const returnImageKey = "home-return-image";
 const returnScrollKey = "home-return-scroll";
 const returnModeKey = "home-return-mode";
@@ -272,10 +272,10 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
       "--phone-space-right": `${isOpeningImage ? Math.max(5, firstRowSpaceRight - 2) : randomBetween(5, 18)}px`,
       "--phone-space-bottom": `${randomBetween(8, 32)}px`,
       "--phone-space-left": `${isOpeningImage ? Math.max(0, firstRowSpaceLeft + phoneShift - 4) : randomBetween(5, 20) + Math.max(0, phoneShift - 4)}px`,
-      "--space-top": `${index === 0 ? 58 : isOpeningImage ? 0 : randomBetween(16, 86)}px`,
-      "--space-right": `${isOpeningImage ? firstRowDesktopRight : randomBetween(34, 94)}px`,
-      "--space-bottom": `${randomBetween(42, 104)}px`,
-      "--space-left": `${index === 0 ? Math.max(firstRowDesktopLeft, 180) : isOpeningImage ? firstRowDesktopLeft : randomBetween(10, 58)}px`,
+      "--space-top": `${index === 0 ? 58 : isOpeningImage ? 0 : randomBetween(34, 96)}px`,
+      "--space-right": `${isOpeningImage ? Math.max(firstRowDesktopRight, 56) : randomBetween(58, 108)}px`,
+      "--space-bottom": `${randomBetween(58, 118)}px`,
+      "--space-left": `${index === 0 ? Math.max(firstRowDesktopLeft, 180) : isOpeningImage ? Math.max(firstRowDesktopLeft, 24) : randomBetween(28, 70)}px`,
       "--offset-x": `${randomBetween(0, 16)}px`,
       "--offset-y": `${randomBetween(0, 22)}px`,
       "--card-align": ["flex-start", "center", "center", "flex-end"][index % 4],
