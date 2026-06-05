@@ -298,6 +298,7 @@ img {
   display: grid;
   gap: clamp(72px, 10vh, 140px);
   padding: 12vh clamp(16px, 5vw, 72px) 24vh;
+  align-items: start;
 }
 
 .viewer-title {
@@ -321,8 +322,10 @@ img {
 }
 
 .viewer-item {
-  width: min(100%, 1120px);
-  margin: 0 auto;
+  width: min(100%, var(--viewer-width, 1120px));
+  margin: 0;
+  justify-self: var(--viewer-align, center);
+  transform: translateX(var(--viewer-offset, 0));
 }
 
 .viewer-item img {
@@ -448,6 +451,16 @@ img {
     font-size: 17px;
     white-space: normal;
     overflow-wrap: anywhere;
+  }
+
+  .viewer-page {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .viewer-item {
+    width: min(var(--viewer-mobile-width, 90%), calc(100vw - 24px));
+    transform: translateX(calc(var(--viewer-offset, 0) * 0.25));
   }
 
   .info-page {

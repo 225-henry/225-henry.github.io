@@ -65,6 +65,10 @@ function numberValue(number) {
   return Number.parseInt(number, 10);
 }
 
+function randomBetween(min, max) {
+  return min + Math.round(Math.random() * (max - min));
+}
+
 function getGroupInfo(selectedNumber) {
   const selectedValue = numberValue(selectedNumber);
   const group = imageGroups.find(({ range, ranges }) => {
@@ -101,8 +105,21 @@ function createViewerImage(image, index) {
   const figure = document.createElement("figure");
   const number = document.createElement("figcaption");
   const picture = document.createElement("img");
+  const alignment = ["start", "center", "end"][Math.floor(Math.random() * 3)];
+  const width = index === 0 ? randomBetween(980, 1160) : randomBetween(760, 1080);
+  const mobileWidth = index === 0 ? randomBetween(86, 96) : randomBetween(76, 94);
+  const offset =
+    alignment === "center"
+      ? randomBetween(-24, 24)
+      : alignment === "end"
+        ? -randomBetween(0, 36)
+        : randomBetween(0, 36);
 
   figure.className = "viewer-item is-loading";
+  figure.style.setProperty("--viewer-width", `${width}px`);
+  figure.style.setProperty("--viewer-mobile-width", `${mobileWidth}%`);
+  figure.style.setProperty("--viewer-align", alignment);
+  figure.style.setProperty("--viewer-offset", `${offset}px`);
   number.className = "number";
   number.textContent = image.number;
   picture.src = image.src.trim();
