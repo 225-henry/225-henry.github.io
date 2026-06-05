@@ -1,7 +1,7 @@
 const projectIndex = document.querySelector(".project-index");
 const images = window.portfolioImages || [];
 const imageMap = new Map(images.map((image) => [image.number, image]));
-const layoutStorageKey = "home-layout-v28";
+const layoutStorageKey = "home-layout-v29";
 const returnImageKey = "home-return-image";
 const returnScrollKey = "home-return-scroll";
 const returnModeKey = "home-return-mode";
@@ -221,19 +221,19 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
         : [32, 25, 34, 27];
   const firstRowPhoneWidth = openingPhoneWidths[index % openingPhoneWidths.length] + randomBetween(-2, 2);
   const firstRowPhoneMax = isOpeningImage ? firstRowPhoneWidth + 2 : firstRowStyle === 1 ? 52 : firstRowStyle === 3 ? 29 : 36;
-  const phoneShift = index % 5 === 1 || index % 5 === 4 ? randomBetween(10, 30) : 0;
+  const phoneShift = index % 5 === 1 || index % 5 === 4 ? randomBetween(4, 14) : 0;
   const firstRowSpaceRight =
     firstRowStyle === 3
-      ? randomBetween(6, 24)
+      ? randomBetween(4, 16)
       : firstRowStyle === 1
-        ? randomBetween(8, 36)
-        : randomBetween(6, 38);
+        ? randomBetween(5, 22)
+        : randomBetween(4, 24);
   const firstRowSpaceLeft =
     firstRowStyle === 3
-      ? randomBetween(0, 28)
+      ? randomBetween(0, 16)
       : firstRowStyle === 1
-        ? randomBetween(0, 30)
-        : randomBetween(0, 34);
+        ? randomBetween(0, 18)
+        : randomBetween(0, 20);
   const phoneWidth = isOpeningImage ? firstRowPhoneWidth : clamp(phoneWidthBase + phoneTitleBoost * 0.6, 24, 38);
   const phoneMaxWidth = isOpeningImage ? firstRowPhoneMax : titleLength > 30 ? 39 : titleLength > 18 ? 37 : 35;
 
@@ -247,9 +247,9 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
       "--phone-card-width": `${phoneWidth}%`,
       "--phone-card-max": `${phoneMaxWidth}%`,
       "--phone-space-top": `${isOpeningImage ? 5 : randomBetween(5, 46)}px`,
-      "--phone-space-right": `${isOpeningImage ? firstRowSpaceRight : randomBetween(5, 28)}px`,
+      "--phone-space-right": `${isOpeningImage ? firstRowSpaceRight : randomBetween(4, 18)}px`,
       "--phone-space-bottom": `${randomBetween(12, 48)}px`,
-      "--phone-space-left": `${isOpeningImage ? firstRowSpaceLeft + phoneShift : randomBetween(5, 34) + phoneShift}px`,
+      "--phone-space-left": `${isOpeningImage ? firstRowSpaceLeft + phoneShift : randomBetween(4, 20) + phoneShift}px`,
       "--space-top": `${isOpeningImage ? 0 : randomBetween(30, 220)}px`,
       "--space-right": `${isOpeningImage ? firstRowDesktopRight : randomBetween(35, 215)}px`,
       "--space-bottom": `${randomBetween(45, 210)}px`,
