@@ -14,3 +14,8 @@ document.querySelectorAll("a").forEach((link) => {
     link.style.setProperty("--text-hover-color", color);
   }
 });
+
+document.querySelectorAll("[data-work-count-menu]").forEach((button) => {
+  const color = faviconColors[Math.floor(Math.random() * faviconColors.length)];
+  button.style.setProperty("--text-hover-color", color);
+});

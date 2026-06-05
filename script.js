@@ -10,49 +10,49 @@ const homeImageLimit = 60;
 const homeImageGroups = [
   {
     range: ["001", "014"],
-    title: "Omnipotent Youth Society/ tutor: Jessica Spresser/ Sem 1 2025/ University of Syd"
+    title: "Omnipotent Youth Society/ Tutor: Jessica Spresser/ Sem 1 2025/ University of Sydney"
   },
   {
     range: ["015", "020"],
-    title: "Precedent Study: House of Brazil (Le Corbusier) + Student Residence (Bruther+Baukunst)/ tutor: Jessica Spresser/ Sem 1 2025/ University of Syd"
+    title: "Precedent Study: House of Brazil (Le Corbusier) + Student Residence (Bruther + Baukunst)/ Tutor: Jessica Spresser/ Sem 1 2025/ University of Sydney"
   },
   {
     range: ["021", "044"],
-    title: "the Continuous Line/ Collaborate with Coco Chen/ tutor: Jessica Spresser + Peter Besley/ Sem 2 2025/ University of Syd"
+    title: "The Continuous Line/ Collaborated with Coco Chen/ Tutor: Jessica Spresser + Peter Besley/ Sem 2 2025/ University of Sydney"
   },
   {
     range: ["045", "047"],
-    title: "Super Transparent Shoe/ Collaborate with Coco Chen/ tutor: Jessica Spresser + Peter Besley/ Sem 2 2025/ University of Syd"
+    title: "Super Transparent Shoe/ Collaborated with Coco Chen/ Tutor: Jessica Spresser + Peter Besley/ Sem 2 2025/ University of Sydney"
   },
   {
     range: ["048", "052"],
-    title: "the Metropolitan Cockatoo Island Museum/ Collaborate with Coco Chen/ tutor: Catherine Lassen/ Sem 1 2026/ University of Syd"
+    title: "The Metropolitan Cockatoo Island Museum/ Collaborated with Coco Chen/ Tutor: Catherine Lassen/ Sem 1 2026/ University of Sydney"
   },
   {
     ranges: [["053", "055"], ["075", "078"]],
-    title: "Now Now Our Home Competition/ Collaborate with Toshio Ozaki/ Summer 2026"
+    title: "Now Now Our Home Competition/ Collaborated with Toshio Ozaki/ Summer 2026"
   },
   {
     range: ["056", "065"],
     max: 3,
-    title: "House with a Very Very Thick Wall/ tutor: Andrea Illeris/ Tri 1 2023/ University of NSW"
+    title: "House with a Very Very Thick Wall/ Tutor: Andrea Illeris/ Tri 1 2023/ University of NSW"
   },
   {
     range: ["066", "074"],
     max: 3,
-    title: "Cable temple/ tutor: Toshio Ozaki/Tri 2 2023 Graduation Project/ University of NSW"
+    title: "Cable Temple/ Tutor: Toshio Ozaki/ Tri 2 2023 Graduation Project/ University of NSW"
   },
   {
     range: ["079", "082"],
-    title: "refurbishment of an office building in Sydney/ Under supervisor of Toshio Ozaki at Ozaki Studio/ 2024"
+    title: "Refurbishment of an Office Building in Sydney/ Under supervision of Toshio Ozaki at Ozaki Studio/ 2024"
   },
   {
     range: ["083", "085"],
-    title: "a terrace house renovation in Sydney/ Under supervisor of Toshio Ozaki at Ozaki Studio/ 2024"
+    title: "A Terrace House Renovation in Sydney/ Under supervision of Toshio Ozaki at Ozaki Studio/ 2024"
   },
   {
     range: ["086", "087"],
-    title: "a family home in Sydney's Northern Beaches/ Under supervisor of Toshio Ozaki at Ozaki Studio/ 2024"
+    title: "A Family Home in Sydney's Northern Beaches/ Under supervision of Toshio Ozaki at Ozaki Studio/ 2024"
   }
 ];
 
@@ -453,9 +453,9 @@ function protectFirstRowFromHeader() {
 
 function createWorkMenu() {
   const menu = document.querySelector("[data-work-menu]");
-  const workLink = document.querySelector(".mark");
+  const menuTrigger = document.querySelector("[data-work-count-menu]");
 
-  if (!menu || !workLink) {
+  if (!menu || !menuTrigger) {
     return;
   }
 
@@ -477,19 +477,39 @@ function createWorkMenu() {
 
   menu.appendChild(list);
 
-  workLink.addEventListener("click", (event) => {
+  const closeMenu = () => {
+    menu.classList.remove("is-open");
+    menu.classList.add("is-closing");
+    menu.setAttribute("aria-hidden", "true");
+
+    window.setTimeout(() => {
+      menu.classList.remove("is-closing");
+    }, 160);
+  };
+
+  const openMenu = () => {
+    menu.classList.remove("is-closing");
+    menu.classList.add("is-open");
+    menu.setAttribute("aria-hidden", "false");
+  };
+
+  menuTrigger.addEventListener("click", (event) => {
     event.preventDefault();
-    const isOpen = menu.classList.toggle("is-open");
-    menu.setAttribute("aria-hidden", String(!isOpen));
+    if (menu.classList.contains("is-open")) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
   });
 
   menu.addEventListener("click", (event) => {
     if (event.target === menu) {
-      menu.classList.remove("is-open");
-      menu.setAttribute("aria-hidden", "true");
+      closeMenu();
     }
   });
 }
+
+createWorkMenu();
 
 if (projectIndex) {
   const navigationEntry = performance.getEntriesByType("navigation")[0];
@@ -514,7 +534,6 @@ if (projectIndex) {
 
   sessionStorage.setItem(layoutStorageKey, JSON.stringify(layout));
   renderLayout(layout);
-  createWorkMenu();
   protectFirstRowFromHeader();
   restoreHomePosition();
 }

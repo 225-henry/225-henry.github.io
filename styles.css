@@ -36,7 +36,7 @@ a:not(.project-card a) {
 
 a:not(.project-card a)::before {
   position: absolute;
-  top: 0.12em;
+  top: 50%;
   left: -0.95em;
   width: 0;
   height: 0;
@@ -46,6 +46,7 @@ a:not(.project-card a)::before {
   content: "";
   opacity: 0;
   pointer-events: none;
+  transform: translateY(-50%);
 }
 
 a:not(.project-card a):hover::before,
@@ -88,9 +89,36 @@ img {
 }
 
 .header-count {
+  position: relative;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-family: inherit;
   font-size: 17px;
   font-weight: 400;
   text-transform: lowercase;
+}
+
+.header-count::before {
+  position: absolute;
+  top: 50%;
+  right: -0.95em;
+  width: 0;
+  height: 0;
+  border-top: 0.36em solid transparent;
+  border-right: 0.62em solid var(--text-hover-color, #25abe2);
+  border-bottom: 0.36em solid transparent;
+  content: "";
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.header-count:hover::before,
+.header-count:focus-visible::before {
+  opacity: 1;
 }
 
 .number {
@@ -183,6 +211,11 @@ img {
   pointer-events: auto;
 }
 
+.work-menu.is-closing {
+  opacity: 1;
+  pointer-events: none;
+}
+
 .work-menu-list {
   display: grid;
   gap: clamp(8px, 1.4vw, 18px);
@@ -210,7 +243,11 @@ img {
 }
 
 .work-menu.is-open .work-menu-list a {
-  animation: titleSlideIn 280ms ease both;
+  animation: titleSlideIn 160ms ease both;
+}
+
+.work-menu.is-closing .work-menu-list a {
+  animation: titleSlideOut 160ms ease both;
 }
 
 @keyframes titleSlideIn {
@@ -222,6 +259,18 @@ img {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes titleSlideOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(6px);
   }
 }
 

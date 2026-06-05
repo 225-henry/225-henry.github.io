@@ -8,13 +8,14 @@
   <link rel="stylesheet" href="styles.css">
   <script src="favicon.js" defer></script>
   <script src="images.js" defer></script>
+  <script src="script.js" defer></script>
   <script src="viewer.js" defer></script>
 </head>
 <body>
   <header class="topbar">
     <div class="mark-row">
       <a class="mark" href="index.html" aria-label="Henley Mingda home">work</a>
-      <span class="header-count">(60/87)</span>
+      <button class="header-count" type="button" data-work-count-menu>(60/87)</button>
     </div>
     <nav class="nav" aria-label="Primary navigation">
       <a href="info.html">fact</a>
@@ -22,5 +23,6 @@
   </header>
 
   <main class="viewer-page" data-viewer></main>
+  <aside class="work-menu" aria-label="Project groups" aria-hidden="true" data-work-menu></aside>
 </body>
 </html>
