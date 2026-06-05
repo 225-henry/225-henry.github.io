@@ -1,7 +1,7 @@
 const projectIndex = document.querySelector(".project-index");
 const images = window.portfolioImages || [];
 const imageMap = new Map(images.map((image) => [image.number, image]));
-const layoutStorageKey = "home-layout-v35";
+const layoutStorageKey = "home-layout-v40";
 const returnImageKey = "home-return-image";
 const returnScrollKey = "home-return-scroll";
 const returnModeKey = "home-return-mode";
@@ -64,6 +64,11 @@ if ("scrollRestoration" in history) {
   history.scrollRestoration = "manual";
 }
 
+document.querySelector(".topbar .mark[aria-current='page']")?.addEventListener("click", (event) => {
+  event.preventDefault();
+  window.location.reload();
+});
+
 function createProjectCard(image, options = {}) {
   const { isPriority = false } = options;
   const card = document.createElement("article");
@@ -82,6 +87,13 @@ function createProjectCard(image, options = {}) {
   picture.loading = isPriority ? "eager" : "lazy";
   picture.decoding = "async";
   picture.fetchPriority = isPriority ? "high" : "low";
+  picture.addEventListener("load", () => {
+    card.classList.remove("is-loading");
+  }, { once: true });
+
+  if (!picture.complete) {
+    card.classList.add("is-loading");
+  }
 
   link.append(number, picture);
 
@@ -251,14 +263,14 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
       "--tablet-card-width": `${tabletWidth}px`,
       "--phone-card-width": `${phoneWidth}%`,
       "--phone-card-max": `${phoneMaxWidth}%`,
-      "--phone-space-top": `${isOpeningImage ? 5 : randomBetween(5, 46)}px`,
-      "--phone-space-right": `${isOpeningImage ? firstRowSpaceRight : randomBetween(4, 18)}px`,
-      "--phone-space-bottom": `${randomBetween(12, 48)}px`,
-      "--phone-space-left": `${isOpeningImage ? firstRowSpaceLeft + phoneShift : randomBetween(4, 20) + phoneShift}px`,
-      "--space-top": `${isOpeningImage ? 0 : randomBetween(16, 86)}px`,
+      "--phone-space-top": `${isOpeningImage ? 5 : randomBetween(4, 30)}px`,
+      "--phone-space-right": `${isOpeningImage ? Math.max(5, firstRowSpaceRight - 2) : randomBetween(5, 18)}px`,
+      "--phone-space-bottom": `${randomBetween(8, 32)}px`,
+      "--phone-space-left": `${isOpeningImage ? Math.max(0, firstRowSpaceLeft + phoneShift - 4) : randomBetween(5, 20) + Math.max(0, phoneShift - 4)}px`,
+      "--space-top": `${index === 0 ? 18 : isOpeningImage ? 0 : randomBetween(16, 86)}px`,
       "--space-right": `${isOpeningImage ? firstRowDesktopRight : randomBetween(18, 84)}px`,
       "--space-bottom": `${randomBetween(24, 92)}px`,
-      "--space-left": `${isOpeningImage ? firstRowDesktopLeft : randomBetween(0, 46)}px`,
+      "--space-left": `${index === 0 ? Math.max(firstRowDesktopLeft, 72) : isOpeningImage ? firstRowDesktopLeft : randomBetween(0, 46)}px`,
       "--offset-x": `${randomBetween(0, 28)}px`,
       "--offset-y": `${randomBetween(0, 34)}px`,
       "--card-align": ["flex-start", "center", "flex-end"][Math.floor(Math.random() * 3)],
@@ -272,9 +284,9 @@ function createVoidItem() {
   return {
     type: "void",
     styles: {
-      "--void-width": `${randomBetween(160, 360)}px`,
-      "--void-height": `${randomBetween(70, 180)}px`,
-      "--void-margin": `${randomBetween(0, 54)}px ${randomBetween(12, 72)}px`
+      "--void-width": `${randomBetween(280, 520)}px`,
+      "--void-height": `${randomBetween(180, 360)}px`,
+      "--void-margin": `${randomBetween(28, 120)}px ${randomBetween(54, 150)}px`
     }
   };
 }
@@ -283,9 +295,9 @@ function createOpeningVoidItem() {
   return {
     type: "void",
     styles: {
-      "--void-width": `${randomBetween(120, 260)}px`,
-      "--void-height": `${randomBetween(54, 130)}px`,
-      "--void-margin": `${randomBetween(0, 24)}px ${randomBetween(12, 62)}px`
+      "--void-width": `${randomBetween(220, 420)}px`,
+      "--void-height": `${randomBetween(140, 280)}px`,
+      "--void-margin": `${randomBetween(18, 86)}px ${randomBetween(44, 130)}px`
     }
   };
 }
@@ -299,11 +311,11 @@ function createRandomLayout() {
   shuffledImages.forEach((image, index) => {
     layout.push(createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle));
 
-    if (index < 4 && Math.random() > 0.86) {
+    if (index < 4 && index % 2 === 1) {
       layout.push(createOpeningVoidItem());
     }
 
-    if (index > 0 && (index % 8 === 0 || Math.random() > 0.94)) {
+    if (index > 0 && (index % 2 === 0 || Math.random() > 0.78)) {
       layout.push(createVoidItem());
     }
   });
