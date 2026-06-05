@@ -1,7 +1,7 @@
 const projectIndex = document.querySelector(".project-index");
 const images = window.portfolioImages || [];
 const imageMap = new Map(images.map((image) => [image.number, image]));
-const layoutStorageKey = "home-layout-v8";
+const layoutStorageKey = "home-layout-v9";
 const returnImageKey = "home-return-image";
 const hoverSquareColors = ["#25abe2", "#e80415", "#fef900"];
 const homeImageLimit = 60;
@@ -19,7 +19,8 @@ const homeImageGroups = [
   { range: ["086", "087"] }
 ];
 
-function createProjectCard(image, isPriority = false) {
+function createProjectCard(image, options = {}) {
+  const { isPriority = false, isOpening = false } = options;
   const card = document.createElement("article");
   const link = document.createElement("a");
   const number = document.createElement("span");
@@ -27,6 +28,11 @@ function createProjectCard(image, isPriority = false) {
 
   card.className = "project-card";
   card.dataset.number = image.number;
+
+  if (isOpening) {
+    card.dataset.opening = "true";
+  }
+
   link.href = `viewer.html?image=${encodeURIComponent(image.number)}`;
   number.className = "number";
   number.textContent = image.number;
@@ -237,7 +243,10 @@ function renderLayout(layout) {
       return;
     }
 
-    const card = createProjectCard(image, imageCount < 3);
+    const card = createProjectCard(image, {
+      isPriority: imageCount < 3,
+      isOpening: imageCount < 4
+    });
     imageCount += 1;
     applyStyles(card, item.styles);
 
@@ -270,9 +279,15 @@ function keepCardsClearOfHeader() {
   }
 
   const headerBounds = header.getBoundingClientRect();
+  const isPhone = window.matchMedia("(max-width: 560px)").matches;
 
   document.querySelectorAll(".project-card").forEach((card) => {
     card.style.setProperty("--header-drop", "0px");
+
+    if (isPhone && card.dataset.opening !== "true") {
+      return;
+    }
+
     const cardBounds = card.getBoundingClientRect();
     const overlapsHeader =
       cardBounds.left < headerBounds.right + 10 &&

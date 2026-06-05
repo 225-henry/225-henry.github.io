@@ -346,12 +346,12 @@
   {
     number: "083",
     src: "https://225-henry.github.io/picx-images-hosting/LIUOSTE_Full-Size-with-Bird-GIF.5tro9ka5ue.gif",
-    title: "did you notice a willie wagtail is shaking in this image?"
+    title: "did you notice a willie wagtail is wagging in this image?"
   },
   {
     number: "084",
     src: "https://225-henry.github.io/picx-images-hosting/LIUOSTE_Interior_perspective_2.92qs67xngy.jpg",
-    title: "another willie wagtail?"
+    title: "another willie wagtail"
   },
   {
     number: "085",
