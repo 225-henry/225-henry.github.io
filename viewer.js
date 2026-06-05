@@ -109,6 +109,23 @@ function createViewerImage(image, index) {
   return figure;
 }
 
+function warmImageCache(imageList) {
+  const preload = () => {
+    imageList.forEach((image) => {
+      const picture = new Image();
+      picture.decoding = "async";
+      picture.fetchPriority = "low";
+      picture.src = image.src.trim();
+    });
+  };
+
+  if ("requestIdleCallback" in window) {
+    window.requestIdleCallback(preload, { timeout: 1800 });
+  } else {
+    window.setTimeout(preload, 800);
+  }
+}
+
 if (viewer) {
   viewer.addEventListener("click", (event) => {
     if (event.target === viewer) {
@@ -136,4 +153,5 @@ if (viewer) {
   });
 
   viewer.appendChild(fragment);
+  warmImageCache(group.slice(1));
 }

@@ -116,7 +116,7 @@ img {
   flex: 0 0 var(--card-width, 280px);
   margin: var(--space-top, 80px) var(--space-right, 90px) var(--space-bottom, 100px) var(--space-left, 0);
   align-self: var(--card-align, flex-start);
-  transform: translate(calc(var(--offset-x, 0) + var(--opening-clear, 0px)), calc(var(--offset-y, 0) + var(--header-drop, 0px)));
+  transform: translate(var(--offset-x, 0), calc(var(--offset-y, 0) + var(--header-drop, 0px)));
 }
 
 .project-card a {
@@ -150,8 +150,6 @@ img {
 }
 
 .caption {
-  display: flex;
-  justify-content: space-between;
   padding-top: 6px;
   line-height: 1.14;
   overflow: hidden;
@@ -193,7 +191,7 @@ img {
 
 .info-page {
   display: grid;
-  grid-template-columns: minmax(220px, 1fr) minmax(260px, 1200px);
+  grid-template-columns: minmax(220px, 1fr) minmax(260px, 900px);
   gap: clamp(32px, 7vw, 120px);
   padding: var(--header-safe-space) clamp(16px, 3vw, 36px) 18vh;
   align-items: start;
@@ -278,7 +276,7 @@ img {
   position: fixed;
   bottom: 16px;
   right: clamp(16px, 3vw, 36px);
-  width: min(1200px, calc(100vw - 32px));
+  width: min(900px, calc(100vw - 32px));
   margin-top: 0;
 }
 
@@ -332,12 +330,12 @@ img {
   }
 
   .project-index {
-    gap: clamp(56px, 12vw, 120px);
+    gap: clamp(28px, 7vw, 72px);
   }
 
   .project-card {
-    flex-basis: min(100%, var(--mobile-card-width, 260px));
-    margin: 0;
+    flex-basis: min(72vw, var(--tablet-card-width, var(--mobile-card-width, 260px)));
+    margin-top: var(--header-drop, 0px);
     transform: none;
   }
 
@@ -347,10 +345,6 @@ img {
 }
 
 @media (max-width: 560px) {
-  .topbar {
-    align-items: flex-start;
-  }
-
   .info-page {
     margin-top: 0;
     padding-top: var(--header-safe-space);
@@ -391,7 +385,7 @@ img {
     flex: 0 0 min(var(--phone-card-max, 38%), var(--phone-card-width, 40%));
     width: auto;
     align-self: var(--phone-card-align, flex-start);
-    margin: var(--phone-space-top, 0) var(--phone-space-right, 0) var(--phone-space-bottom, 0) var(--phone-space-left, 0);
-    transform: translate(calc(var(--phone-offset-x, 0) + var(--phone-opening-clear, 0px)), calc(var(--phone-offset-y, 0) + var(--header-drop, 0px)));
+    margin: calc(var(--phone-space-top, 5px) + var(--header-drop, 0px)) var(--phone-space-right, 5px) var(--phone-space-bottom, 5px) var(--phone-space-left, 5px);
+    transform: none;
   }
 }
