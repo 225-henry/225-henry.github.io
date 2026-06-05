@@ -540,6 +540,11 @@ img {
 }
 
 @media (max-width: 560px) {
+  .mark,
+  .nav a {
+    font-weight: 550;
+  }
+
   .info-page {
     margin-top: 0;
     padding-top: var(--header-safe-space);
@@ -561,7 +566,7 @@ img {
   .project-index {
     display: flex;
     flex-wrap: wrap;
-    gap: 18px 14px;
+    gap: 12px 8px;
     justify-content: flex-start;
     margin-top: 10px;
     padding: 0 6px 12vh;
@@ -570,16 +575,16 @@ img {
 
   .layout-void {
     display: block;
-    flex: 0 0 clamp(48px, 16vw, 74px);
-    width: clamp(48px, 16vw, 74px);
-    height: clamp(36px, 10vw, 60px);
-    margin: clamp(2px, 1vw, 6px) clamp(3px, 1.7vw, 9px);
+    flex: 0 0 clamp(32px, 11vw, 50px);
+    width: clamp(32px, 11vw, 50px);
+    height: clamp(6px, 3vw, 18px);
+    margin: clamp(1px, 0.5vw, 3px) clamp(2px, 1vw, 6px);
   }
 
   .project-card {
     flex: 0 0 min(var(--phone-card-max, 38%), var(--phone-card-width, 40%));
     width: auto;
-    align-self: var(--phone-card-align, flex-start);
+    align-self: flex-start;
     margin: calc(var(--phone-space-top, 5px) + var(--header-drop, 0px)) var(--phone-space-right, 5px) var(--phone-space-bottom, 5px) var(--phone-space-left, 5px);
     transform: none;
   }

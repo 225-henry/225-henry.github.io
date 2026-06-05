@@ -1,7 +1,7 @@
 const projectIndex = document.querySelector(".project-index");
 const images = window.portfolioImages || [];
 const imageMap = new Map(images.map((image) => [image.number, image]));
-const layoutStorageKey = "home-layout-v50";
+const layoutStorageKey = "home-layout-v56";
 const returnImageKey = "home-return-image";
 const returnScrollKey = "home-return-scroll";
 const hoverMarkerColors = ["#25abe2", "#e80415", "#fef900"];
@@ -255,6 +255,10 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
       : firstRowStyle === 1
         ? randomBetween(0, 18)
         : randomBetween(0, 20);
+  const phoneSideShiftPattern = isOpeningImage
+    ? [18, 4, 24, 8]
+    : [2, 16, 5, 20, 8, 4, 18, 6, 3, 14];
+  const phoneSideShift = phoneSideShiftPattern[index % phoneSideShiftPattern.length];
   const phoneWidth = isOpeningImage ? firstRowPhoneWidth : clamp(phoneWidthBase, 24, 38);
   const phoneMaxWidth = isOpeningImage ? firstRowPhoneMax : 32;
 
@@ -267,10 +271,10 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
       "--tablet-card-width": `${tabletWidth}px`,
       "--phone-card-width": `${phoneWidth}%`,
       "--phone-card-max": `${phoneMaxWidth}%`,
-      "--phone-space-top": `${isOpeningImage ? 5 : randomBetween(4, 30)}px`,
-      "--phone-space-right": `${isOpeningImage ? Math.max(5, firstRowSpaceRight - 2) : randomBetween(5, 18)}px`,
-      "--phone-space-bottom": `${randomBetween(8, 32)}px`,
-      "--phone-space-left": `${isOpeningImage ? Math.max(0, firstRowSpaceLeft + phoneShift - 4) : randomBetween(5, 20) + Math.max(0, phoneShift - 4)}px`,
+      "--phone-space-top": `${isOpeningImage ? 5 : randomBetween(2, 16)}px`,
+      "--phone-space-right": `${isOpeningImage ? Math.max(4, firstRowSpaceRight - 4) : randomBetween(2, 14)}px`,
+      "--phone-space-bottom": `${randomBetween(4, 16)}px`,
+      "--phone-space-left": `${isOpeningImage ? Math.max(0, firstRowSpaceLeft + phoneShift + phoneSideShift - 12) : randomBetween(2, 12) + Math.max(0, phoneShift - 8) + phoneSideShift}px`,
       "--space-top": `${index === 0 ? 58 : isOpeningImage ? 0 : randomBetween(34, 96)}px`,
       "--space-right": `${isOpeningImage ? Math.max(firstRowDesktopRight, 56) : randomBetween(58, 108)}px`,
       "--space-bottom": `${randomBetween(58, 118)}px`,
