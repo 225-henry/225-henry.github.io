@@ -1,7 +1,7 @@
 const projectIndex = document.querySelector(".project-index");
 const images = window.portfolioImages || [];
 const imageMap = new Map(images.map((image) => [image.number, image]));
-const layoutStorageKey = "home-layout-v9";
+const layoutStorageKey = "home-layout-v11";
 const returnImageKey = "home-return-image";
 const hoverSquareColors = ["#25abe2", "#e80415", "#fef900"];
 const homeImageLimit = 60;
@@ -20,7 +20,7 @@ const homeImageGroups = [
 ];
 
 function createProjectCard(image, options = {}) {
-  const { isPriority = false, isOpening = false } = options;
+  const { isPriority = false } = options;
   const card = document.createElement("article");
   const link = document.createElement("a");
   const number = document.createElement("span");
@@ -28,10 +28,6 @@ function createProjectCard(image, options = {}) {
 
   card.className = "project-card";
   card.dataset.number = image.number;
-
-  if (isOpening) {
-    card.dataset.opening = "true";
-  }
 
   link.href = `viewer.html?image=${encodeURIComponent(image.number)}`;
   number.className = "number";
@@ -244,8 +240,7 @@ function renderLayout(layout) {
     }
 
     const card = createProjectCard(image, {
-      isPriority: imageCount < 3,
-      isOpening: imageCount < 4
+      isPriority: imageCount < 3
     });
     imageCount += 1;
     applyStyles(card, item.styles);
@@ -271,6 +266,27 @@ function scrollToReturnedImage() {
   }
 }
 
+function markFirstRowCards() {
+  const cards = [...document.querySelectorAll(".project-card")];
+
+  cards.forEach((card) => {
+    delete card.dataset.firstRow;
+  });
+
+  if (cards.length === 0) {
+    return;
+  }
+
+  const cardTops = cards.map((card) => card.getBoundingClientRect().top + window.scrollY);
+  const firstRowTop = Math.min(...cardTops);
+
+  cards.forEach((card, index) => {
+    if (cardTops[index] <= firstRowTop + 56) {
+      card.dataset.firstRow = "true";
+    }
+  });
+}
+
 function keepCardsClearOfHeader() {
   const header = document.querySelector(".topbar");
 
@@ -279,12 +295,11 @@ function keepCardsClearOfHeader() {
   }
 
   const headerBounds = header.getBoundingClientRect();
-  const isPhone = window.matchMedia("(max-width: 560px)").matches;
 
   document.querySelectorAll(".project-card").forEach((card) => {
     card.style.setProperty("--header-drop", "0px");
 
-    if (isPhone && card.dataset.opening !== "true") {
+    if (card.dataset.firstRow !== "true") {
       return;
     }
 
@@ -317,12 +332,17 @@ if (projectIndex) {
 
   sessionStorage.setItem(layoutStorageKey, JSON.stringify(layout));
   renderLayout(layout);
+  markFirstRowCards();
   keepCardsClearOfHeader();
   scrollToReturnedImage();
 }
 
 window.addEventListener("pageshow", () => {
+  markFirstRowCards();
   keepCardsClearOfHeader();
   scrollToReturnedImage();
 });
-window.addEventListener("resize", keepCardsClearOfHeader);
+window.addEventListener("resize", () => {
+  markFirstRowCards();
+  keepCardsClearOfHeader();
+});
