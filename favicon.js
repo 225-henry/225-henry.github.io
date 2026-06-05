@@ -7,3 +7,10 @@ favicon.rel = "icon";
 favicon.type = "image/svg+xml";
 favicon.href = `data:image/svg+xml,${encodeURIComponent(faviconSvg)}`;
 document.head.appendChild(favicon);
+
+document.querySelectorAll("a").forEach((link) => {
+  if (!link.closest(".project-card")) {
+    const color = faviconColors[Math.floor(Math.random() * faviconColors.length)];
+    link.style.setProperty("--text-hover-color", color);
+  }
+});

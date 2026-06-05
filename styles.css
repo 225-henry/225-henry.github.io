@@ -7,6 +7,12 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
   background: var(--bg);
@@ -54,8 +60,9 @@ img {
 }
 
 .topbar {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
   z-index: 20;
   display: flex;
   width: max-content;
@@ -92,7 +99,7 @@ img {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  margin-top: -72px;
+  margin-top: 20px;
   padding: 0 clamp(16px, 3vw, 36px) 12vh clamp(16px, 3vw, 36px);
   align-items: flex-start;
 }
@@ -185,9 +192,9 @@ img {
   display: grid;
   grid-template-columns: minmax(220px, 1fr) minmax(260px, 1200px);
   gap: clamp(32px, 7vw, 120px);
-  padding: 0 clamp(16px, 3vw, 36px) 18vh;
+  padding: 18px clamp(16px, 3vw, 36px) 18vh;
   align-items: start;
-  margin-top: -54px;
+  margin-top: 0;
 }
 
 .info-copy {
@@ -261,7 +268,7 @@ img {
 }
 
 .romanized-name {
-  font-size: 0.78em;
+  font-size: 0.5em;
 }
 
 .info-note {
@@ -351,7 +358,7 @@ img {
 
   .info-page {
     margin-top: 0;
-    padding-top: 24px;
+    padding-top: 64px;
   }
 
   .experience-list .with-note {
@@ -372,15 +379,24 @@ img {
     flex-wrap: wrap;
     gap: 34px 24px;
     justify-content: flex-start;
-    margin-top: -48px;
+    margin-top: 20px;
     padding: 0 12px 12vh;
     align-items: flex-start;
+  }
+
+  .layout-void {
+    display: block;
+    flex: 0 0 clamp(96px, 34vw, 150px);
+    width: clamp(96px, 34vw, 150px);
+    height: clamp(85px, 24vw, 160px);
+    margin: clamp(8px, 3vw, 22px) clamp(10px, 5vw, 28px);
   }
 
   .project-card {
     flex: 0 0 min(var(--phone-card-max, 38%), var(--phone-card-width, 40%));
     width: auto;
+    align-self: var(--phone-card-align, flex-start);
     margin: var(--phone-space-top, 0) var(--phone-space-right, 0) var(--phone-space-bottom, 0) var(--phone-space-left, 0);
-    transform: translate(calc(var(--phone-offset-x, 0) + var(--opening-clear, 0px)), var(--phone-offset-y, 0));
+    transform: translate(calc(var(--phone-offset-x, 0) + var(--phone-opening-clear, 0px)), var(--phone-offset-y, 0));
   }
 }

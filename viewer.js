@@ -23,7 +23,7 @@ const imageGroups = [
     title: "the Metropolitan Cockatoo Island Museum/ Collaborate with Coco Chen/ tutor: Catherine Lassen/ Sem 1 2026/ University of Syd"
   },
   {
-    range: ["053", "055"],
+    ranges: [["053", "055"], ["075", "078"]],
     title: "Now Now Our Home Competition/ Collaborate with Toshio Ozaki/ Summer 2026"
   },
   {
@@ -31,8 +31,20 @@ const imageGroups = [
     title: "House with a Thick Wall/ tutor: Andrea Ileris/Tri 1 2023/ University of NSW"
   },
   {
-    range: ["066", "075"],
+    range: ["066", "074"],
     title: "Cable temple/ tutor: Toshio Ozaki/Tri 2 2023 Graduation Project/ University of NSW"
+  },
+  {
+    range: ["079", "082"],
+    title: "refurbishment of an office building in Sydney/ Under supervisor of Toshio Ozaki at Ozaki Studio/ 2024"
+  },
+  {
+    range: ["083", "085"],
+    title: "a terrace house renovation in Sydney/ Under supervisor of Toshio Ozaki at Ozaki Studio/ 2024"
+  },
+  {
+    range: ["086", "087"],
+    title: "a family home in Sydney's Northern Beaches/ Under supervisor of Toshio Ozaki at Ozaki Studio/ 2024"
   }
 ];
 
@@ -42,20 +54,20 @@ function numberValue(number) {
 
 function getGroupInfo(selectedNumber) {
   const selectedValue = numberValue(selectedNumber);
-  const group = imageGroups.find(({ range }) => {
-    const [start, end] = range;
-    return selectedValue >= numberValue(start) && selectedValue <= numberValue(end);
+  const group = imageGroups.find(({ range, ranges }) => {
+    const groupRanges = ranges || [range];
+    return groupRanges.some(([start, end]) => selectedValue >= numberValue(start) && selectedValue <= numberValue(end));
   });
 
   if (!group) {
     return { title: "", images: [] };
   }
 
-  const [start, end] = group.range.map(numberValue);
+  const groupRanges = group.ranges || [group.range];
   const images = viewerImages
     .filter((image) => {
       const value = numberValue(image.number);
-      return value >= start && value <= end;
+      return groupRanges.some(([start, end]) => value >= numberValue(start) && value <= numberValue(end));
     })
     .sort((a, b) => numberValue(a.number) - numberValue(b.number));
 

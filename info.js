@@ -14,6 +14,8 @@ if (infoImage) {
   let currentIndex = Math.floor(Math.random() * infoImages.length);
 
   infoImage.decoding = "async";
+  infoImage.loading = "eager";
+  infoImage.fetchPriority = "high";
   infoImage.src = infoImages[currentIndex];
 
   infoImage.addEventListener("click", () => {

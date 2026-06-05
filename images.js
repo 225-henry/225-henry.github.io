@@ -311,4 +311,56 @@
     number: "074",
     src: "https://225-henry.github.io/picx-images-hosting/LIUUNSWS6_studio-6-1.99u00etz5o.jpg",
   },
+  {
+    number: "075",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUOSOH_Birdseye-view.6po5p0juah.jpg",
+  },
+  {
+    number: "076",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUOSOH_Render-1.5moge4o0es.jpg",
+  },
+  {
+    number: "077",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUOSOH_Render-4.2dpchh0irz.jpg",
+  },
+  {
+    number: "078",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUOSOH_Render-5.3rbvlibksk.jpg",
+  },
+  {
+    number: "079",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUOSSO_inside_2.6ikxtkxouy.jpg",
+  },
+  {
+    number: "080",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUOSSO_-inside-1.1sfov662hj.png",
+  },
+  {
+    number: "081",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUOSSO_facade.26m4m1edcj.png",
+  },
+  {
+    number: "082",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUOSSO_Foyer.6t7rmqcwzy.jpg",
+  },
+  {
+    number: "083",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUOSTE_Full-Size-with-Bird-GIF.5tro9ka5ue.gif",
+  },
+  {
+    number: "084",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUOSTE_Interior_perspective_2.92qs67xngy.jpg",
+  },
+  {
+    number: "085",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUOSTE_Interior_perspective_1.3rbvlibkss.jpg",
+  },
+  {
+    number: "086",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUOSNH_Street_View_Poster1.45ibcdjvo1.jpg",
+  },
+  {
+    number: "087",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUOSNH_Reserve_View_Poster1.2yz03ruz2j.jpg",
+  },
 ];

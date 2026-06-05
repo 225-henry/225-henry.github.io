@@ -1,19 +1,22 @@
 const projectIndex = document.querySelector(".project-index");
 const images = window.portfolioImages || [];
 const imageMap = new Map(images.map((image) => [image.number, image]));
-const layoutStorageKey = "home-layout-v1";
+const layoutStorageKey = "home-layout-v2";
 const returnImageKey = "home-return-image";
 const hoverSquareColors = ["#25abe2", "#e80415", "#fef900"];
-const homeImageLimit = 50;
+const homeImageLimit = 60;
 const homeImageGroups = [
   { range: ["001", "014"] },
   { range: ["015", "020"] },
   { range: ["021", "044"] },
   { range: ["045", "047"] },
   { range: ["048", "052"] },
-  { range: ["053", "055"] },
+  { ranges: [["053", "055"], ["075", "078"]] },
   { range: ["056", "065"], max: 2 },
-  { range: ["066", "075"], max: 2 }
+  { range: ["066", "074"], max: 2 },
+  { range: ["079", "082"] },
+  { range: ["083", "085"] },
+  { range: ["086", "087"] }
 ];
 
 function createProjectCard(image, isPriority = false) {
@@ -80,11 +83,16 @@ function getImagesInRange(start, end) {
   });
 }
 
+function getImagesForGroup(group) {
+  const ranges = group.ranges || [group.range];
+  return ranges.flatMap(([start, end]) => getImagesInRange(start, end));
+}
+
 function getBalancedHomeImages() {
   const groupedImages = homeImageGroups
-    .map(({ range, max }) => {
-      const [start, end] = range;
-      const group = shuffleList(getImagesInRange(start, end));
+    .map((homeGroup) => {
+      const group = shuffleList(getImagesForGroup(homeGroup));
+      const { max } = homeGroup;
       return typeof max === "number" ? group.slice(0, max) : group;
     })
     .filter((group) => group.length > 0);
@@ -146,19 +154,21 @@ function createLayoutItem(image, index) {
       "--phone-card-width": `${phoneWidth}%`,
       "--phone-card-max": `${phoneMaxWidth}%`,
       "--phone-space-top": `${isOpeningImage ? 0 : randomBetween(4, 56)}px`,
-      "--phone-space-right": `${randomBetween(8, 22)}px`,
-      "--phone-space-bottom": `${randomBetween(26, 72)}px`,
-      "--phone-space-left": `${randomBetween(6, 18)}px`,
-      "--phone-offset-x": `${randomBetween(-8, 8)}px`,
-      "--phone-offset-y": `${randomBetween(0, 20)}px`,
+      "--phone-space-right": `${randomBetween(0, 34)}px`,
+      "--phone-space-bottom": `${randomBetween(22, 92)}px`,
+      "--phone-space-left": `${randomBetween(0, 42)}px`,
+      "--phone-offset-x": `${randomBetween(0, 28)}px`,
+      "--phone-offset-y": `${randomBetween(0, 34)}px`,
       "--space-top": `${isOpeningImage ? 0 : randomBetween(30, 220)}px`,
       "--opening-clear": `${isOpeningImage ? 92 : 0}px`,
+      "--phone-opening-clear": `${index < 2 ? 92 : 0}px`,
       "--space-right": `${randomBetween(35, 215)}px`,
       "--space-bottom": `${randomBetween(55, 275)}px`,
       "--space-left": `${randomBetween(0, 130)}px`,
-      "--offset-x": `${randomBetween(-45, 45)}px`,
-      "--offset-y": `${randomBetween(-60, 60)}px`,
+      "--offset-x": `${randomBetween(0, 45)}px`,
+      "--offset-y": `${randomBetween(0, 60)}px`,
       "--card-align": ["flex-start", "center", "flex-end"][Math.floor(Math.random() * 3)],
+      "--phone-card-align": ["flex-start", "center", "flex-end"][Math.floor(Math.random() * 3)],
       "--hover-square-color": hoverSquareColors[Math.floor(Math.random() * hoverSquareColors.length)]
     }
   };
@@ -215,7 +225,7 @@ function renderLayout(layout) {
       return;
     }
 
-    const card = createProjectCard(image, imageCount < 6);
+    const card = createProjectCard(image, imageCount < 3);
     imageCount += 1;
     applyStyles(card, item.styles);
 
