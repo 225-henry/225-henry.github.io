@@ -1,7 +1,7 @@
 const projectIndex = document.querySelector(".project-index");
 const images = window.portfolioImages || [];
 const imageMap = new Map(images.map((image) => [image.number, image]));
-const layoutStorageKey = "home-layout-v40";
+const layoutStorageKey = "home-layout-v41";
 const returnImageKey = "home-return-image";
 const returnScrollKey = "home-return-scroll";
 const returnModeKey = "home-return-mode";
@@ -267,10 +267,10 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
       "--phone-space-right": `${isOpeningImage ? Math.max(5, firstRowSpaceRight - 2) : randomBetween(5, 18)}px`,
       "--phone-space-bottom": `${randomBetween(8, 32)}px`,
       "--phone-space-left": `${isOpeningImage ? Math.max(0, firstRowSpaceLeft + phoneShift - 4) : randomBetween(5, 20) + Math.max(0, phoneShift - 4)}px`,
-      "--space-top": `${index === 0 ? 18 : isOpeningImage ? 0 : randomBetween(16, 86)}px`,
+      "--space-top": `${index === 0 ? 38 : isOpeningImage ? 0 : randomBetween(16, 86)}px`,
       "--space-right": `${isOpeningImage ? firstRowDesktopRight : randomBetween(18, 84)}px`,
       "--space-bottom": `${randomBetween(24, 92)}px`,
-      "--space-left": `${index === 0 ? Math.max(firstRowDesktopLeft, 72) : isOpeningImage ? firstRowDesktopLeft : randomBetween(0, 46)}px`,
+      "--space-left": `${index === 0 ? Math.max(firstRowDesktopLeft, 130) : isOpeningImage ? firstRowDesktopLeft : randomBetween(0, 46)}px`,
       "--offset-x": `${randomBetween(0, 28)}px`,
       "--offset-y": `${randomBetween(0, 34)}px`,
       "--card-align": ["flex-start", "center", "flex-end"][Math.floor(Math.random() * 3)],
@@ -284,9 +284,9 @@ function createVoidItem() {
   return {
     type: "void",
     styles: {
-      "--void-width": `${randomBetween(280, 520)}px`,
-      "--void-height": `${randomBetween(180, 360)}px`,
-      "--void-margin": `${randomBetween(28, 120)}px ${randomBetween(54, 150)}px`
+      "--void-width": `${randomBetween(220, 380)}px`,
+      "--void-height": `${randomBetween(140, 260)}px`,
+      "--void-margin": `${randomBetween(18, 82)}px ${randomBetween(34, 96)}px`
     }
   };
 }
@@ -295,9 +295,9 @@ function createOpeningVoidItem() {
   return {
     type: "void",
     styles: {
-      "--void-width": `${randomBetween(220, 420)}px`,
-      "--void-height": `${randomBetween(140, 280)}px`,
-      "--void-margin": `${randomBetween(18, 86)}px ${randomBetween(44, 130)}px`
+      "--void-width": `${randomBetween(180, 320)}px`,
+      "--void-height": `${randomBetween(110, 220)}px`,
+      "--void-margin": `${randomBetween(12, 58)}px ${randomBetween(28, 86)}px`
     }
   };
 }
@@ -311,11 +311,11 @@ function createRandomLayout() {
   shuffledImages.forEach((image, index) => {
     layout.push(createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle));
 
-    if (index < 4 && index % 2 === 1) {
+    if (index < 4 && index === 2) {
       layout.push(createOpeningVoidItem());
     }
 
-    if (index > 0 && (index % 2 === 0 || Math.random() > 0.78)) {
+    if (index > 0 && (index % 4 === 0 || Math.random() > 0.9)) {
       layout.push(createVoidItem());
     }
   });
