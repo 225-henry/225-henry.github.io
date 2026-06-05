@@ -1,7 +1,7 @@
 const projectIndex = document.querySelector(".project-index");
 const images = window.portfolioImages || [];
 const imageMap = new Map(images.map((image) => [image.number, image]));
-const layoutStorageKey = "home-layout-v2";
+const layoutStorageKey = "home-layout-v5";
 const returnImageKey = "home-return-image";
 const hoverSquareColors = ["#25abe2", "#e80415", "#fef900"];
 const homeImageLimit = 60;
@@ -12,8 +12,8 @@ const homeImageGroups = [
   { range: ["045", "047"] },
   { range: ["048", "052"] },
   { ranges: [["053", "055"], ["075", "078"]] },
-  { range: ["056", "065"], max: 2 },
-  { range: ["066", "074"], max: 2 },
+  { range: ["056", "065"], max: 3 },
+  { range: ["066", "074"], max: 3 },
   { range: ["079", "082"] },
   { range: ["083", "085"] },
   { range: ["086", "087"] }
@@ -92,21 +92,33 @@ function getBalancedHomeImages() {
   const groupedImages = homeImageGroups
     .map((homeGroup) => {
       const group = shuffleList(getImagesForGroup(homeGroup));
-      const { max } = homeGroup;
-      return typeof max === "number" ? group.slice(0, max) : group;
+      return typeof homeGroup.max === "number" ? group.slice(0, homeGroup.max) : group;
     })
     .filter((group) => group.length > 0);
-  const selectedImages = [];
+  const totalImages = groupedImages.reduce((sum, group) => sum + group.length, 0);
+  let remainingSlots = Math.min(homeImageLimit, totalImages);
+  const quotas = groupedImages.map((group) => {
+    const proportionalCount = Math.round((group.length / totalImages) * homeImageLimit);
+    const count = Math.min(group.length, Math.max(1, proportionalCount));
+    remainingSlots -= count;
+    return count;
+  });
 
-  while (selectedImages.length < homeImageLimit && groupedImages.some((group) => group.length > 0)) {
-    groupedImages.forEach((group) => {
-      if (selectedImages.length < homeImageLimit && group.length > 0) {
-        selectedImages.push(group.shift());
-      }
-    });
+  while (remainingSlots !== 0) {
+    const candidates = groupedImages
+      .map((group, index) => ({ group, index, room: group.length - quotas[index] }))
+      .filter(({ index, room }) => (remainingSlots > 0 ? room > 0 : quotas[index] > 1));
+
+    if (candidates.length === 0) {
+      break;
+    }
+
+    const target = candidates.reduce((largest, candidate) => (candidate.room > largest.room ? candidate : largest));
+    quotas[target.index] += remainingSlots > 0 ? 1 : -1;
+    remainingSlots += remainingSlots > 0 ? -1 : 1;
   }
 
-  return selectedImages;
+  return groupedImages.flatMap((group, index) => group.slice(0, quotas[index]));
 }
 
 function createLayoutItem(image, index) {
