@@ -389,6 +389,7 @@ img {
   display: grid;
   grid-template-columns: minmax(220px, 1fr) minmax(260px, 900px);
   gap: clamp(32px, 7vw, 120px);
+  min-height: 100vh;
   padding: var(--header-safe-space) clamp(16px, 3vw, 36px) 18vh;
   align-items: start;
   margin-top: 0;
@@ -481,11 +482,16 @@ img {
   grid-column: 1;
   grid-row: 1;
   width: min(100%, 560px);
-  margin: 36vh 0 0;
+  aspect-ratio: 4 / 3;
+  margin: 0;
+  align-self: center;
   justify-self: center;
 }
 
 .info-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
   cursor: pointer;
 }
 
