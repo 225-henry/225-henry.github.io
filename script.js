@@ -1,7 +1,7 @@
 const projectIndex = document.querySelector(".project-index");
 const images = window.portfolioImages || [];
 const imageMap = new Map(images.map((image) => [image.number, image]));
-const layoutStorageKey = "home-layout-v69";
+const layoutStorageKey = "home-layout-v72";
 const returnImageKey = "home-return-image";
 const returnScrollKey = "home-return-scroll";
 const hoverMarkerColors = ["#25abe2", "#e80415", "#fef900"];
@@ -69,6 +69,14 @@ const returnScrollFromUrl = pageParams.get("scroll");
 if (pageParams.has("refresh") || pageParams.has("return")) {
   window.history.replaceState(null, "", window.location.pathname);
 }
+
+document.querySelector(".nav a[href='info.html']")?.addEventListener("click", () => {
+  const currentPage = window.location.pathname.split("/").pop() || "index.html";
+
+  if (currentPage === "index.html") {
+    sessionStorage.setItem(returnScrollKey, String(window.scrollY));
+  }
+});
 
 function createProjectCard(image, options = {}) {
   const { isPriority = false } = options;
@@ -298,12 +306,12 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
       "--phone-space-right": `${Math.max(2, phoneRightSpace - 2)}px`,
       "--phone-space-bottom": `${isPhoneSingleWidth || isNearPhoneSingle ? randomBetween(3, 8) : randomBetween(5, 12)}px`,
       "--phone-space-left": `${Math.max(2, phoneLeftSpace - 3)}px`,
-      "--space-top": `${index === 0 ? 58 : isOpeningImage ? 0 : randomBetween(34, 96)}px`,
-      "--space-right": `${isOpeningImage ? Math.max(firstRowDesktopRight, 56) : randomBetween(58, 108)}px`,
-      "--space-bottom": `${randomBetween(58, 118)}px`,
-      "--space-left": `${index === 0 ? Math.max(firstRowDesktopLeft, 180) : isOpeningImage ? Math.max(firstRowDesktopLeft, 24) : randomBetween(28, 70)}px`,
-      "--offset-x": `${randomBetween(0, 16)}px`,
-      "--offset-y": `${randomBetween(0, 22)}px`,
+      "--space-top": `${index === 0 ? 58 : isOpeningImage ? 0 : randomBetween(24, 72)}px`,
+      "--space-right": `${isOpeningImage ? Math.max(firstRowDesktopRight, 44) : randomBetween(34, 78)}px`,
+      "--space-bottom": `${randomBetween(38, 88)}px`,
+      "--space-left": `${index === 0 ? Math.max(firstRowDesktopLeft, 180) : isOpeningImage ? Math.max(firstRowDesktopLeft, 18) : randomBetween(14, 46)}px`,
+      "--offset-x": `${randomBetween(0, 10)}px`,
+      "--offset-y": `${randomBetween(0, 16)}px`,
       "--card-align": ["flex-start", "center", "center", "flex-end"][index % 4],
       "--phone-card-align": isOpeningImage ? ["flex-start", "center", "flex-end", "center"][index % 4] : ["flex-start", "center", "flex-end"][Math.floor(Math.random() * 3)],
       "--hover-marker-color": hoverMarkerColors[Math.floor(Math.random() * hoverMarkerColors.length)]
@@ -315,9 +323,9 @@ function createVoidItem() {
   return {
     type: "void",
     styles: {
-      "--void-width": `${randomBetween(320, 520)}px`,
-      "--void-height": `${randomBetween(200, 340)}px`,
-      "--void-margin": `${randomBetween(36, 112)}px ${randomBetween(64, 150)}px`
+      "--void-width": `${randomBetween(300, 520)}px`,
+      "--void-height": `${randomBetween(180, 340)}px`,
+      "--void-margin": `${randomBetween(30, 108)}px ${randomBetween(56, 140)}px`
     }
   };
 }
@@ -326,9 +334,9 @@ function createOpeningVoidItem() {
   return {
     type: "void",
     styles: {
-      "--void-width": `${randomBetween(260, 420)}px`,
-      "--void-height": `${randomBetween(170, 290)}px`,
-      "--void-margin": `${randomBetween(28, 92)}px ${randomBetween(52, 132)}px`
+      "--void-width": `${randomBetween(240, 400)}px`,
+      "--void-height": `${randomBetween(150, 270)}px`,
+      "--void-margin": `${randomBetween(24, 84)}px ${randomBetween(46, 116)}px`
     }
   };
 }
@@ -342,11 +350,11 @@ function createRandomLayout() {
   shuffledImages.forEach((image, index) => {
     layout.push(createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle));
 
-    if (index < 4 && index % 2 === 1) {
+    if (index < 4 && index === 2) {
       layout.push(createOpeningVoidItem());
     }
 
-    if (index > 0 && (index % 2 === 0 || Math.random() > 0.82)) {
+    if (index > 0 && (index % 3 === 0 || Math.random() > 0.88)) {
       layout.push(createVoidItem());
     }
   });
