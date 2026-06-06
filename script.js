@@ -313,7 +313,6 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
       "--offset-x": `${randomBetween(0, 10)}px`,
       "--offset-y": `${randomBetween(0, 16)}px`,
       "--card-align": ["flex-start", "center", "center", "flex-end"][index % 4],
-      "--phone-card-align": isOpeningImage ? ["flex-start", "center", "flex-end", "center"][index % 4] : ["flex-start", "center", "flex-end"][Math.floor(Math.random() * 3)],
       "--hover-marker-color": hoverMarkerColors[Math.floor(Math.random() * hoverMarkerColors.length)]
     }
   };
@@ -416,7 +415,7 @@ function renderLayout(layout) {
   });
 
   projectIndex.appendChild(fragment);
-  warmImageCache(renderedImages.slice(3, 15));
+  warmImageCache(renderedImages.slice(3, 9));
 }
 
 function restoreHomePosition() {
