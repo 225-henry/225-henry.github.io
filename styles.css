@@ -246,7 +246,7 @@ img {
   align-items: flex-start;
   justify-self: center;
   padding: 0 0.22em;
-  background: linear-gradient(to right, rgb(255 255 255 / 0.82) 50%, rgb(255 255 255 / 0.96) 50%);
+  background: linear-gradient(to right, #fff 50%, #fff 50%);
   background-position: 0 0;
   background-size: 200% 100%;
   font-size: 17px;
