@@ -457,6 +457,7 @@ img {
 
 .info-links {
   display: grid;
+  justify-items: start;
   margin-top: 1.08em;
 }
 
