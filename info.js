@@ -11,10 +11,16 @@ const infoImage = document.querySelector("[data-info-image]");
 
 if (infoImage) {
   let currentIndex = Math.floor(Math.random() * infoImages.length);
+  const infoFigure = infoImage.closest(".info-image");
+
+  infoFigure?.classList.add("is-loading");
 
   infoImage.decoding = "async";
   infoImage.loading = "eager";
   infoImage.fetchPriority = "high";
+  infoImage.addEventListener("load", () => {
+    infoFigure?.classList.remove("is-loading");
+  });
   infoImage.src = infoImages[currentIndex];
 
   infoImage.addEventListener("click", () => {
@@ -25,6 +31,7 @@ if (infoImage) {
     }
 
     currentIndex = nextIndex;
+    infoFigure?.classList.add("is-loading");
     infoImage.src = infoImages[currentIndex];
   });
 }
