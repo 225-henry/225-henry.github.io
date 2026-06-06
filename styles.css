@@ -88,6 +88,10 @@ img {
   text-transform: lowercase;
 }
 
+.nav a {
+  font-weight: 500;
+}
+
 .header-count-trigger {
   position: relative;
   padding: 0;
@@ -96,6 +100,10 @@ img {
   color: inherit;
   cursor: pointer;
   font-family: inherit;
+  font-weight: 400;
+}
+
+.header-home-count {
   font-weight: 400;
 }
 
@@ -539,9 +547,12 @@ img {
 }
 
 @media (max-width: 560px) {
-  .mark,
   .nav a {
-    font-weight: 550;
+    font-weight: 500;
+  }
+
+  .header-home-count {
+    font-weight: 400;
   }
 
   .info-page {
