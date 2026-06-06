@@ -70,12 +70,6 @@ if (pageParams.has("refresh") || pageParams.has("return")) {
   window.history.replaceState(null, "", window.location.pathname);
 }
 
-document.querySelector(".topbar .mark[aria-current='page']")?.addEventListener("click", (event) => {
-  event.preventDefault();
-  sessionStorage.removeItem(layoutStorageKey);
-  window.location.href = `${window.location.pathname}?refresh=${Date.now()}`;
-});
-
 function createProjectCard(image, options = {}) {
   const { isPriority = false } = options;
   const card = document.createElement("article");

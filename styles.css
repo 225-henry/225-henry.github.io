@@ -88,7 +88,7 @@ img {
   text-transform: lowercase;
 }
 
-.header-count {
+.header-count-trigger {
   position: relative;
   padding: 0;
   border: 0;
@@ -96,12 +96,10 @@ img {
   color: inherit;
   cursor: pointer;
   font-family: inherit;
-  font-size: 17px;
   font-weight: 400;
-  text-transform: lowercase;
 }
 
-.header-count::before {
+.header-count-trigger::before {
   position: absolute;
   top: 50%;
   right: -0.95em;
@@ -116,8 +114,8 @@ img {
   transform: translateY(-50%);
 }
 
-.header-count:hover::before,
-.header-count:focus-visible::before {
+.header-count-trigger:hover::before,
+.header-count-trigger:focus-visible::before {
   opacity: 1;
 }
 
@@ -544,10 +542,6 @@ img {
   .mark,
   .nav a {
     font-weight: 550;
-  }
-
-  .header-count {
-    font-weight: 400;
   }
 
   .info-page {
