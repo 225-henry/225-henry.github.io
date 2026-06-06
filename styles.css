@@ -93,6 +93,7 @@ img {
 }
 
 .header-count-trigger {
+  appearance: none;
   position: relative;
   padding: 0;
   border: 0;
@@ -100,7 +101,10 @@ img {
   color: inherit;
   cursor: pointer;
   font-family: inherit;
+  font-size: inherit;
   font-weight: 400;
+  line-height: inherit;
+  text-align: left;
 }
 
 .header-home-count {
