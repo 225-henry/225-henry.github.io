@@ -233,7 +233,7 @@ img {
 .work-menu-list a {
   position: relative;
   display: inline-flex;
-  align-items: center;
+  align-items: flex-start;
   justify-self: center;
   padding: 0 0.22em;
   background: linear-gradient(to right, rgb(255 255 255 / 0.82) 50%, rgb(255 255 255 / 0.96) 50%);
@@ -271,6 +271,7 @@ img {
   margin-right: 0.45em;
   font-size: 1em;
   line-height: 1;
+  padding-top: 0.04em;
 }
 
 .work-menu-list a:hover,
@@ -450,11 +451,11 @@ img {
 }
 
 .chinese-name {
-  font-family: SimSun, "Songti SC", "宋体", serif;
+  font-family: "宋体";
 }
 
 .romanized-name {
-  font-size: 0.5em;
+  font-size: 0.72em;
 }
 
 .info-note {
@@ -566,7 +567,7 @@ img {
   .project-index {
     display: flex;
     flex-wrap: wrap;
-    gap: 18px 10px;
+    gap: 10px 6px;
     justify-content: flex-start;
     margin-top: 10px;
     padding: 0 6px 12vh;
