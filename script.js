@@ -423,7 +423,12 @@ function restoreHomePosition() {
   const scrollPosition = returnScrollFromUrl ?? sessionStorage.getItem(returnScrollKey);
 
   if (scrollPosition) {
-    window.scrollTo(0, Number(scrollPosition));
+    const targetScroll = Number(scrollPosition);
+
+    window.scrollTo(0, targetScroll);
+    window.requestAnimationFrame(() => window.scrollTo(0, targetScroll));
+    window.setTimeout(() => window.scrollTo(0, targetScroll), 120);
+    window.setTimeout(() => window.scrollTo(0, targetScroll), 360);
     sessionStorage.removeItem(returnScrollKey);
     return;
   }
@@ -607,10 +612,12 @@ if (projectIndex) {
   }
 }
 
-window.addEventListener("pageshow", () => {
-  if (returnScrollFromUrl) {
-    window.scrollTo(0, Number(returnScrollFromUrl));
-  } else {
-    restoreHomePosition();
-  }
-});
+if (projectIndex) {
+  window.addEventListener("pageshow", () => {
+    if (returnScrollFromUrl) {
+      window.scrollTo(0, Number(returnScrollFromUrl));
+    } else {
+      restoreHomePosition();
+    }
+  });
+}
