@@ -546,6 +546,10 @@ img {
     font-weight: 550;
   }
 
+  .header-count {
+    font-weight: 400;
+  }
+
   .info-page {
     margin-top: 0;
     padding-top: var(--header-safe-space);
