@@ -540,6 +540,8 @@ function createWorkMenu() {
 
       sessionStorage.setItem(returnScrollKey, currentScroll);
       sessionStorage.removeItem(returnImageKey);
+      menu.classList.remove("is-open", "is-closing");
+      menu.setAttribute("aria-hidden", "true");
     });
     list.appendChild(link);
   });
