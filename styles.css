@@ -204,7 +204,7 @@ img {
 .project-card img {
   background: #f3f3f3;
   opacity: 1;
-  transition: opacity 350ms ease;
+  transition: opacity 300ms ease;
 }
 
 .project-card.is-loading img {
@@ -493,7 +493,7 @@ img {
   height: 100%;
   object-fit: contain;
   opacity: 1;
-  transition: opacity 350ms ease;
+  transition: opacity 300ms ease;
   cursor: pointer;
 }
 
