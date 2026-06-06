@@ -1,11 +1,11 @@
 const projectIndex = document.querySelector(".project-index");
 const images = window.portfolioImages || [];
 const imageMap = new Map(images.map((image) => [image.number, image]));
-const layoutStorageKey = "home-layout-v56";
+const layoutStorageKey = "home-layout-v61";
 const returnImageKey = "home-return-image";
 const returnScrollKey = "home-return-scroll";
 const hoverMarkerColors = ["#25abe2", "#e80415", "#fef900"];
-const homeImageLimit = 60;
+const homeImageLimit = 50;
 const homeImageGroups = [
   {
     range: ["001", "014"],
@@ -206,12 +206,12 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
           : randomBetween(235, 280);
   const phoneWidthBase =
     isGif
-      ? randomBetween(29, 33)
+      ? randomBetween(34, 39)
       : sizeRoll < 0.32
-        ? randomBetween(23, 28)
+        ? randomBetween(24, 28)
         : sizeRoll < 0.74
-          ? randomBetween(25, 28)
-          : randomBetween(27, 30);
+          ? randomBetween(30, 36)
+          : randomBetween(36, 42);
   const firstRowDesktopWidth =
     desktopFirstRowStyle === 1
       ? (index % 3 === 0 ? randomBetween(310, 390) : randomBetween(250, 300))
@@ -235,10 +235,10 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
   const tabletWidth = clamp(Math.round(mobileWidth * 0.9), 170, 260);
   const openingPhoneWidths =
     firstRowStyle === 1
-      ? [38, 26, 31, 24]
+      ? [38, 31, 35, 29]
       : firstRowStyle === 3
-        ? [23, 28, 24, 27]
-        : [29, 24, 31, 25];
+        ? [27, 34, 29, 32]
+        : [35, 29, 38, 31];
   const firstRowPhoneWidth = openingPhoneWidths[index % openingPhoneWidths.length] + randomBetween(-2, 2);
   const firstRowPhoneMax = isOpeningImage ? firstRowPhoneWidth + 2 : firstRowStyle === 1 ? 52 : firstRowStyle === 3 ? 29 : 36;
   const openingPhoneShift = [34, 48, 24, 42][index % 4];
@@ -256,11 +256,18 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
         ? randomBetween(0, 18)
         : randomBetween(0, 20);
   const phoneSideShiftPattern = isOpeningImage
-    ? [18, 4, 24, 8]
-    : [2, 16, 5, 20, 8, 4, 18, 6, 3, 14];
+    ? [8, 12, 5, 14]
+    : [2, 10, 4, 12, 3, 9, 5, 11];
   const phoneSideShift = phoneSideShiftPattern[index % phoneSideShiftPattern.length];
-  const phoneWidth = isOpeningImage ? firstRowPhoneWidth : clamp(phoneWidthBase, 24, 38);
-  const phoneMaxWidth = isOpeningImage ? firstRowPhoneMax : 32;
+  const phoneRightPattern = isOpeningImage
+    ? [10, 5, 12, 6]
+    : [10, 4, 9, 5, 11, 4, 8, 5];
+  const phoneRightSpace = phoneRightPattern[index % phoneRightPattern.length] + randomBetween(-2, 2);
+  const phoneLeftSpace =
+    (isOpeningImage ? firstRowSpaceLeft + phoneShift + phoneSideShift - 8 : phoneSideShift + Math.max(0, phoneShift - 8)) +
+    randomBetween(2, 8);
+  const phoneWidth = isOpeningImage ? firstRowPhoneWidth : clamp(phoneWidthBase, 26, 52);
+  const phoneMaxWidth = isOpeningImage ? firstRowPhoneMax : sizeRoll < 0.32 ? 30 : sizeRoll < 0.74 ? 42 : 52;
 
   return {
     type: "image",
@@ -271,10 +278,10 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
       "--tablet-card-width": `${tabletWidth}px`,
       "--phone-card-width": `${phoneWidth}%`,
       "--phone-card-max": `${phoneMaxWidth}%`,
-      "--phone-space-top": `${isOpeningImage ? 5 : randomBetween(2, 16)}px`,
-      "--phone-space-right": `${isOpeningImage ? Math.max(4, firstRowSpaceRight - 4) : randomBetween(2, 14)}px`,
-      "--phone-space-bottom": `${randomBetween(4, 16)}px`,
-      "--phone-space-left": `${isOpeningImage ? Math.max(0, firstRowSpaceLeft + phoneShift + phoneSideShift - 12) : randomBetween(2, 12) + Math.max(0, phoneShift - 8) + phoneSideShift}px`,
+      "--phone-space-top": `${isOpeningImage ? 5 : randomBetween(6, 18)}px`,
+      "--phone-space-right": `${Math.max(4, phoneRightSpace)}px`,
+      "--phone-space-bottom": `${randomBetween(8, 24)}px`,
+      "--phone-space-left": `${Math.max(2, phoneLeftSpace)}px`,
       "--space-top": `${index === 0 ? 58 : isOpeningImage ? 0 : randomBetween(34, 96)}px`,
       "--space-right": `${isOpeningImage ? Math.max(firstRowDesktopRight, 56) : randomBetween(58, 108)}px`,
       "--space-bottom": `${randomBetween(58, 118)}px`,

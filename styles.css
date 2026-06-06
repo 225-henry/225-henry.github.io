@@ -566,7 +566,7 @@ img {
   .project-index {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px 8px;
+    gap: 18px 10px;
     justify-content: flex-start;
     margin-top: 10px;
     padding: 0 6px 12vh;
