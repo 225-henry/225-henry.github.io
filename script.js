@@ -1,7 +1,7 @@
 const projectIndex = document.querySelector(".project-index");
 const images = window.portfolioImages || [];
 const imageMap = new Map(images.map((image) => [image.number, image]));
-const layoutStorageKey = "home-layout-v61";
+const layoutStorageKey = "home-layout-v64";
 const returnImageKey = "home-return-image";
 const returnScrollKey = "home-return-scroll";
 const hoverMarkerColors = ["#25abe2", "#e80415", "#fef900"];
@@ -204,14 +204,20 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
         : sizeRoll < 0.74
           ? randomBetween(210, 285)
           : randomBetween(235, 280);
+  const phonePatterns = [
+    [36, 32, 24, 25, 24, 48, 27, 28, 34, 32, 46, 25],
+    [30, 45, 24, 27, 38, 25, 26, 50, 31, 28, 36, 24],
+    [26, 27, 44, 25, 30, 34, 24, 49, 28, 35, 25, 31],
+    [42, 25, 26, 33, 24, 36, 48, 27, 28, 32, 24, 40]
+  ];
+  const phonePattern = phonePatterns[firstRowStyle % phonePatterns.length];
+  const phoneLayoutMode = index % phonePattern.length;
+  const phoneWidthPattern = phonePattern;
+  const patternedPhoneWidth = phoneWidthPattern[phoneLayoutMode] + randomBetween(-2, 2);
   const phoneWidthBase =
     isGif
-      ? randomBetween(34, 39)
-      : sizeRoll < 0.32
-        ? randomBetween(24, 28)
-        : sizeRoll < 0.74
-          ? randomBetween(30, 36)
-          : randomBetween(36, 42);
+      ? randomBetween(36, 42)
+      : patternedPhoneWidth;
   const firstRowDesktopWidth =
     desktopFirstRowStyle === 1
       ? (index % 3 === 0 ? randomBetween(310, 390) : randomBetween(250, 300))
@@ -255,19 +261,31 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
       : firstRowStyle === 1
         ? randomBetween(0, 18)
         : randomBetween(0, 20);
+  const phoneSideShiftPatterns = [
+    [2, 16, 5, 11, 20, 4, 12, 7, 15, 3],
+    [18, 4, 12, 6, 22, 8, 3, 16, 5, 14],
+    [6, 20, 3, 15, 8, 18, 4, 12, 22, 5],
+    [12, 5, 24, 4, 16, 7, 20, 3, 10, 18]
+  ];
   const phoneSideShiftPattern = isOpeningImage
     ? [8, 12, 5, 14]
-    : [2, 10, 4, 12, 3, 9, 5, 11];
+    : phoneSideShiftPatterns[firstRowStyle % phoneSideShiftPatterns.length];
   const phoneSideShift = phoneSideShiftPattern[index % phoneSideShiftPattern.length];
+  const phoneRightPatterns = [
+    [8, 14, 5, 10, 16, 4, 12, 6, 15, 5],
+    [16, 5, 11, 7, 18, 4, 9, 13, 6, 15],
+    [6, 18, 4, 12, 8, 16, 5, 10, 14, 7],
+    [13, 6, 17, 4, 10, 15, 5, 12, 8, 16]
+  ];
   const phoneRightPattern = isOpeningImage
     ? [10, 5, 12, 6]
-    : [10, 4, 9, 5, 11, 4, 8, 5];
+    : phoneRightPatterns[firstRowStyle % phoneRightPatterns.length];
   const phoneRightSpace = phoneRightPattern[index % phoneRightPattern.length] + randomBetween(-2, 2);
   const phoneLeftSpace =
     (isOpeningImage ? firstRowSpaceLeft + phoneShift + phoneSideShift - 8 : phoneSideShift + Math.max(0, phoneShift - 8)) +
     randomBetween(2, 8);
-  const phoneWidth = isOpeningImage ? firstRowPhoneWidth : clamp(phoneWidthBase, 26, 52);
-  const phoneMaxWidth = isOpeningImage ? firstRowPhoneMax : sizeRoll < 0.32 ? 30 : sizeRoll < 0.74 ? 42 : 52;
+  const phoneWidth = isOpeningImage ? firstRowPhoneWidth : clamp(phoneWidthBase, 23, 50);
+  const phoneMaxWidth = isOpeningImage ? firstRowPhoneMax : phoneLayoutMode === 5 || phoneLayoutMode === 10 ? 50 : phoneLayoutMode === 2 || phoneLayoutMode === 3 || phoneLayoutMode === 4 || phoneLayoutMode === 6 || phoneLayoutMode === 7 || phoneLayoutMode === 11 ? 28 : 38;
 
   return {
     type: "image",
@@ -278,9 +296,9 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
       "--tablet-card-width": `${tabletWidth}px`,
       "--phone-card-width": `${phoneWidth}%`,
       "--phone-card-max": `${phoneMaxWidth}%`,
-      "--phone-space-top": `${isOpeningImage ? 5 : randomBetween(6, 18)}px`,
+      "--phone-space-top": `${isOpeningImage ? 5 : phoneLayoutMode === 5 || phoneLayoutMode === 10 ? randomBetween(12, 22) : randomBetween(5, 16)}px`,
       "--phone-space-right": `${Math.max(4, phoneRightSpace)}px`,
-      "--phone-space-bottom": `${randomBetween(8, 24)}px`,
+      "--phone-space-bottom": `${phoneLayoutMode === 5 || phoneLayoutMode === 10 ? randomBetween(14, 26) : randomBetween(7, 22)}px`,
       "--phone-space-left": `${Math.max(2, phoneLeftSpace)}px`,
       "--space-top": `${index === 0 ? 58 : isOpeningImage ? 0 : randomBetween(34, 96)}px`,
       "--space-right": `${isOpeningImage ? Math.max(firstRowDesktopRight, 56) : randomBetween(58, 108)}px`,
