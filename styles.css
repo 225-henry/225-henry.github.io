@@ -186,7 +186,6 @@ img {
   z-index: 2;
   width: 0;
   height: 0;
-  border-bottom: 12px solid transparent;
   border-top: 8px solid transparent;
   border-bottom: 8px solid transparent;
   border-left: 14px solid var(--hover-marker-color, #25abe2);
