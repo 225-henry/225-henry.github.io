@@ -182,13 +182,14 @@ img {
 .project-card a::after {
   position: absolute;
   top: 0;
-  left: -25px;
+  left: -18px;
   z-index: 2;
   width: 0;
   height: 0;
-  border-top: 12px solid transparent;
   border-bottom: 12px solid transparent;
-  border-left: 21px solid var(--hover-marker-color, #25abe2);
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 14px solid var(--hover-marker-color, #25abe2);
   content: "";
   opacity: 0;
   pointer-events: none;
