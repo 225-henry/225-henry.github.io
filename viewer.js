@@ -31,7 +31,7 @@ const imageGroups = [
     title: "Super Transparent Shoe/ Collaborated with Coco Chen/ Tutor: Jessica Spresser + Peter Besley/ Sem 2 2025/ University of Sydney"
   },
   {
-    range: ["048", "052"],
+    ranges: [["048", "052"], ["088", "089"]],
     title: "The Metropolitan Cockatoo Island Museum/ Collaborated with Coco Chen/ Tutor: Catherine Lassen/ Sem 1 2026/ University of Sydney"
   },
   {

@@ -365,4 +365,14 @@
     number: "087",
     src: "https://225-henry.github.io/picx-images-hosting/LIUOSNH_Reserve_View_Poster1.17618xcxv6.jpg",
   },
+  {
+    number: "088",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUUSYDS2_collage.7p49719eoz.jpg",
+    title: "collage"
+  },
+  {
+    number: "089",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUUSYDS2_AXO.3uvho2rgrk.jpg",
+    title: "axo"
+  },
 ];
