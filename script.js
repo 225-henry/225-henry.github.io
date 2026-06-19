@@ -1,7 +1,7 @@
 const projectIndex = document.querySelector(".project-index");
 const images = window.portfolioImages || [];
 const imageMap = new Map(images.map((image) => [image.number, image]));
-const layoutStorageKey = "home-layout-v74";
+const layoutStorageKey = "home-layout-v75";
 const returnImageKey = "home-return-image";
 const returnScrollKey = "home-return-scroll";
 const hoverMarkerColors = ["#25abe2", "#e80415", "#fef900"];
@@ -307,10 +307,10 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
       "--phone-space-bottom": `${isPhoneSingleWidth || isNearPhoneSingle ? randomBetween(3, 8) : randomBetween(5, 12)}px`,
       "--phone-space-left": `${Math.max(2, phoneLeftSpace - 3)}px`,
       "--space-top": `${index === 0 ? 58 : isOpeningImage ? 0 : randomBetween(24, 72)}px`,
-      "--space-right": `${isOpeningImage ? Math.max(firstRowDesktopRight, 44) : randomBetween(34, 78)}px`,
+      "--space-right": `${isOpeningImage ? Math.max(firstRowDesktopRight, 36) : randomBetween(24, 66)}px`,
       "--space-bottom": `${randomBetween(38, 88)}px`,
-      "--space-left": `${index === 0 ? Math.max(firstRowDesktopLeft, 180) : isOpeningImage ? Math.max(firstRowDesktopLeft, 18) : randomBetween(14, 46)}px`,
-      "--offset-x": `${randomBetween(0, 10)}px`,
+      "--space-left": `${index === 0 ? Math.max(firstRowDesktopLeft, 180) : isOpeningImage ? Math.max(firstRowDesktopLeft, 26) : randomBetween(24, 74)}px`,
+      "--offset-x": `${randomBetween(0, 20)}px`,
       "--offset-y": `${randomBetween(0, 16)}px`,
       "--card-align": ["flex-start", "center", "center", "flex-end"][index % 4],
       "--hover-marker-color": hoverMarkerColors[Math.floor(Math.random() * hoverMarkerColors.length)]
