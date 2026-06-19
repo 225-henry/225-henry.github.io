@@ -89,7 +89,7 @@ img {
 }
 
 .nav a {
-  font-weight: 500;
+  font-weight: 550;
 }
 
 .header-count-trigger {
@@ -528,7 +528,7 @@ img {
 
 @media (max-width: 560px) {
   .nav a {
-    font-weight: 500;
+    font-weight: 550;
   }
 
   .header-home-count {

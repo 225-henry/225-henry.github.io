@@ -1,7 +1,7 @@
 const projectIndex = document.querySelector(".project-index");
 const images = window.portfolioImages || [];
 const imageMap = new Map(images.map((image) => [image.number, image]));
-const layoutStorageKey = "home-layout-v75";
+const layoutStorageKey = "home-layout-v76";
 const returnImageKey = "home-return-image";
 const returnScrollKey = "home-return-scroll";
 const hoverMarkerColors = ["#25abe2", "#e80415", "#fef900"];
@@ -302,13 +302,13 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
       "--tablet-card-width": `${tabletWidth}px`,
       "--phone-card-width": `${phoneWidth}%`,
       "--phone-card-max": `${phoneMaxWidth}%`,
-      "--phone-space-top": `${isOpeningImage ? 4 : isPhoneSingleWidth || isNearPhoneSingle ? randomBetween(2, 6) : randomBetween(4, 10)}px`,
+      "--phone-space-top": `${isOpeningImage ? 4 : isPhoneSingleWidth || isNearPhoneSingle ? randomBetween(5, 10) : randomBetween(8, 16)}px`,
       "--phone-space-right": `${Math.max(2, phoneRightSpace - 2)}px`,
-      "--phone-space-bottom": `${isPhoneSingleWidth || isNearPhoneSingle ? randomBetween(3, 8) : randomBetween(5, 12)}px`,
+      "--phone-space-bottom": `${isPhoneSingleWidth || isNearPhoneSingle ? randomBetween(8, 14) : randomBetween(10, 18)}px`,
       "--phone-space-left": `${Math.max(2, phoneLeftSpace - 3)}px`,
-      "--space-top": `${index === 0 ? 58 : isOpeningImage ? 0 : randomBetween(24, 72)}px`,
+      "--space-top": `${index === 0 ? 58 : isOpeningImage ? 0 : randomBetween(42, 104)}px`,
       "--space-right": `${isOpeningImage ? Math.max(firstRowDesktopRight, 36) : randomBetween(24, 66)}px`,
-      "--space-bottom": `${randomBetween(38, 88)}px`,
+      "--space-bottom": `${randomBetween(68, 132)}px`,
       "--space-left": `${index === 0 ? Math.max(firstRowDesktopLeft, 180) : isOpeningImage ? Math.max(firstRowDesktopLeft, 26) : randomBetween(24, 74)}px`,
       "--offset-x": `${randomBetween(0, 20)}px`,
       "--offset-y": `${randomBetween(0, 16)}px`,
@@ -324,7 +324,7 @@ function createVoidItem() {
     styles: {
       "--void-width": `${randomBetween(300, 520)}px`,
       "--void-height": `${randomBetween(180, 340)}px`,
-      "--void-margin": `${randomBetween(30, 108)}px ${randomBetween(56, 140)}px`
+      "--void-margin": `${randomBetween(58, 150)}px ${randomBetween(56, 140)}px`
     }
   };
 }
