@@ -556,7 +556,7 @@ img {
   .project-index {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px 6px;
+    gap: 10px 7px;
     justify-content: space-between;
     margin-top: 10px;
     padding: 0 6px 12vh;
@@ -565,10 +565,10 @@ img {
 
   .layout-void {
     display: block;
-    flex: 0 0 clamp(32px, 11vw, 50px);
-    width: clamp(32px, 11vw, 50px);
-    height: clamp(6px, 3vw, 18px);
-    margin: clamp(1px, 0.5vw, 3px) clamp(2px, 1vw, 6px);
+    flex: 0 0 clamp(26px, var(--phone-void-width, 12vw), 118px);
+    width: clamp(26px, var(--phone-void-width, 12vw), 118px);
+    height: var(--phone-void-height, clamp(8px, 3vw, 22px));
+    margin: var(--phone-void-margin, clamp(2px, 1vw, 8px) clamp(3px, 1.5vw, 10px));
   }
 
   .project-card {

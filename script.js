@@ -1,7 +1,7 @@
 const projectIndex = document.querySelector(".project-index");
 const images = window.portfolioImages || [];
 const imageMap = new Map(images.map((image) => [image.number, image]));
-const layoutStorageKey = "home-layout-v76";
+const layoutStorageKey = "home-layout-v84";
 const returnImageKey = "home-return-image";
 const returnScrollKey = "home-return-scroll";
 const hoverMarkerColors = ["#25abe2", "#e80415", "#fef900"];
@@ -33,7 +33,7 @@ const homeImageGroups = [
   },
   {
     range: ["056", "065"],
-    max: 3,
+    max: 5,
     title: "House with a Very Very Thick Wall/ Tutor: Andrea Illeris/ Tri 1 2023/ University of NSW"
   },
   {
@@ -247,8 +247,8 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
       : firstRowStyle === 3
         ? [27, 32, 29, 31]
         : [33, 29, 35, 30];
-  const firstRowPhoneWidth = openingPhoneWidths[index % openingPhoneWidths.length] + randomBetween(-2, 2);
-  const firstRowPhoneMax = isOpeningImage ? firstRowPhoneWidth + 2 : firstRowStyle === 1 ? 52 : firstRowStyle === 3 ? 29 : 36;
+  const firstRowPhoneWidth = openingPhoneWidths[index % openingPhoneWidths.length] + randomBetween(1, 4);
+  const firstRowPhoneMax = isOpeningImage ? firstRowPhoneWidth + 4 : firstRowStyle === 1 ? 54 : firstRowStyle === 3 ? 34 : 40;
   const openingPhoneShift = [34, 48, 24, 42][index % 4];
   const phoneShift = isOpeningImage ? openingPhoneShift : index % 5 === 1 || index % 5 === 4 ? randomBetween(10, 24) : randomBetween(2, 10);
   const firstRowSpaceRight =
@@ -289,9 +289,9 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
   const previousPhoneWidth = phoneWidthPattern[(phoneLayoutMode + phoneWidthPattern.length - 1) % phoneWidthPattern.length];
   const nextPhoneWidth = phoneWidthPattern[(phoneLayoutMode + 1) % phoneWidthPattern.length];
   const isNearPhoneSingle = previousPhoneWidth >= 38 || nextPhoneWidth >= 38;
-  const phoneWidth = isOpeningImage ? firstRowPhoneWidth : clamp(phoneWidthBase, 25, 39);
-  const isPhoneSingleWidth = phoneWidth >= 38;
-  const phoneMaxWidth = isOpeningImage ? Math.min(firstRowPhoneMax, 35) : isPhoneSingleWidth ? 39 : isNearPhoneSingle || phoneWidth <= 29 ? 29 : 35;
+  const phoneWidth = isOpeningImage ? firstRowPhoneWidth : clamp(phoneWidthBase + 4, 31, 44);
+  const isPhoneSingleWidth = phoneWidth >= 42;
+  const phoneMaxWidth = isOpeningImage ? Math.min(firstRowPhoneMax, 42) : isPhoneSingleWidth ? 44 : isNearPhoneSingle || phoneWidth <= 33 ? 34 : 40;
 
   return {
     type: "image",
@@ -302,14 +302,14 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
       "--tablet-card-width": `${tabletWidth}px`,
       "--phone-card-width": `${phoneWidth}%`,
       "--phone-card-max": `${phoneMaxWidth}%`,
-      "--phone-space-top": `${isOpeningImage ? 4 : isPhoneSingleWidth || isNearPhoneSingle ? randomBetween(5, 10) : randomBetween(8, 16)}px`,
-      "--phone-space-right": `${Math.max(2, phoneRightSpace - 2)}px`,
-      "--phone-space-bottom": `${isPhoneSingleWidth || isNearPhoneSingle ? randomBetween(8, 14) : randomBetween(10, 18)}px`,
-      "--phone-space-left": `${Math.max(2, phoneLeftSpace - 3)}px`,
-      "--space-top": `${index === 0 ? 58 : isOpeningImage ? 0 : randomBetween(42, 104)}px`,
-      "--space-right": `${isOpeningImage ? Math.max(firstRowDesktopRight, 36) : randomBetween(24, 66)}px`,
-      "--space-bottom": `${randomBetween(68, 132)}px`,
-      "--space-left": `${index === 0 ? Math.max(firstRowDesktopLeft, 180) : isOpeningImage ? Math.max(firstRowDesktopLeft, 26) : randomBetween(24, 74)}px`,
+      "--phone-space-top": `${isOpeningImage ? 4 : isPhoneSingleWidth || isNearPhoneSingle ? randomBetween(4, 10) : randomBetween(6, 14)}px`,
+      "--phone-space-right": `${Math.max(2, phoneRightSpace - 4)}px`,
+      "--phone-space-bottom": `${isPhoneSingleWidth || isNearPhoneSingle ? randomBetween(5, 12) : randomBetween(8, 16)}px`,
+      "--phone-space-left": `${Math.max(2, phoneLeftSpace - 7)}px`,
+      "--space-top": `${index === 0 ? 58 : isOpeningImage ? 0 : randomBetween(34, 78)}px`,
+      "--space-right": `${isOpeningImage ? Math.max(firstRowDesktopRight, 40) : randomBetween(34, 86)}px`,
+      "--space-bottom": `${randomBetween(54, 108)}px`,
+      "--space-left": `${index === 0 ? Math.max(firstRowDesktopLeft, 180) : isOpeningImage ? Math.max(firstRowDesktopLeft, 28) : randomBetween(28, 88)}px`,
       "--offset-x": `${randomBetween(0, 20)}px`,
       "--offset-y": `${randomBetween(0, 16)}px`,
       "--card-align": ["flex-start", "center", "center", "flex-end"][index % 4],
@@ -322,9 +322,40 @@ function createVoidItem() {
   return {
     type: "void",
     styles: {
-      "--void-width": `${randomBetween(300, 520)}px`,
-      "--void-height": `${randomBetween(180, 340)}px`,
-      "--void-margin": `${randomBetween(58, 150)}px ${randomBetween(56, 140)}px`
+      "--void-width": `${randomBetween(240, 430)}px`,
+      "--void-height": `${randomBetween(80, 170)}px`,
+      "--void-margin": `${randomBetween(12, 46)}px ${randomBetween(42, 118)}px`,
+      "--phone-void-width": `${randomBetween(10, 24)}vw`,
+      "--phone-void-height": `${randomBetween(8, 24)}px`,
+      "--phone-void-margin": `${randomBetween(3, 12)}px ${randomBetween(4, 14)}px`
+    }
+  };
+}
+
+function createSmallVoidItem() {
+  return {
+    type: "void",
+    styles: {
+      "--void-width": `${randomBetween(150, 300)}px`,
+      "--void-height": `${randomBetween(60, 130)}px`,
+      "--void-margin": `${randomBetween(8, 30)}px ${randomBetween(24, 82)}px`,
+      "--phone-void-width": `${randomBetween(8, 20)}vw`,
+      "--phone-void-height": `${randomBetween(6, 18)}px`,
+      "--phone-void-margin": `${randomBetween(2, 9)}px ${randomBetween(3, 12)}px`
+    }
+  };
+}
+
+function createWideVoidItem() {
+  return {
+    type: "void",
+    styles: {
+      "--void-width": `${randomBetween(340, 620)}px`,
+      "--void-height": `${randomBetween(70, 160)}px`,
+      "--void-margin": `${randomBetween(10, 40)}px ${randomBetween(64, 160)}px`,
+      "--phone-void-width": `${randomBetween(16, 32)}vw`,
+      "--phone-void-height": `${randomBetween(8, 22)}px`,
+      "--phone-void-margin": `${randomBetween(3, 10)}px ${randomBetween(6, 16)}px`
     }
   };
 }
@@ -333,9 +364,12 @@ function createOpeningVoidItem() {
   return {
     type: "void",
     styles: {
-      "--void-width": `${randomBetween(240, 400)}px`,
-      "--void-height": `${randomBetween(150, 270)}px`,
-      "--void-margin": `${randomBetween(24, 84)}px ${randomBetween(46, 116)}px`
+      "--void-width": `${randomBetween(220, 380)}px`,
+      "--void-height": `${randomBetween(70, 150)}px`,
+      "--void-margin": `${randomBetween(10, 42)}px ${randomBetween(44, 120)}px`,
+      "--phone-void-width": `${randomBetween(10, 24)}vw`,
+      "--phone-void-height": `${randomBetween(8, 20)}px`,
+      "--phone-void-margin": `${randomBetween(3, 10)}px ${randomBetween(4, 14)}px`
     }
   };
 }
@@ -345,6 +379,7 @@ function createRandomLayout() {
   const firstRowStyle = randomBetween(1, 3);
   const desktopFirstRowStyle = randomBetween(1, 3);
   const layout = [];
+  const voidMakers = [createSmallVoidItem, createVoidItem, createWideVoidItem];
 
   shuffledImages.forEach((image, index) => {
     layout.push(createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle));
@@ -353,8 +388,23 @@ function createRandomLayout() {
       layout.push(createOpeningVoidItem());
     }
 
-    if (index > 0 && (index % 3 === 0 || Math.random() > 0.88)) {
-      layout.push(createVoidItem());
+    if (index > 0) {
+      const clusterChance = index < 5 ? 0.54 : 0.9;
+
+      if (Math.random() < clusterChance) {
+        const roll = Math.random();
+        const blockCount = roll < 0.2 ? 3 : roll < 0.68 ? 2 : 1;
+
+        for (let blockIndex = 0; blockIndex < blockCount; blockIndex += 1) {
+          const maker = voidMakers[Math.floor(Math.random() * voidMakers.length)];
+          layout.push(maker());
+        }
+      }
+
+      if (Math.random() < 0.28) {
+        const maker = voidMakers[Math.floor(Math.random() * voidMakers.length)];
+        layout.splice(randomBetween(0, layout.length), 0, maker());
+      }
     }
   });
 

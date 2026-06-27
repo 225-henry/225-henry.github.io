@@ -66,7 +66,7 @@
   },
    {
     number: "016",
-    src: "https://225-henry.github.io/picx-images-hosting/LIUUSYDID_precedent-model-2.jpg",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUprecedent-model-2full.8s3z94jan0.jpg",
   },
   {
     number: "017",
@@ -261,11 +261,11 @@
   },
   {
     number: "062",
-    src: "https://225-henry.github.io/picx-images-hosting/LIUUNSWS5_Untitled-2.2kskbnwzix.jpg",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUUNSWS5_Model-2.6po6l2q651.jpg",
   },
   {
     number: "063",
-    src: "https://225-henry.github.io/picx-images-hosting/LIUUNSWS5_Untitled-1.2rvs73j4yg.jpg",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUUNSWS5_Untitled-1.1.5fl9ergifr.jpg",
   },
   {
     number: "064",
