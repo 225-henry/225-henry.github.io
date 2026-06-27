@@ -1,7 +1,7 @@
 const projectIndex = document.querySelector(".project-index");
 const images = window.portfolioImages || [];
 const imageMap = new Map(images.map((image) => [image.number, image]));
-const layoutStorageKey = "home-layout-v84";
+const layoutStorageKey = "home-layout-v100";
 const returnImageKey = "home-return-image";
 const returnScrollKey = "home-return-scroll";
 const hoverMarkerColors = ["#25abe2", "#e80415", "#fef900"];
@@ -207,10 +207,10 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
           ? randomBetween(210, 285)
           : randomBetween(235, 280);
   const phonePatterns = [
-    [39, 25, 26, 32, 33, 28, 31, 38, 25, 27, 33, 29],
-    [31, 33, 25, 39, 26, 28, 34, 31, 27, 38, 25, 29],
-    [26, 29, 39, 25, 31, 33, 26, 29, 34, 32, 25, 30],
-    [34, 25, 39, 26, 29, 32, 31, 38, 25, 27, 33, 30]
+    [44, 41, 40, 46, 56, 42, 41, 45, 39, 58, 41, 44, 40, 43, 54, 46, 39],
+    [41, 45, 43, 39, 57, 42, 44, 40, 43, 55, 46, 39, 43, 41, 58, 42, 41],
+    [46, 39, 42, 43, 56, 40, 44, 42, 41, 58, 39, 45, 41, 43, 54, 40, 46],
+    [43, 41, 45, 39, 58, 43, 42, 40, 46, 56, 41, 44, 39, 43, 57, 45, 40]
   ];
   const phonePattern = phonePatterns[firstRowStyle % phonePatterns.length];
   const phoneLayoutMode = index % phonePattern.length;
@@ -218,7 +218,7 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
   const patternedPhoneWidth = phoneWidthPattern[phoneLayoutMode] + randomBetween(-2, 2);
   const phoneWidthBase =
     isGif
-      ? randomBetween(36, 42)
+      ? randomBetween(34, 40)
       : patternedPhoneWidth;
   const firstRowDesktopWidth =
     desktopFirstRowStyle === 1
@@ -243,14 +243,14 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
   const tabletWidth = clamp(Math.round(mobileWidth * 0.9), 170, 260);
   const openingPhoneWidths =
     firstRowStyle === 1
-      ? [35, 30, 33, 28]
+      ? [44, 41, 43, 40]
       : firstRowStyle === 3
-        ? [27, 32, 29, 31]
-        : [33, 29, 35, 30];
-  const firstRowPhoneWidth = openingPhoneWidths[index % openingPhoneWidths.length] + randomBetween(1, 4);
-  const firstRowPhoneMax = isOpeningImage ? firstRowPhoneWidth + 4 : firstRowStyle === 1 ? 54 : firstRowStyle === 3 ? 34 : 40;
-  const openingPhoneShift = [34, 48, 24, 42][index % 4];
-  const phoneShift = isOpeningImage ? openingPhoneShift : index % 5 === 1 || index % 5 === 4 ? randomBetween(10, 24) : randomBetween(2, 10);
+        ? [40, 44, 41, 43]
+        : [43, 40, 45, 41];
+  const firstRowPhoneWidth = openingPhoneWidths[index % openingPhoneWidths.length] + randomBetween(0, 2);
+  const firstRowPhoneMax = isOpeningImage ? firstRowPhoneWidth + 2 : firstRowStyle === 1 ? 46 : firstRowStyle === 3 ? 40 : 44;
+  const openingPhoneShift = [8, 14, 5, 12][index % 4];
+  const phoneShift = isOpeningImage ? openingPhoneShift : index % 5 === 1 || index % 5 === 4 ? randomBetween(3, 9) : randomBetween(0, 5);
   const firstRowSpaceRight =
     firstRowStyle === 3
       ? randomBetween(4, 16)
@@ -264,34 +264,67 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
         ? randomBetween(0, 18)
         : randomBetween(0, 20);
   const phoneSideShiftPatterns = [
-    [2, 16, 5, 11, 20, 4, 12, 7, 15, 3],
-    [18, 4, 12, 6, 22, 8, 3, 16, 5, 14],
-    [6, 20, 3, 15, 8, 18, 4, 12, 22, 5],
-    [12, 5, 24, 4, 16, 7, 20, 3, 10, 18]
+    [1, 5, 2, 4, 7, 1, 4, 2, 5, 1],
+    [6, 1, 4, 2, 7, 3, 1, 5, 2, 4],
+    [2, 7, 1, 5, 3, 6, 1, 4, 7, 2],
+    [4, 2, 8, 1, 5, 2, 6, 1, 3, 5]
   ];
   const phoneSideShiftPattern = isOpeningImage
-    ? [8, 12, 5, 14]
+    ? [2, 4, 1, 5]
     : phoneSideShiftPatterns[firstRowStyle % phoneSideShiftPatterns.length];
   const phoneSideShift = phoneSideShiftPattern[index % phoneSideShiftPattern.length];
   const phoneRightPatterns = [
-    [8, 14, 5, 10, 16, 4, 12, 6, 15, 5],
-    [16, 5, 11, 7, 18, 4, 9, 13, 6, 15],
-    [6, 18, 4, 12, 8, 16, 5, 10, 14, 7],
-    [13, 6, 17, 4, 10, 15, 5, 12, 8, 16]
+    [4, 7, 2, 5, 8, 1, 6, 3, 7, 2],
+    [8, 2, 5, 3, 9, 1, 4, 6, 3, 7],
+    [3, 9, 1, 6, 4, 8, 2, 5, 7, 3],
+    [6, 3, 8, 1, 5, 7, 2, 6, 4, 8]
   ];
   const phoneRightPattern = isOpeningImage
-    ? [10, 5, 12, 6]
+    ? [4, 2, 5, 3]
     : phoneRightPatterns[firstRowStyle % phoneRightPatterns.length];
   const phoneRightSpace = phoneRightPattern[index % phoneRightPattern.length] + randomBetween(-2, 2);
   const phoneLeftSpace =
-    (isOpeningImage ? firstRowSpaceLeft + phoneShift + phoneSideShift - 8 : phoneSideShift + Math.max(0, phoneShift - 8)) +
-    randomBetween(2, 8);
+    (isOpeningImage ? Math.round(firstRowSpaceLeft * 0.35) + phoneShift + phoneSideShift : phoneSideShift + phoneShift) +
+    randomBetween(0, 3);
   const previousPhoneWidth = phoneWidthPattern[(phoneLayoutMode + phoneWidthPattern.length - 1) % phoneWidthPattern.length];
   const nextPhoneWidth = phoneWidthPattern[(phoneLayoutMode + 1) % phoneWidthPattern.length];
-  const isNearPhoneSingle = previousPhoneWidth >= 38 || nextPhoneWidth >= 38;
-  const phoneWidth = isOpeningImage ? firstRowPhoneWidth : clamp(phoneWidthBase + 4, 31, 44);
-  const isPhoneSingleWidth = phoneWidth >= 42;
-  const phoneMaxWidth = isOpeningImage ? Math.min(firstRowPhoneMax, 42) : isPhoneSingleWidth ? 44 : isNearPhoneSingle || phoneWidth <= 33 ? 34 : 40;
+  const isNearPhoneSingle = previousPhoneWidth >= 48 || nextPhoneWidth >= 48;
+  const phoneWidth = isOpeningImage ? firstRowPhoneWidth : clamp(phoneWidthBase + randomBetween(-1, 1), 39, 59);
+  const isPhoneSingleWidth = phoneWidth >= 48;
+  const phoneMaxWidth = isOpeningImage ? Math.min(firstRowPhoneMax + 4, 48) : isPhoneSingleWidth ? 59 : isNearPhoneSingle || phoneWidth <= 40 ? 44 : 48;
+  const phoneOffsetPatterns = [
+    [-4, 8, 1, 10, -3, 5, 12, 2, 8, -5, 6, 10],
+    [9, -4, 11, 3, 7, -1, 10, -3, 5, 12, 2, 8],
+    [1, 10, -4, 6, 12, 3, 8, -2, 11, 4, -1, 9],
+    [11, 2, 7, -5, 9, 1, 12, 5, -2, 10, 3, 6]
+  ];
+  const phoneVerticalOffsetPatterns = [
+    [-14, 24, 7, 34, -8, 18, 42, 4, 28, -12, 15, 36],
+    [30, -10, 22, 5, 38, -6, 16, 44, 2, 25, -14, 33],
+    [6, 36, -12, 20, 45, 3, 27, -8, 34, 12, -15, 24],
+    [40, 8, -11, 30, 4, 22, -7, 43, 14, 34, -13, 18]
+  ];
+  const phoneOffsetPattern = phoneOffsetPatterns[firstRowStyle % phoneOffsetPatterns.length];
+  const phoneVerticalOffsetPattern = phoneVerticalOffsetPatterns[firstRowStyle % phoneVerticalOffsetPatterns.length];
+  const phoneOffsetX = isOpeningImage
+    ? [0, 7, -3, 10][index % 4] + randomBetween(-2, 2)
+    : phoneOffsetPattern[index % phoneOffsetPattern.length] + randomBetween(-2, 2);
+  const phoneOffsetY = isOpeningImage
+    ? [0, 18, 6, 28][index % 4] + randomBetween(-3, 4)
+    : phoneVerticalOffsetPattern[index % phoneVerticalOffsetPattern.length] + randomBetween(-5, 5);
+  const phoneAlign = ["flex-start", "center", "flex-end", "center", "flex-start"][index % 5];
+  const phoneColumnWidth = isPhoneSingleWidth
+    ? randomBetween(78, 86)
+    : clamp(Math.round(phoneWidth * 1.62) + randomBetween(-4, 6), 74, 86);
+  const maxPhoneColumnShift = Math.max(0, 96 - phoneColumnWidth);
+  const phoneColumnShiftOptions = [
+    0,
+    Math.round(maxPhoneColumnShift * 0.45),
+    Math.round(maxPhoneColumnShift * 0.9),
+    randomBetween(0, maxPhoneColumnShift),
+    Math.round(maxPhoneColumnShift * 0.2)
+  ];
+  const phoneColumnShift = `${phoneColumnShiftOptions[index % phoneColumnShiftOptions.length]}%`;
 
   return {
     type: "image",
@@ -302,10 +335,15 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
       "--tablet-card-width": `${tabletWidth}px`,
       "--phone-card-width": `${phoneWidth}%`,
       "--phone-card-max": `${phoneMaxWidth}%`,
-      "--phone-space-top": `${isOpeningImage ? 4 : isPhoneSingleWidth || isNearPhoneSingle ? randomBetween(4, 10) : randomBetween(6, 14)}px`,
-      "--phone-space-right": `${Math.max(2, phoneRightSpace - 4)}px`,
-      "--phone-space-bottom": `${isPhoneSingleWidth || isNearPhoneSingle ? randomBetween(5, 12) : randomBetween(8, 16)}px`,
-      "--phone-space-left": `${Math.max(2, phoneLeftSpace - 7)}px`,
+      "--phone-space-top": `${isOpeningImage ? 18 : isPhoneSingleWidth || isNearPhoneSingle ? randomBetween(34, 56) : randomBetween(30, 50)}px`,
+      "--phone-space-right": `${Math.max(2, phoneRightSpace - 2)}px`,
+      "--phone-space-bottom": `${isPhoneSingleWidth || isNearPhoneSingle ? randomBetween(48, 78) : randomBetween(42, 68)}px`,
+      "--phone-space-left": `${Math.max(2, phoneLeftSpace - 3)}px`,
+      "--phone-offset-x": `${phoneOffsetX}px`,
+      "--phone-offset-y": `${phoneOffsetY}px`,
+      "--phone-card-align": phoneAlign,
+      "--phone-column-width": `${phoneColumnWidth}%`,
+      "--phone-column-shift": phoneColumnShift,
       "--space-top": `${index === 0 ? 58 : isOpeningImage ? 0 : randomBetween(34, 78)}px`,
       "--space-right": `${isOpeningImage ? Math.max(firstRowDesktopRight, 40) : randomBetween(34, 86)}px`,
       "--space-bottom": `${randomBetween(54, 108)}px`,
@@ -325,9 +363,9 @@ function createVoidItem() {
       "--void-width": `${randomBetween(240, 430)}px`,
       "--void-height": `${randomBetween(80, 170)}px`,
       "--void-margin": `${randomBetween(12, 46)}px ${randomBetween(42, 118)}px`,
-      "--phone-void-width": `${randomBetween(10, 24)}vw`,
-      "--phone-void-height": `${randomBetween(8, 24)}px`,
-      "--phone-void-margin": `${randomBetween(3, 12)}px ${randomBetween(4, 14)}px`
+      "--phone-void-width": `${randomBetween(28, 54)}%`,
+      "--phone-void-height": `${randomBetween(20, 54)}px`,
+      "--phone-void-margin": `${randomBetween(6, 18)}px 0 ${randomBetween(8, 22)}px ${randomBetween(0, 8)}%`
     }
   };
 }
@@ -339,9 +377,9 @@ function createSmallVoidItem() {
       "--void-width": `${randomBetween(150, 300)}px`,
       "--void-height": `${randomBetween(60, 130)}px`,
       "--void-margin": `${randomBetween(8, 30)}px ${randomBetween(24, 82)}px`,
-      "--phone-void-width": `${randomBetween(8, 20)}vw`,
-      "--phone-void-height": `${randomBetween(6, 18)}px`,
-      "--phone-void-margin": `${randomBetween(2, 9)}px ${randomBetween(3, 12)}px`
+      "--phone-void-width": `${randomBetween(20, 44)}%`,
+      "--phone-void-height": `${randomBetween(14, 40)}px`,
+      "--phone-void-margin": `${randomBetween(4, 14)}px 0 ${randomBetween(6, 18)}px ${randomBetween(0, 12)}%`
     }
   };
 }
@@ -353,9 +391,9 @@ function createWideVoidItem() {
       "--void-width": `${randomBetween(340, 620)}px`,
       "--void-height": `${randomBetween(70, 160)}px`,
       "--void-margin": `${randomBetween(10, 40)}px ${randomBetween(64, 160)}px`,
-      "--phone-void-width": `${randomBetween(16, 32)}vw`,
-      "--phone-void-height": `${randomBetween(8, 22)}px`,
-      "--phone-void-margin": `${randomBetween(3, 10)}px ${randomBetween(6, 16)}px`
+      "--phone-void-width": `${randomBetween(36, 60)}%`,
+      "--phone-void-height": `${randomBetween(28, 68)}px`,
+      "--phone-void-margin": `${randomBetween(8, 22)}px 0 ${randomBetween(10, 26)}px ${randomBetween(0, 6)}%`
     }
   };
 }
@@ -367,9 +405,9 @@ function createOpeningVoidItem() {
       "--void-width": `${randomBetween(220, 380)}px`,
       "--void-height": `${randomBetween(70, 150)}px`,
       "--void-margin": `${randomBetween(10, 42)}px ${randomBetween(44, 120)}px`,
-      "--phone-void-width": `${randomBetween(10, 24)}vw`,
-      "--phone-void-height": `${randomBetween(8, 20)}px`,
-      "--phone-void-margin": `${randomBetween(3, 10)}px ${randomBetween(4, 14)}px`
+      "--phone-void-width": `${randomBetween(24, 48)}%`,
+      "--phone-void-height": `${randomBetween(18, 48)}px`,
+      "--phone-void-margin": `${randomBetween(5, 16)}px 0 ${randomBetween(7, 20)}px ${randomBetween(0, 10)}%`
     }
   };
 }
