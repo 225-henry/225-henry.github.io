@@ -66,7 +66,7 @@
   },
    {
     number: "016",
-    src: "https://225-henry.github.io/picx-images-hosting/LIUprecedent-model-2full.8s3z94jan0.jpg",
+    src: "https://225-henry.github.io/picx-images-hosting/LIUprecedent-model-2.1.3gp2ohnj0q.jpg",
   },
   {
     number: "017",
