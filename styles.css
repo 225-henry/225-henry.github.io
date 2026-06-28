@@ -154,6 +154,8 @@ img {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  column-gap: clamp(80px, 8vw, 180px);
+  row-gap: clamp(42px, 5vw, 120px);
   margin-top: 10px;
   padding: 0 10px 12vh;
   align-items: flex-start;
@@ -161,6 +163,7 @@ img {
 
 .layout-void {
   flex: 0 0 var(--void-width, 360px);
+  min-width: min(var(--void-width, 360px), 72vw);
   height: var(--void-height, 220px);
   margin: var(--void-margin, 0);
   pointer-events: none;
@@ -554,30 +557,34 @@ img {
   }
 
   .project-index {
-    display: block;
-    column-count: 2;
-    column-gap: 22px;
-    margin-top: 10px;
-    padding: 0 18px 12vh;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px 22px;
+    margin-top: 0;
+    padding: 64px 18px 12vh;
     overflow-x: clip;
   }
 
+  .is-phone-home-preparing .project-index {
+    visibility: hidden;
+  }
+
   .layout-void {
-    display: inline-block;
-    break-inside: avoid;
-    width: min(var(--phone-void-width, 34%), 64%);
+    display: block;
+    justify-self: center;
+    width: min(var(--phone-void-width, 12%), 24%);
     max-width: 100%;
-    height: var(--phone-void-height, 32px);
-    margin: var(--phone-void-margin, 8px 0 14px 0);
+    height: var(--phone-void-height, 6px);
+    margin: var(--phone-void-margin, 1px 0 2px 0);
   }
 
   .project-card {
-    display: inline-block;
-    break-inside: avoid;
+    display: block;
+    justify-self: var(--phone-card-align, start);
     box-sizing: border-box;
     width: min(var(--phone-column-width, 84%), 90%);
     max-width: 100%;
-    margin: calc(var(--phone-space-top, 5px) + var(--header-drop, 0px)) 0 var(--phone-space-bottom, 5px) var(--phone-column-shift, 0);
+    margin: var(--phone-space-top, 5px) 0 var(--phone-space-bottom, 5px) var(--phone-column-shift, 0);
     transform: translate(var(--phone-offset-x, 0), var(--phone-offset-y, 0));
   }
 

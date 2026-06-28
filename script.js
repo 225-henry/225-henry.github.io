@@ -1,7 +1,7 @@
-const projectIndex = document.querySelector(".project-index");
+﻿const projectIndex = document.querySelector(".project-index");
 const images = window.portfolioImages || [];
 const imageMap = new Map(images.map((image) => [image.number, image]));
-const layoutStorageKey = "home-layout-v102";
+const layoutStorageKey = "home-layout-v120";
 const returnImageKey = "home-return-image";
 const returnScrollKey = "home-return-scroll";
 const hoverMarkerColors = ["#25abe2", "#e80415", "#fef900"];
@@ -307,20 +307,45 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
     [11, 2, 7, -5, 9, 1, 12, 5, -2, 10, 3, 6]
   ];
   const phoneVerticalOffsetPatterns = [
-    [-14, 24, 7, 34, -8, 18, 42, 4, 28, -12, 15, 36],
-    [30, -10, 22, 5, 38, -6, 16, 44, 2, 25, -14, 33],
-    [6, 36, -12, 20, 45, 3, 27, -8, 34, 12, -15, 24],
-    [40, 8, -11, 30, 4, 22, -7, 43, 14, 34, -13, 18]
+    [-32, 46, 12, 68, -18, 34, 76, 8, 54, -26, 28, 62],
+    [58, -24, 42, 10, 72, -14, 30, 80, 5, 48, -30, 64],
+    [14, 70, -28, 38, 84, 6, 52, -18, 66, 24, -34, 44],
+    [78, 18, -24, 56, 8, 40, -16, 82, 26, 68, -30, 36]
+  ];
+  const phoneTopStaggerPatterns = [
+    [0, 38, 8, 54, 16, 44, 4, 62],
+    [42, 6, 50, 14, 34, 58, 10, 46],
+    [12, 56, 4, 40, 64, 18, 48, 8],
+    [52, 16, 36, 60, 6, 44, 20, 54]
+  ];
+  const phoneBottomStaggerPatterns = [
+    [18, 4, 24, 8, 14, 28, 6, 20],
+    [6, 22, 10, 26, 4, 18, 30, 12],
+    [24, 8, 16, 32, 10, 20, 6, 28],
+    [12, 30, 6, 22, 16, 4, 26, 10]
   ];
   const phoneOffsetPattern = phoneOffsetPatterns[firstRowStyle % phoneOffsetPatterns.length];
   const phoneVerticalOffsetPattern = phoneVerticalOffsetPatterns[firstRowStyle % phoneVerticalOffsetPatterns.length];
+  const phoneTopStaggerPattern = phoneTopStaggerPatterns[firstRowStyle % phoneTopStaggerPatterns.length];
+  const phoneBottomStaggerPattern = phoneBottomStaggerPatterns[firstRowStyle % phoneBottomStaggerPatterns.length];
+  const isPhoneRightColumn = index % 2 === 1;
+  const isFirstPhoneRightColumn = index === 1;
   const phoneOffsetX = isOpeningImage
     ? [0, 7, -3, 10][index % 4] + randomBetween(-2, 2)
     : phoneOffsetPattern[index % phoneOffsetPattern.length] + randomBetween(-2, 2);
-  const phoneOffsetY = isOpeningImage
-    ? [0, 18, 6, 28][index % 4] + randomBetween(-3, 4)
-    : phoneVerticalOffsetPattern[index % phoneVerticalOffsetPattern.length] + randomBetween(-5, 5);
-  const phoneAlign = ["flex-start", "center", "flex-end", "center", "flex-start"][index % 5];
+  const phoneOffsetY = isFirstPhoneRightColumn
+    ? 0
+    : isOpeningImage
+    ? [0, 34, 10, 52][index % 4] + randomBetween(-4, 5)
+    : phoneVerticalOffsetPattern[index % phoneVerticalOffsetPattern.length] + randomBetween(-8, 8);
+  const phoneRightColumnLift = isPhoneRightColumn ? (isFirstPhoneRightColumn ? 0 : randomBetween(24, 46)) : 0;
+  const phoneTopStagger = isOpeningImage
+    ? [0, 18, 4, 28][index % 4]
+    : phoneTopStaggerPattern[index % phoneTopStaggerPattern.length];
+  const phoneBottomStagger = isOpeningImage
+    ? [10, 2, 16, 4][index % 4]
+    : phoneBottomStaggerPattern[index % phoneBottomStaggerPattern.length];
+  const phoneAlign = isFirstPhoneRightColumn ? "end" : ["start", "center", "end", "center", "start"][index % 5];
   const phoneColumnWidth = isPhoneSingleWidth
     ? randomBetween(78, 86)
     : clamp(Math.round(phoneWidth * 1.62) + randomBetween(-4, 6), 74, 86);
@@ -332,7 +357,18 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
     randomBetween(0, maxPhoneColumnShift),
     Math.round(maxPhoneColumnShift * 0.2)
   ];
-  const phoneColumnShift = `${phoneColumnShiftOptions[index % phoneColumnShiftOptions.length]}%`;
+  const phoneColumnShift = isFirstPhoneRightColumn
+    ? "0%"
+    : `${phoneColumnShiftOptions[index % phoneColumnShiftOptions.length]}%`;
+  const openingPhoneTopBase = index === 1 ? 0 : 18;
+  const phoneTopSpaceBase = isOpeningImage
+    ? openingPhoneTopBase
+    : isPhoneSingleWidth || isNearPhoneSingle
+      ? randomBetween(34, 56)
+      : randomBetween(30, 50);
+  const phoneTopSpace = isFirstPhoneRightColumn
+    ? 0
+    : Math.max(0, phoneTopSpaceBase + phoneTopStagger - phoneRightColumnLift);
 
   return {
     type: "image",
@@ -343,12 +379,12 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
       "--tablet-card-width": `${tabletWidth}px`,
       "--phone-card-width": `${phoneWidth}%`,
       "--phone-card-max": `${phoneMaxWidth}%`,
-      "--phone-space-top": `${isOpeningImage ? 18 : isPhoneSingleWidth || isNearPhoneSingle ? randomBetween(34, 56) : randomBetween(30, 50)}px`,
+      "--phone-space-top": `${phoneTopSpace}px`,
       "--phone-space-right": `${Math.max(2, phoneRightSpace - 2)}px`,
-      "--phone-space-bottom": `${isPhoneSingleWidth || isNearPhoneSingle ? randomBetween(48, 78) : randomBetween(42, 68)}px`,
+      "--phone-space-bottom": `${(isPhoneSingleWidth || isNearPhoneSingle ? randomBetween(48, 78) : randomBetween(42, 68)) + phoneBottomStagger}px`,
       "--phone-space-left": `${Math.max(2, phoneLeftSpace - 3)}px`,
       "--phone-offset-x": `${phoneOffsetX}px`,
-      "--phone-offset-y": `${phoneOffsetY}px`,
+      "--phone-offset-y": `${phoneOffsetY - phoneRightColumnLift}px`,
       "--phone-card-align": phoneAlign,
       "--phone-column-width": `${phoneColumnWidth}%`,
       "--phone-column-shift": phoneColumnShift,
@@ -368,12 +404,12 @@ function createVoidItem() {
   return {
     type: "void",
     styles: {
-      "--void-width": `${randomBetween(260, 340)}px`,
-      "--void-height": `${randomBetween(90, 130)}px`,
-      "--void-margin": `${randomBetween(18, 34)}px ${randomBetween(54, 86)}px`,
-      "--phone-void-width": `${randomBetween(28, 54)}%`,
-      "--phone-void-height": `${randomBetween(20, 54)}px`,
-      "--phone-void-margin": `${randomBetween(6, 18)}px 0 ${randomBetween(8, 22)}px ${randomBetween(0, 8)}%`
+      "--void-width": `${randomBetween(500, 780)}px`,
+      "--void-height": `${randomBetween(165, 285)}px`,
+      "--void-margin": `${randomBetween(28, 60)}px ${randomBetween(110, 200)}px`,
+      "--phone-void-width": `${randomBetween(8, 20)}%`,
+      "--phone-void-height": `${randomBetween(3, 10)}px`,
+      "--phone-void-margin": `${randomBetween(1, 3)}px 0 ${randomBetween(1, 4)}px ${randomBetween(0, 3)}%`
     }
   };
 }
@@ -382,12 +418,12 @@ function createSmallVoidItem() {
   return {
     type: "void",
     styles: {
-      "--void-width": `${randomBetween(170, 240)}px`,
-      "--void-height": `${randomBetween(62, 100)}px`,
-      "--void-margin": `${randomBetween(12, 24)}px ${randomBetween(34, 62)}px`,
-      "--phone-void-width": `${randomBetween(20, 44)}%`,
-      "--phone-void-height": `${randomBetween(14, 40)}px`,
-      "--phone-void-margin": `${randomBetween(4, 14)}px 0 ${randomBetween(6, 18)}px ${randomBetween(0, 12)}%`
+      "--void-width": `${randomBetween(360, 560)}px`,
+      "--void-height": `${randomBetween(125, 220)}px`,
+      "--void-margin": `${randomBetween(24, 50)}px ${randomBetween(78, 150)}px`,
+      "--phone-void-width": `${randomBetween(6, 16)}%`,
+      "--phone-void-height": `${randomBetween(2, 8)}px`,
+      "--phone-void-margin": `${randomBetween(1, 2)}px 0 ${randomBetween(1, 3)}px ${randomBetween(0, 4)}%`
     }
   };
 }
@@ -396,12 +432,12 @@ function createWideVoidItem() {
   return {
     type: "void",
     styles: {
-      "--void-width": `${randomBetween(360, 480)}px`,
-      "--void-height": `${randomBetween(82, 126)}px`,
-      "--void-margin": `${randomBetween(16, 32)}px ${randomBetween(78, 118)}px`,
-      "--phone-void-width": `${randomBetween(36, 60)}%`,
-      "--phone-void-height": `${randomBetween(28, 68)}px`,
-      "--phone-void-margin": `${randomBetween(8, 22)}px 0 ${randomBetween(10, 26)}px ${randomBetween(0, 6)}%`
+      "--void-width": `${randomBetween(720, 1100)}px`,
+      "--void-height": `${randomBetween(180, 320)}px`,
+      "--void-margin": `${randomBetween(34, 68)}px ${randomBetween(140, 260)}px`,
+      "--phone-void-width": `${randomBetween(10, 22)}%`,
+      "--phone-void-height": `${randomBetween(4, 12)}px`,
+      "--phone-void-margin": `${randomBetween(1, 3)}px 0 ${randomBetween(2, 5)}px ${randomBetween(0, 3)}%`
     }
   };
 }
@@ -410,12 +446,12 @@ function createOpeningVoidItem() {
   return {
     type: "void",
     styles: {
-      "--void-width": `${randomBetween(240, 320)}px`,
-      "--void-height": `${randomBetween(78, 116)}px`,
-      "--void-margin": `${randomBetween(14, 28)}px ${randomBetween(54, 92)}px`,
-      "--phone-void-width": `${randomBetween(24, 48)}%`,
-      "--phone-void-height": `${randomBetween(18, 48)}px`,
-      "--phone-void-margin": `${randomBetween(5, 16)}px 0 ${randomBetween(7, 20)}px ${randomBetween(0, 10)}%`
+      "--void-width": `${randomBetween(480, 740)}px`,
+      "--void-height": `${randomBetween(145, 260)}px`,
+      "--void-margin": `${randomBetween(28, 58)}px ${randomBetween(100, 190)}px`,
+      "--phone-void-width": `${randomBetween(7, 18)}%`,
+      "--phone-void-height": `${randomBetween(3, 9)}px`,
+      "--phone-void-margin": `${randomBetween(1, 3)}px 0 ${randomBetween(1, 4)}px ${randomBetween(0, 4)}%`
     }
   };
 }
@@ -426,31 +462,43 @@ function createRandomLayout() {
   const desktopFirstRowStyle = randomBetween(1, 3);
   const layout = [];
   const voidMakers = [createSmallVoidItem, createVoidItem, createWideVoidItem];
+  const earlyVoidIndex = randomBetween(1, 4);
+  const voidSlots = new Map();
+  let segmentStart = randomBetween(2, 3);
+
+  while (segmentStart < shuffledImages.length) {
+    const segmentEnd = Math.min(shuffledImages.length - 1, segmentStart + randomBetween(1, 2));
+    let candidate = randomBetween(segmentStart, segmentEnd);
+
+    if (candidate === earlyVoidIndex) {
+      candidate = Math.min(shuffledImages.length - 1, candidate + 1);
+    }
+
+    if (candidate !== earlyVoidIndex) {
+      voidSlots.set(candidate, {
+        position: Math.random() < 0.75 ? "before" : "after",
+        maker: voidMakers[randomBetween(0, voidMakers.length - 1)]
+      });
+    }
+
+    segmentStart = candidate + randomBetween(3, 4);
+  }
 
   shuffledImages.forEach((image, index) => {
+    const voidSlot = voidSlots.get(index);
+
+    if (voidSlot?.position === "before") {
+      layout.push(voidSlot.maker());
+    }
+
     layout.push(createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle));
 
-    if (index < 4 && index === 2) {
+    if (index === earlyVoidIndex) {
       layout.push(createOpeningVoidItem());
     }
 
-    if (index > 0) {
-      const clusterChance = index < 5 ? 0.42 : 0.68;
-
-      if (Math.random() < clusterChance) {
-        const roll = Math.random();
-        const blockCount = roll < 0.18 ? 2 : 1;
-
-        for (let blockIndex = 0; blockIndex < blockCount; blockIndex += 1) {
-          const maker = voidMakers[Math.floor(Math.random() * voidMakers.length)];
-          layout.push(maker());
-        }
-      }
-
-      if (Math.random() < 0.12) {
-        const maker = voidMakers[Math.floor(Math.random() * voidMakers.length)];
-        layout.splice(randomBetween(0, layout.length), 0, maker());
-      }
+    if (voidSlot?.position === "after") {
+      layout.push(voidSlot.maker());
     }
   });
 
@@ -484,6 +532,7 @@ function renderLayout(layout) {
   let imageCount = 0;
   const fragment = document.createDocumentFragment();
   const renderedImages = [];
+  const priorityPictures = [];
 
   layout.forEach((item) => {
     if (item.type === "void") {
@@ -503,6 +552,12 @@ function renderLayout(layout) {
     const card = createProjectCard(image, {
       isPriority: imageCount < 3
     });
+    if (imageCount < 2) {
+      const picture = card.querySelector("img");
+      if (picture) {
+        priorityPictures.push(picture);
+      }
+    }
     imageCount += 1;
     renderedImages.push(image);
     applyStyles(card, item.styles);
@@ -512,6 +567,41 @@ function renderLayout(layout) {
 
   projectIndex.appendChild(fragment);
   warmImageCache(renderedImages.slice(3, 9));
+  return priorityPictures;
+}
+
+function settlePhoneHomeLayout(pictures) {
+  if (!window.matchMedia("(max-width: 560px)").matches) {
+    document.documentElement.classList.remove("is-phone-home-preparing");
+    return;
+  }
+
+  const waitForPicture = (picture) => {
+    if (picture.complete && picture.naturalWidth > 0) {
+      return Promise.resolve();
+    }
+
+    if (typeof picture.decode === "function") {
+      return picture.decode().catch(() => undefined);
+    }
+
+    return new Promise((resolve) => {
+      picture.addEventListener("load", resolve, { once: true });
+      picture.addEventListener("error", resolve, { once: true });
+    });
+  };
+
+  const reveal = () => {
+    protectFirstRowFromHeader();
+    document.documentElement.classList.remove("is-phone-home-preparing");
+  };
+
+  Promise.race([
+    Promise.all(pictures.map(waitForPicture)),
+    new Promise((resolve) => window.setTimeout(resolve, 900))
+  ]).then(() => {
+    window.requestAnimationFrame(reveal);
+  });
 }
 
 function restoreHomePosition() {
@@ -570,6 +660,13 @@ function keepCardsClearOfHeader() {
     return;
   }
 
+  if (window.matchMedia("(max-width: 560px)").matches) {
+    document.querySelectorAll(".project-card").forEach((card) => {
+      card.style.setProperty("--header-drop", "0px");
+    });
+    return;
+  }
+
   const headerBounds = header.getBoundingClientRect();
   const headerRight = headerBounds.right + 18;
   const headerBottom = headerBounds.height + 18;
@@ -619,7 +716,7 @@ function createWorkMenu() {
     const title = document.createElement("span");
 
     dot.className = "work-menu-dot";
-    dot.textContent = "●";
+    dot.textContent = "\u25cf";
     title.textContent = group.title;
     link.href = `viewer.html?image=${encodeURIComponent(getGroupStart(group))}`;
     link.style.setProperty("--text-hover-color", hoverMarkerColors[Math.floor(Math.random() * hoverMarkerColors.length)]);
@@ -679,6 +776,10 @@ function createWorkMenu() {
 createWorkMenu();
 
 if (projectIndex) {
+  if (window.matchMedia("(max-width: 560px)").matches) {
+    document.documentElement.classList.add("is-phone-home-preparing");
+  }
+
   const navigationEntry = performance.getEntriesByType("navigation")[0];
   const isReload = navigationEntry?.type === "reload";
   const savedLayout = sessionStorage.getItem(layoutStorageKey);
@@ -699,8 +800,12 @@ if (projectIndex) {
   });
 
   sessionStorage.setItem(layoutStorageKey, JSON.stringify(layout));
-  renderLayout(layout);
-  protectFirstRowFromHeader();
+  const priorityPictures = renderLayout(layout);
+  if (window.matchMedia("(max-width: 560px)").matches) {
+    settlePhoneHomeLayout(priorityPictures);
+  } else {
+    protectFirstRowFromHeader();
+  }
   restoreHomePosition();
 
   if (returnScrollFromUrl) {
