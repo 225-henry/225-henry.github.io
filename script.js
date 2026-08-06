@@ -96,12 +96,12 @@ function createProjectCard(image, options = {}) {
   picture.loading = isPriority ? "eager" : "lazy";
   picture.decoding = "async";
   picture.fetchPriority = isPriority ? "high" : "low";
-  picture.addEventListener("load", () => {
-    card.classList.remove("is-loading");
-  }, { once: true });
 
   if (!picture.complete) {
     card.classList.add("is-loading");
+    picture.addEventListener("load", () => {
+      card.classList.remove("is-loading");
+    }, { once: true });
   }
 
   link.append(number, picture);
@@ -511,27 +511,9 @@ function applyStyles(element, styles) {
   });
 }
 
-function warmImageCache(imageList) {
-  const preload = () => {
-    imageList.forEach((image) => {
-      const picture = new Image();
-      picture.decoding = "async";
-      picture.fetchPriority = "low";
-      picture.src = image.src.trim();
-    });
-  };
-
-  if ("requestIdleCallback" in window) {
-    window.requestIdleCallback(preload, { timeout: 1800 });
-  } else {
-    window.setTimeout(preload, 800);
-  }
-}
-
 function renderLayout(layout) {
   let imageCount = 0;
   const fragment = document.createDocumentFragment();
-  const renderedImages = [];
   const priorityPictures = [];
 
   layout.forEach((item) => {
@@ -559,14 +541,12 @@ function renderLayout(layout) {
       }
     }
     imageCount += 1;
-    renderedImages.push(image);
     applyStyles(card, item.styles);
 
     fragment.appendChild(card);
   });
 
   projectIndex.appendChild(fragment);
-  warmImageCache(renderedImages.slice(3, 9));
   return priorityPictures;
 }
 
@@ -613,7 +593,6 @@ function restoreHomePosition() {
     window.scrollTo(0, targetScroll);
     window.requestAnimationFrame(() => window.scrollTo(0, targetScroll));
     window.setTimeout(() => window.scrollTo(0, targetScroll), 120);
-    window.setTimeout(() => window.scrollTo(0, targetScroll), 360);
     sessionStorage.removeItem(returnScrollKey);
     return;
   }
@@ -632,71 +611,46 @@ function restoreHomePosition() {
   }
 }
 
-function markFirstRowCards() {
+function protectFirstRowFromHeader() {
+  const header = document.querySelector(".topbar");
   const cards = [...document.querySelectorAll(".project-card")];
 
   cards.forEach((card) => {
     delete card.dataset.firstRow;
+    card.style.setProperty("--header-drop", "0px");
   });
 
-  if (cards.length === 0) {
-    return;
-  }
-
-  const cardTops = cards.map((card) => card.getBoundingClientRect().top + window.scrollY);
-  const firstRowTop = Math.min(...cardTops);
-
-  cards.forEach((card, index) => {
-    if (cardTops[index] <= firstRowTop + 56) {
-      card.dataset.firstRow = "true";
-    }
-  });
-}
-
-function keepCardsClearOfHeader() {
-  const header = document.querySelector(".topbar");
-
-  if (!header) {
+  if (!header || cards.length === 0) {
     return;
   }
 
   if (window.matchMedia("(max-width: 560px)").matches) {
-    document.querySelectorAll(".project-card").forEach((card) => {
-      card.style.setProperty("--header-drop", "0px");
-    });
     return;
   }
 
   const headerBounds = header.getBoundingClientRect();
   const headerRight = headerBounds.right + 18;
   const headerBottom = headerBounds.height + 18;
-
-  document.querySelectorAll(".project-card").forEach((card) => {
-    card.style.setProperty("--header-drop", "0px");
-
-    if (card.dataset.firstRow !== "true") {
-      return;
-    }
-
-    const viewportBounds = card.getBoundingClientRect();
-    const cardBounds = {
-      top: viewportBounds.top + window.scrollY,
-      right: viewportBounds.right
+  const cardBoundsList = cards.map((card) => {
+    const bounds = card.getBoundingClientRect();
+    return {
+      card,
+      top: bounds.top + window.scrollY,
+      left: bounds.left,
+      right: bounds.right
     };
-    const overlapsHeader =
-      viewportBounds.left < headerRight &&
-      cardBounds.right > headerBounds.left &&
-      cardBounds.top < headerBottom;
+  });
+  const cardTops = cardBoundsList.map(({ top }) => top);
+  const firstRowTop = Math.min(...cardTops);
 
-    if (overlapsHeader) {
-      card.style.setProperty("--header-drop", `${Math.ceil(headerBottom - cardBounds.top)}px`);
+  cardBoundsList.forEach(({ card, top, left, right }) => {
+    if (top <= firstRowTop + 56) {
+      card.dataset.firstRow = "true";
+      if (left < headerRight && right > headerBounds.left && top < headerBottom) {
+        card.style.setProperty("--header-drop", `${Math.ceil(headerBottom - top)}px`);
+      }
     }
   });
-}
-
-function protectFirstRowFromHeader() {
-  markFirstRowCards();
-  keepCardsClearOfHeader();
 }
 
 function createWorkMenu() {

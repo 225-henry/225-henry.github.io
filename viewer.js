@@ -114,7 +114,7 @@ function createViewerImage(image, index) {
         ? -randomBetween(0, 36)
         : randomBetween(0, 36);
 
-  figure.className = "viewer-item is-loading";
+  figure.className = "viewer-item";
   figure.style.setProperty("--viewer-width", `${width}px`);
   figure.style.setProperty("--viewer-mobile-width", `${mobileWidth}%`);
   figure.style.setProperty("--viewer-align", alignment);
@@ -125,12 +125,12 @@ function createViewerImage(image, index) {
   picture.alt = image.alt || "";
   picture.loading = index === 0 ? "eager" : "lazy";
   picture.decoding = "async";
-  picture.addEventListener("load", () => {
-    figure.classList.remove("is-loading");
-  }, { once: true });
 
-  if (picture.complete) {
-    figure.classList.remove("is-loading");
+  if (!picture.complete) {
+    figure.classList.add("is-loading");
+    picture.addEventListener("load", () => {
+      figure.classList.remove("is-loading");
+    }, { once: true });
   }
 
   figure.append(number, picture);
@@ -143,23 +143,6 @@ function createViewerImage(image, index) {
   }
 
   return figure;
-}
-
-function warmImageCache(imageList) {
-  const preload = () => {
-    imageList.forEach((image) => {
-      const picture = new Image();
-      picture.decoding = "async";
-      picture.fetchPriority = "low";
-      picture.src = image.src.trim();
-    });
-  };
-
-  if ("requestIdleCallback" in window) {
-    window.requestIdleCallback(preload, { timeout: 1800 });
-  } else {
-    window.setTimeout(preload, 800);
-  }
 }
 
 if (viewer) {
@@ -199,5 +182,4 @@ if (viewer) {
   });
 
   viewer.appendChild(fragment);
-  warmImageCache(group.slice(1));
 }
