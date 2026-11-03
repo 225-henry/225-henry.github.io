@@ -1,4 +1,4 @@
-﻿:root {
+:root {
   --bg: #fff;
   --text: #050505;
   --header-safe-space: 82px;
@@ -18,7 +18,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: Roboto, Arial, sans-serif;
+  font-family: Helvetica, "Helvetica Neue", Arial, sans-serif;
   font-size: 17px;
   font-weight: 300;
   line-height: 1.35;
