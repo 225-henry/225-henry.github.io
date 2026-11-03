@@ -600,3 +600,8 @@ img {
     font-size: 17px;
   }
 }
+
+/* Slightly emphasize the fact link on every page. */
+.topbar .nav a[href="info.html"] {
+  -webkit-text-stroke: 0.35px currentColor;
+}
