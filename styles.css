@@ -1,6 +1,6 @@
 @font-face {
-  font-family: "Henry Custom V3";
-  src: url("assets/fonts/HenryCustomV3-Regular.woff2?v=3.3") format("woff2");
+  font-family: "Henry Custom V4";
+  src: url("assets/fonts/HenryCustomV4-Regular.woff2?v=4.1") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -25,7 +25,7 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: "Henry Custom V3", Helvetica, Arial, sans-serif;
+  font-family: "Henry Custom V4", Helvetica, Arial, sans-serif;
   -webkit-text-stroke: 0.18px currentColor;
   font-size: 17px;
   font-weight: 300;
