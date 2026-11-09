@@ -1,6 +1,6 @@
 @font-face {
-  font-family: "Henry Custom V4";
-  src: url("assets/fonts/HenryCustomV4-Regular.woff2?v=4.1") format("woff2");
+  font-family: "Henley";
+  src: url("assets/fonts/Henley-Regular.woff2?v=2.004") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -25,10 +25,11 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
-  font-family: "Henry Custom V4", Helvetica, Arial, sans-serif;
-  -webkit-text-stroke: 0.18px currentColor;
+  font-family: "Henley", Helvetica, Arial, sans-serif;
+  font-synthesis: none;
+
   font-size: 17px;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 1.35;
   letter-spacing: 0;
   font-kerning: normal;
@@ -93,12 +94,12 @@ img {
 .mark,
 .nav a {
   font-size: 17px;
-  font-weight: 500;
+  font-weight: 400;
   text-transform: lowercase;
 }
 
 .nav a {
-  font-weight: 550;
+  font-weight: 400;
 }
 
 .header-count-trigger {
@@ -418,7 +419,7 @@ img {
 .experience-list {
   margin: 0;
   font-size: 17px;
-  font-weight: 250;
+  font-weight: 400;
   line-height: 1.12;
 }
 
@@ -439,7 +440,7 @@ img {
 }
 
 .info-section h2 {
-  font-weight: 300;
+  font-weight: 400;
   margin-bottom: 1.08em;
 }
 
@@ -540,7 +541,7 @@ img {
 
 @media (max-width: 560px) {
   .nav a {
-    font-weight: 550;
+    font-weight: 400;
   }
 
   .header-home-count {
@@ -602,10 +603,5 @@ img {
   }
 }
 
-/* Slightly emphasize the fact link on every page. */
-.topbar .nav a[href="info.html"] {
-  -webkit-text-stroke: 0.35px currentColor;
-}
-
-/* Use the spacing and pair adjustments built into Henry Custom. */
+/* Use the spacing and pair adjustments built into Henley. */
 body { font-kerning: normal; letter-spacing: 0; }
