@@ -605,3 +605,7 @@ img {
 
 /* Use the spacing and pair adjustments built into Henley. */
 body { font-kerning: normal; letter-spacing: 0; }
+
+/* Subtle weight increase for the current Henley font. */
+body { -webkit-text-stroke: 0.12px currentColor; }
+
