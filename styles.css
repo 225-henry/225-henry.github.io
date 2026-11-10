@@ -609,3 +609,18 @@ body { font-kerning: normal; letter-spacing: 0; }
 /* Subtle weight increase for the current Henley font. */
 body { -webkit-text-stroke: 0.12px currentColor; }
 
+
+/* Keep the counter and its menu stationary during interaction. */
+.header-count-trigger,
+.header-count-trigger:active {
+  transform: none;
+  animation: none;
+}
+.work-menu.is-open .work-menu-list a,
+.work-menu.is-closing .work-menu-list a {
+  animation: none;
+}
+.work-menu-list a:hover,
+.work-menu-list a:focus-visible {
+  transform: none;
+}
