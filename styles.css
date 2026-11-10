@@ -607,7 +607,7 @@ img {
 body { font-kerning: normal; letter-spacing: 0; }
 
 /* Subtle weight increase for the current Henley font. */
-body { -webkit-text-stroke: 0.20px currentColor; }
+body { -webkit-text-stroke: 0.28px currentColor; }
 
 
 /* Keep the counter and its menu stationary during interaction. */
@@ -624,5 +624,5 @@ body { -webkit-text-stroke: 0.20px currentColor; }
 .work-menu-list a:focus-visible {
   transform: none;
 }
-/* Medium-light appearance using the supplied static regular font. */
-body, button, input, select, textarea, .mark, .nav a, .header-home-count { font-weight: 450; }
+/* Medium appearance using the supplied static regular font. */
+body, button, input, select, textarea, .mark, .nav a, .header-home-count { font-weight: 500; }
