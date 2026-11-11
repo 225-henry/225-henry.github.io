@@ -28,7 +28,7 @@ function createMovingTriangle() {
     const label = card ? card.querySelector(".number") : target;
     const bounds = label.getBoundingClientRect();
     const fontSize = parseFloat(getComputedStyle(label).fontSize);
-    const pointsLeft = target.hasAttribute("data-work-count-menu");
+    const pointsLeft = target.hasAttribute("data-marker-left");
     const x = pointsLeft ? bounds.right + fontSize * 0.18 : bounds.left - (card ? 18 : fontSize * 0.95);
     const transform = `translate(${x}px, ${bounds.top + bounds.height / 2}px) translateY(-50%)`;
     const previous = getComputedStyle(marker).transform;
@@ -52,7 +52,7 @@ function createMovingTriangle() {
 
   const followTarget = (event) => {
     if (event.pointerType === "touch") return;
-    const target = event.target.closest(".topbar a, .project-card a, .work-menu-list a");
+    const target = event.target.closest(".topbar a, .project-card a, .info-catalog-list a");
     if (target && target !== activeTarget) moveTo(target);
   };
   document.addEventListener("pointerover", followTarget);

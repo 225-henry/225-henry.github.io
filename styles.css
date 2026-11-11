@@ -91,8 +91,7 @@ img {
   gap: 0;
 }
 
-.mark,
-.nav a {
+.mark {
   font-size: 17px;
   font-weight: 500;
   text-transform: lowercase;
@@ -108,13 +107,6 @@ img {
   font-size: 17px;
   font-weight: 400;
   text-transform: lowercase;
-}
-
-.nav {
-  display: flex;
-  width: 100%;
-  justify-content: flex-start;
-  gap: clamp(12px, 1.6vw, 18px);
 }
 
 .project-index {
@@ -151,7 +143,7 @@ img {
 
 .topbar a::before,
 .project-card a::before,
-.work-menu-list a::before {
+.info-catalog-list a::before {
   content: none;
 }
 
@@ -194,100 +186,29 @@ img {
   opacity: 0;
 }
 
-.work-menu {
-  position: fixed;
-  inset: 0;
-  z-index: 18;
+.info-catalog-list {
   display: grid;
-  place-items: center;
-  padding: clamp(20px, 6vw, 72px);
-  visibility: hidden;
-  pointer-events: none;
-}
-
-.work-menu.is-open {
-  visibility: visible;
-  pointer-events: auto;
-}
-
-[data-work-count-menu].is-catalog-away {
-  opacity: 0;
-}
-
-.catalog-moving-count {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 22;
+  gap: 20px;
+  margin: 0;
+  padding-left: 1em;
   font-size: 17px;
-  font-weight: 500;
-  line-height: 1.35;
-  visibility: hidden;
-  pointer-events: none;
-}
-
-.work-menu-list {
-  position: relative;
-  display: grid;
-  gap: clamp(8px, 1.4vw, 18px);
-  width: max-content;
-  max-width: calc(100vw - 40px);
-  padding-inline: 1.4em;
-  text-align: center;
-}
-
-.work-menu-parenthesis {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 17px;
-  font-weight: 500;
-  line-height: 1.35;
-  pointer-events: none;
-}
-
-.work-menu-parenthesis:nth-last-child(2) {
-  left: 0;
-}
-
-.work-menu-parenthesis:last-child {
-  right: 0;
-}
-
-.work-menu.is-closing .work-menu-parenthesis,
-.work-menu.is-closing .work-menu-list a {
-  visibility: visible;
-}
-
-.work-menu-list a {
-  position: relative;
-  display: inline-flex;
-  align-items: flex-start;
-  justify-self: center;
-  padding: 0 0.22em;
-  background: #fff;
-  font-size: 17px;
+  font-weight: 400;
   line-height: 1.12;
-  white-space: nowrap;
+  overflow-wrap: anywhere;
 }
 
-.work-menu-dot {
-  display: inline-block;
-  margin-right: 0.45em;
-  font-size: 1em;
-  line-height: 1;
-  padding-top: 0.04em;
+.info-catalog-list li::marker {
+  content: "> ";
 }
 
-@media (max-width: 1100px) {
-  .work-menu-list {
-    width: min(100%, calc(100vw - 32px));
-  }
+.education-projects,
+.experience-projects {
+  margin-top: 1.08em;
+  scroll-margin-top: var(--header-safe-space);
+}
 
-  .work-menu-list a {
-    white-space: normal;
-    overflow-wrap: anywhere;
-  }
+.education-university + .education-university {
+  margin-top: 40px;
 }
 
 .caption {
@@ -359,8 +280,7 @@ img {
 .info-page p,
 .info-links a,
 .info-section h2,
-.info-row,
-.experience-list {
+.info-row {
   margin: 0;
   font-size: 17px;
   font-weight: 400;
@@ -376,11 +296,7 @@ img {
 }
 
 .info-section {
-  margin-top: 1.08em;
-}
-
-.info-section:first-of-type {
-  margin-top: 2.16em;
+  margin-top: 80px;
 }
 
 .info-section h2 {
@@ -388,25 +304,11 @@ img {
   margin-bottom: 1.08em;
 }
 
-.info-row,
-.experience-list li {
+.info-row {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   gap: 24px;
-}
-
-.experience-list {
-  display: grid;
-  gap: 0;
-  margin-top: 1.08em;
-  padding: 0;
-  list-style: none;
-}
-
-.mention-note {
-  align-self: flex-end;
-  font-size: 0.68em;
 }
 
 .experience-date {
@@ -425,6 +327,12 @@ img {
   right: clamp(16px, 3vw, 36px);
   width: min(900px, calc(100vw - 32px));
   margin-top: 0;
+}
+
+.info-note-text {
+  background: #fff;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
 }
 
 @media (max-width: 1100px) {
@@ -461,11 +369,7 @@ img {
   }
 
   .info-note {
-    position: fixed;
-    bottom: 16px;
-    right: clamp(16px, 3vw, 36px);
     width: min(720px, calc(100vw - 32px));
-    margin-top: 0;
   }
 
   .project-index {
@@ -484,24 +388,6 @@ img {
 }
 
 @media (max-width: 560px) {
-  .info-page {
-    margin-top: 0;
-    padding-top: var(--header-safe-space);
-  }
-
-  .experience-list .with-note {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 10px;
-    align-items: end;
-  }
-
-  .mention-note {
-    justify-self: end;
-    white-space: nowrap;
-    font-size: 0.58em;
-  }
-
   .project-index {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -530,9 +416,6 @@ img {
     transform: translate(var(--phone-offset-x, 0), var(--phone-offset-y, 0));
   }
 
-  .number {
-    font-size: 17px;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

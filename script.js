@@ -23,7 +23,7 @@ if (pageParams.has("refresh") || pageParams.has("return")) {
   window.history.replaceState(null, "", window.location.pathname);
 }
 
-document.querySelector(".nav a[href='info.html']")?.addEventListener("click", () => {
+document.querySelector(".topbar a[href='info.html']")?.addEventListener("click", () => {
   const currentPage = window.location.pathname.split("/").pop() || "index.html";
 
   if (currentPage === "index.html") {
@@ -541,9 +541,6 @@ if (projectIndex) {
   protectFirstRowFromHeader();
   restoreHomePosition();
 
-}
-
-if (projectIndex) {
   window.addEventListener("pageshow", () => {
     if (returnScrollFromUrl) {
       window.scrollTo(0, Number(returnScrollFromUrl));

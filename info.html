@@ -4,18 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>arcanum</title>
-  <link rel="stylesheet" href="styles.css?v=henley-2.022">
-  <script src="favicon.js?v=2.015" defer></script>
-  <script src="catalog.js?v=2.021" defer></script>
+  <link rel="stylesheet" href="styles.css?v=henley-2.047">
+  <script src="favicon.js?v=2.040" defer></script>
+  <script src="catalog.js?v=2.035" defer></script>
 </head>
 <body>
   <header class="topbar">
-    <div class="mark-row">
-      <a class="mark" href="index.html" aria-label="Henley Mingda home">50</a><span aria-hidden="true">/</span>
-      <a class="mark" href="#catalog" data-work-count-menu aria-label="Open catalog" aria-controls="catalog" aria-expanded="false">(89)</a>
-    </div>
-    <nav class="nav" aria-label="Primary navigation">
-      <a href="info.html" aria-current="page">fact</a>
+    <nav class="mark-row" aria-label="Primary navigation">
+      <a class="mark" href="index.html" aria-label="Henley Mingda home">50</a><span aria-hidden="true">/</span><a class="mark" href="info.html" data-marker-left aria-label="Fact page" aria-current="page">(fact)</a>
     </nav>
   </header>
 
@@ -25,18 +21,30 @@
         Henley Mingda, lives and studies in Sydney.
       </p>
 
+      <div class="info-links">
+        <a href="https://www.instagram.com/hanchitecture/">click_to_jump_to_socials</a>
+        <a href="Henley_Portfolio_mail@mingdaliu.com.pdf" target="_blank" rel="noopener">click_to_download_portfolio</a>
+        <a href="mailto:mail@mingdaliu.com">mail@mingdaliu.com</a>
+      </div>
+
       <section class="info-section" aria-label="Education">
         <h2>Education,</h2>
-        <div class="info-row">
-          <span>University of Sydney</span>
-          <span>M.Arch</span>
+        <div class="education-university">
+          <div class="info-row">
+            <span>University of Sydney</span>
+            <span>M.Arch</span>
+          </div>
+          <p>2025 - 2027</p>
+          <ul id="education-projects" class="info-catalog-list education-projects" data-catalog-list data-catalog-groups="0,1,2,3,4" aria-label="University of Sydney projects"></ul>
         </div>
-        <p>2025 - 2027</p>
-        <div class="info-row">
-          <span>University of New South Wales</span>
-          <span>B.ArchSt</span>
+        <div class="education-university">
+          <div class="info-row">
+            <span>University of New South Wales</span>
+            <span>B.ArchSt</span>
+          </div>
+          <p>2021 - 2023</p>
+          <ul id="unsw-projects" class="info-catalog-list education-projects" data-catalog-list data-catalog-groups="6,7" aria-label="University of New South Wales projects"></ul>
         </div>
-        <p>2021 - 2023</p>
       </section>
 
       <section class="info-section" aria-label="Experience">
@@ -46,30 +54,16 @@
           <span>Wollongong</span>
         </div>
         <p class="experience-date">Nov 2023 -</p>
-        <ul class="experience-list">
-          <li>>Refurbishment of an Office Building in Sydney</li>
-          <li>>A Terrace House Renovation in Sydney</li>
-          <li>>A Family Home in Sydney's Northern Beaches</li>
-          <li>>Comp NOW NOW: Beyond the Classroom</li>
-          <li class="with-note">
-            <span>>Comp NOW NOW: Our Homes</span>
-            <span class="mention-note">(Honourable Mention)</span>
-          </li>
+        <ul id="catalog" class="info-catalog-list experience-projects" data-catalog-list data-catalog-groups="5,8,9,10" aria-label="Experience projects">
+          <li>Comp NOW NOW: Beyond the Classroom/ Collaborated with Toshio Ozaki/ Winter 2025</li>
         </ul>
       </section>
 
-      <div class="info-links">
-        <a href="https://www.instagram.com/hanchitecture/">click_to_jump_to_socials</a>
-        <a href="Henley_Portfolio_mail@mingdaliu.com.pdf" target="_blank" rel="noopener">click_to_download_portfolio</a>
-        <a href="mailto:mail@mingdaliu.com">mail@mingdaliu.com</a>
-      </div>
-
       <p class="info-note">
-        This site's works mustn't be copied or reworked until permission.
+        <span class="info-note-text">This site's works mustn't be copied or reworked until permission.</span>
       </p>
     </section>
   </main>
 
-  <aside id="catalog" class="work-menu" aria-label="Project groups" aria-hidden="true" inert data-work-menu></aside>
 </body>
 </html>
