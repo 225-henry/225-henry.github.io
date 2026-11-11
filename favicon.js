@@ -49,7 +49,7 @@ function createMovingTriangle() {
 
   const followTarget = (event) => {
     if (event.pointerType === "touch") return;
-    const target = event.target.closest(".topbar a, .project-card a");
+    const target = event.target.closest(".topbar a, .project-card a, .work-menu-list a");
     if (target && target !== activeTarget) moveTo(target);
   };
   document.addEventListener("pointerover", followTarget);

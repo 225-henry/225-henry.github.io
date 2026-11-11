@@ -150,7 +150,8 @@ img {
 }
 
 .topbar a::before,
-.project-card a::before {
+.project-card a::before,
+.work-menu-list a::before {
   content: none;
 }
 
