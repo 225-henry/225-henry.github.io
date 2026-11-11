@@ -30,7 +30,7 @@ body {
 
   font-size: 17px;
   font-weight: 500;
-  -webkit-text-stroke: 0.28px currentColor;
+  -webkit-text-stroke: 0.15px currentColor;
   line-height: 1.35;
   letter-spacing: 0;
   font-kerning: normal;
@@ -210,12 +210,53 @@ img {
   pointer-events: auto;
 }
 
+[data-work-count-menu].is-catalog-away {
+  opacity: 0;
+}
+
+.catalog-moving-count {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 22;
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.35;
+  visibility: hidden;
+  pointer-events: none;
+}
+
 .work-menu-list {
+  position: relative;
   display: grid;
   gap: clamp(8px, 1.4vw, 18px);
   width: max-content;
   max-width: calc(100vw - 40px);
+  padding-inline: 1.4em;
   text-align: center;
+}
+
+.work-menu-parenthesis {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.35;
+  pointer-events: none;
+}
+
+.work-menu-parenthesis:nth-last-child(2) {
+  left: 0;
+}
+
+.work-menu-parenthesis:last-child {
+  right: 0;
+}
+
+.work-menu.is-closing .work-menu-parenthesis,
+.work-menu.is-closing .work-menu-list a {
+  visibility: visible;
 }
 
 .work-menu-list a {

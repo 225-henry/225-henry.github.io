@@ -52,11 +52,79 @@ function createWorkMenu() {
   const trigger = document.querySelector("[data-work-count-menu]");
   if (!menu || !trigger) return;
 
+  const count = document.createElement("span");
+  count.className = "catalog-moving-count";
+  count.textContent = trigger.textContent.replace(/[()]/g, "").trim();
+  count.setAttribute("aria-hidden", "true");
+  document.body.appendChild(count);
+  let transitionId = 0;
   const setOpen = (open) => {
+    const id = ++transitionId;
+    const wasVisible = menu.classList.contains("is-open") || menu.classList.contains("is-closing");
+    const parentheses = [...menu.querySelectorAll(".work-menu-parenthesis")];
+    const currentTransforms = parentheses.map((parenthesis) => getComputedStyle(parenthesis).transform);
+    const countWasMoving = count.getAnimations().length > 0;
+    const countStyle = getComputedStyle(count);
+    const countTransform = countStyle.transform;
+    const countOpacity = countStyle.opacity;
+    count.getAnimations().forEach((animation) => animation.cancel());
+    const links = [...menu.querySelectorAll(".work-menu-list a")];
+    const linkStyles = links.map((link) => {
+      const style = getComputedStyle(link);
+      return { opacity: style.opacity };
+    });
+    links.forEach((link) => {
+      link.getAnimations().forEach((animation) => animation.cancel());
+    });
+    parentheses.forEach((parenthesis) => {
+      parenthesis.getAnimations().forEach((animation) => animation.cancel());
+    });
+    const animate = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     menu.classList.toggle("is-open", open);
+    menu.classList.toggle("is-closing", !open && wasVisible && animate);
     menu.inert = !open;
     menu.setAttribute("aria-hidden", String(!open));
     trigger.setAttribute("aria-expanded", String(open));
+    trigger.setAttribute("aria-label", open ? "Close catalog" : "Open catalog");
+    trigger.classList.toggle("is-catalog-away", open || (wasVisible && animate));
+    count.style.visibility = "hidden";
+    if (animate && (open || wasVisible)) {
+      const origin = trigger.getBoundingClientRect();
+      const catalog = menu.querySelector(".work-menu-list").getBoundingClientRect();
+      const centerX = catalog.left + catalog.width / 2;
+      const centerY = catalog.top + catalog.height / 2;
+      const timing = { duration: 420, easing: "ease-out", fill: "forwards" };
+      const motions = parentheses.map((parenthesis, index) => {
+        const destination = parenthesis.getBoundingClientRect();
+        const x = (index === 0 ? origin.left : origin.right - destination.width) - destination.left;
+        const y = origin.top + origin.height / 2 - (destination.top + destination.height / 2);
+        const headerTransform = `translateY(-50%) translate(${x}px, ${y}px)`;
+        return parenthesis.animate([
+          { transform: wasVisible ? currentTransforms[index] : headerTransform },
+          { transform: open ? "translateY(-50%)" : headerTransform }
+        ], timing);
+      });
+      const headerCount = `translate(${origin.left + origin.width / 2}px, ${origin.top + origin.height / 2}px) translate(-50%, -50%)`;
+      const catalogCount = `translate(${centerX}px, ${centerY}px) translate(-50%, -50%)`;
+      count.style.visibility = "visible";
+      motions.push(count.animate([
+        { transform: countWasMoving ? countTransform : open ? headerCount : catalogCount, opacity: countWasMoving ? countOpacity : open ? 1 : 0 },
+        { transform: open ? catalogCount : headerCount, opacity: open ? 0 : 1 }
+      ], timing));
+      links.forEach((link, index) => {
+        motions.push(link.animate([
+          wasVisible ? linkStyles[index] : { opacity: 0 },
+          { opacity: open ? 1 : 0 }
+        ], { ...timing, fill: "both" }));
+      });
+      Promise.all(motions.map((motion) => motion.finished)).then(() => {
+        if (id !== transitionId) return;
+        menu.classList.remove("is-closing");
+        trigger.classList.toggle("is-catalog-away", open);
+        count.style.visibility = "hidden";
+        motions.forEach((motion) => motion.cancel());
+      }).catch(() => {});
+    }
   };
 
   const buildCatalog = () => {
@@ -71,6 +139,13 @@ function createWorkMenu() {
       link.style.setProperty("--text-hover-color", faviconColors[Math.floor(Math.random() * faviconColors.length)]);
       link.append(dot, group.title);
       list.appendChild(link);
+    });
+    ["(", ")"].forEach((character) => {
+      const parenthesis = document.createElement("span");
+      parenthesis.className = "work-menu-parenthesis";
+      parenthesis.setAttribute("aria-hidden", "true");
+      parenthesis.textContent = character;
+      list.appendChild(parenthesis);
     });
     menu.appendChild(list);
   };
