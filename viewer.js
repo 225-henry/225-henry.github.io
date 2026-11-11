@@ -1,64 +1,6 @@
 const viewer = document.querySelector("[data-viewer]");
 const viewerImages = window.portfolioImages || [];
-const workLink = document.querySelector(".mark");
-
-if (workLink) {
-  workLink.addEventListener("click", (event) => {
-    const cameFromHome = document.referrer.endsWith("index.html") || document.referrer.endsWith("/");
-
-    if (cameFromHome) {
-      event.preventDefault();
-      window.history.back();
-    }
-  });
-}
-
-const imageGroups = [
-  {
-    range: ["001", "014"],
-    title: "Omnipotent Youth Society/ Tutor: Jessica Spresser/ Sem 1 2025/ University of Sydney"
-  },
-  {
-    range: ["015", "020"],
-    title: "House of Brazil (Le Corbusier) + Student Residence (Bruther + Baukunst)/ Tutor: Jessica Spresser/ Sem 1 2025/ University of Sydney"
-  },
-  {
-    range: ["021", "044"],
-    title: "The Continuous Line/ Collaborated with Coco Chen/ Tutor: Jessica Spresser + Peter Besley/ Sem 2 2025/ University of Sydney"
-  },
-  {
-    range: ["045", "047"],
-    title: "Super Transparent Shoe/ Collaborated with Coco Chen/ Tutor: Jessica Spresser + Peter Besley/ Sem 2 2025/ University of Sydney"
-  },
-  {
-    ranges: [["048", "052"], ["088", "089"]],
-    title: "The Metropolitan Cockatoo Island Museum/ Collaborated with Coco Chen/ Tutor: Catherine Lassen/ Sem 1 2026/ University of Sydney"
-  },
-  {
-    ranges: [["053", "055"], ["075", "078"]],
-    title: "Now Now Our Home Competition/ Collaborated with Toshio Ozaki/ Summer 2026"
-  },
-  {
-    range: ["056", "065"],
-    title: "House with a Very Very Thick Wall/ Tutor: Andrea Illeris/ Tri 1 2023/ University of NSW"
-  },
-  {
-    range: ["066", "074"],
-    title: "Cable Temple/ Tutor: Toshio Ozaki/ Tri 2 2023 Graduation Project/ University of NSW"
-  },
-  {
-    range: ["079", "082"],
-    title: "Refurbishment of an Office Building in Sydney/ Under supervision of Toshio Ozaki at Ozaki Studio/ 2024"
-  },
-  {
-    range: ["083", "085"],
-    title: "A Terrace House Renovation in Sydney/ Under supervision of Toshio Ozaki at Ozaki Studio/ 2024"
-  },
-  {
-    range: ["086", "087"],
-    title: "A Family Home in Sydney's Northern Beaches/ Under supervision of Toshio Ozaki at Ozaki Studio/ 2024"
-  }
-];
+const imageGroups = window.portfolioGroups;
 
 function numberValue(number) {
   return Number.parseInt(number, 10);
@@ -125,12 +67,13 @@ function createViewerImage(image, index) {
   picture.alt = image.alt || "";
   picture.loading = index === 0 ? "eager" : "lazy";
   picture.decoding = "async";
+  picture.fetchPriority = index === 0 ? "high" : "low";
 
   if (!picture.complete) {
     figure.classList.add("is-loading");
-    picture.addEventListener("load", () => {
-      figure.classList.remove("is-loading");
-    }, { once: true });
+    const reveal = () => figure.classList.remove("is-loading");
+    picture.addEventListener("load", reveal, { once: true });
+    picture.addEventListener("error", reveal, { once: true });
   }
 
   figure.append(number, picture);

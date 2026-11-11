@@ -4,17 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="google-site-verification" content="W2E3QA-BkpC8gP7dKNxLxC94bbr9SCpYh3r7TxFhyLQ">
-  <title>henley's site</title>
+  <title>henley’s site</title>
   <link rel="preconnect" href="https://225-henry.github.io" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=henley-2.004">
+  <link rel="stylesheet" href="styles.css?v=henley-2.006">
   <script src="favicon.js" defer></script>
+  <script src="catalog.js" defer></script>
   <script src="images.js" defer></script>
   <script src="script.js" defer></script>
 </head>
 <body>
   <header class="topbar">
     <div class="mark-row">
-      <button class="mark header-count-trigger header-home-count" type="button" data-work-count-menu aria-label="Open project list">50/(89)</button>
+      <a class="mark" href="index.html" aria-label="Henley Mingda home">50</a><span aria-hidden="true">/</span>
+      <a class="mark" href="#catalog" data-work-count-menu aria-label="Open catalog" aria-controls="catalog" aria-expanded="false">(89)</a>
     </div>
     <nav class="nav" aria-label="Primary navigation">
       <a href="info.html">fact</a>
@@ -25,6 +27,6 @@
     <section class="project-index" id="projects" aria-label="Selected projects"></section>
   </main>
 
-  <aside class="work-menu" aria-label="Project groups" aria-hidden="true" data-work-menu></aside>
+  <aside id="catalog" class="work-menu" aria-label="Project groups" aria-hidden="true" inert data-work-menu></aside>
 </body>
 </html>

@@ -4,56 +4,9 @@ const imageMap = new Map(images.map((image) => [image.number, image]));
 const layoutStorageKey = "home-layout-v120";
 const returnImageKey = "home-return-image";
 const returnScrollKey = "home-return-scroll";
-const hoverMarkerColors = ["#25abe2", "#e80415", "#fef900"];
+const hoverMarkerColors = faviconColors;
 const homeImageLimit = 50;
-const homeImageGroups = [
-  {
-    range: ["001", "014"],
-    title: "Omnipotent Youth Society/ Tutor: Jessica Spresser/ Sem 1 2025/ University of Sydney"
-  },
-  {
-    range: ["015", "020"],
-    title: "House of Brazil (Le Corbusier) + Student Residence (Bruther + Baukunst)/ Tutor: Jessica Spresser/ Sem 1 2025/ University of Sydney"
-  },
-  {
-    range: ["021", "044"],
-    title: "The Continuous Line/ Collaborated with Coco Chen/ Tutor: Jessica Spresser + Peter Besley/ Sem 2 2025/ University of Sydney"
-  },
-  {
-    range: ["045", "047"],
-    title: "Super Transparent Shoe/ Collaborated with Coco Chen/ Tutor: Jessica Spresser + Peter Besley/ Sem 2 2025/ University of Sydney"
-  },
-  {
-    ranges: [["048", "052"], ["088", "089"]],
-    title: "The Metropolitan Cockatoo Island Museum/ Collaborated with Coco Chen/ Tutor: Catherine Lassen/ Sem 1 2026/ University of Sydney"
-  },
-  {
-    ranges: [["053", "055"], ["075", "078"]],
-    title: "Now Now Our Home Competition/ Collaborated with Toshio Ozaki/ Summer 2026"
-  },
-  {
-    range: ["056", "065"],
-    max: 5,
-    title: "House with a Very Very Thick Wall/ Tutor: Andrea Illeris/ Tri 1 2023/ University of NSW"
-  },
-  {
-    range: ["066", "074"],
-    max: 3,
-    title: "Cable Temple/ Tutor: Toshio Ozaki/ Tri 2 2023 Graduation Project/ University of NSW"
-  },
-  {
-    range: ["079", "082"],
-    title: "Refurbishment of an Office Building in Sydney/ Under supervision of Toshio Ozaki at Ozaki Studio/ 2024"
-  },
-  {
-    range: ["083", "085"],
-    title: "A Terrace House Renovation in Sydney/ Under supervision of Toshio Ozaki at Ozaki Studio/ 2024"
-  },
-  {
-    range: ["086", "087"],
-    title: "A Family Home in Sydney's Northern Beaches/ Under supervision of Toshio Ozaki at Ozaki Studio/ 2024"
-  }
-];
+const homeImageGroups = window.portfolioGroups;
 
 Object.keys(sessionStorage)
   .filter((key) => key.startsWith("home-layout-") && key !== layoutStorageKey)
@@ -99,9 +52,9 @@ function createProjectCard(image, options = {}) {
 
   if (!picture.complete) {
     card.classList.add("is-loading");
-    picture.addEventListener("load", () => {
-      card.classList.remove("is-loading");
-    }, { once: true });
+    const reveal = () => card.classList.remove("is-loading");
+    picture.addEventListener("load", reveal, { once: true });
+    picture.addEventListener("error", reveal, { once: true });
   }
 
   link.append(number, picture);
@@ -149,10 +102,6 @@ function getImagesForGroup(group) {
   return ranges.flatMap(([start, end]) => getImagesInRange(start, end));
 }
 
-function getGroupStart(group) {
-  return (group.ranges || [group.range])[0][0];
-}
-
 function getBalancedHomeImages() {
   const groupedImages = homeImageGroups
     .map((homeGroup) => {
@@ -186,18 +135,59 @@ function getBalancedHomeImages() {
   return groupedImages.flatMap((group, index) => group.slice(0, quotas[index]));
 }
 
+const phonePatterns = [
+  [44, 41, 40, 46, 56, 42, 41, 45, 39, 58, 41, 44, 40, 43, 54, 46, 39],
+  [41, 45, 43, 39, 57, 42, 44, 40, 43, 55, 46, 39, 43, 41, 58, 42, 41],
+  [46, 39, 42, 43, 56, 40, 44, 42, 41, 58, 39, 45, 41, 43, 54, 40, 46],
+  [43, 41, 45, 39, 58, 43, 42, 40, 46, 56, 41, 44, 39, 43, 57, 45, 40]
+];
+
+const widthPattern = [285, 305, 325, 295, 315, 275];
+
+const desktopSpaceTopPattern = [42, 58, 50, 70, 46, 62, 54, 66];
+
+const desktopSpaceRightPattern = [54, 72, 64, 82, 58, 76, 68, 86];
+
+const desktopSpaceBottomPattern = [68, 84, 76, 92, 72, 88, 80, 96];
+
+const desktopSpaceLeftPattern = [36, 54, 44, 62, 40, 58, 48, 66];
+
+const desktopOffsetXPattern = [0, 6, -4, 8, -2, 5, 0, 7];
+
+const desktopOffsetYPattern = [0, 4, 2, 6, 0, 5, 3, 7];
+
+const phoneOffsetPatterns = [
+  [-4, 8, 1, 10, -3, 5, 12, 2, 8, -5, 6, 10],
+  [9, -4, 11, 3, 7, -1, 10, -3, 5, 12, 2, 8],
+  [1, 10, -4, 6, 12, 3, 8, -2, 11, 4, -1, 9],
+  [11, 2, 7, -5, 9, 1, 12, 5, -2, 10, 3, 6]
+];
+
+const phoneVerticalOffsetPatterns = [
+  [-32, 46, 12, 68, -18, 34, 76, 8, 54, -26, 28, 62],
+  [58, -24, 42, 10, 72, -14, 30, 80, 5, 48, -30, 64],
+  [14, 70, -28, 38, 84, 6, 52, -18, 66, 24, -34, 44],
+  [78, 18, -24, 56, 8, 40, -16, 82, 26, 68, -30, 36]
+];
+
+const phoneTopStaggerPatterns = [
+  [0, 38, 8, 54, 16, 44, 4, 62],
+  [42, 6, 50, 14, 34, 58, 10, 46],
+  [12, 56, 4, 40, 64, 18, 48, 8],
+  [52, 16, 36, 60, 6, 44, 20, 54]
+];
+
+const phoneBottomStaggerPatterns = [
+  [18, 4, 24, 8, 14, 28, 6, 20],
+  [6, 22, 10, 26, 4, 18, 30, 12],
+  [24, 8, 16, 32, 10, 20, 6, 28],
+  [12, 30, 6, 22, 16, 4, 26, 10]
+];
+
 function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
   const isGif = image.src.toLowerCase().includes(".gif");
   const sizeRoll = Math.random();
   const isOpeningImage = index < 4;
-  const widthBase =
-    isGif
-      ? randomBetween(330, 400)
-      : sizeRoll < 0.32
-        ? randomBetween(275, 320)
-        : sizeRoll < 0.74
-          ? randomBetween(250, 335)
-          : randomBetween(285, 355);
   const mobileWidthBase =
     isGif
       ? randomBetween(260, 300)
@@ -206,16 +196,9 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
         : sizeRoll < 0.74
           ? randomBetween(210, 285)
           : randomBetween(235, 280);
-  const phonePatterns = [
-    [44, 41, 40, 46, 56, 42, 41, 45, 39, 58, 41, 44, 40, 43, 54, 46, 39],
-    [41, 45, 43, 39, 57, 42, 44, 40, 43, 55, 46, 39, 43, 41, 58, 42, 41],
-    [46, 39, 42, 43, 56, 40, 44, 42, 41, 58, 39, 45, 41, 43, 54, 40, 46],
-    [43, 41, 45, 39, 58, 43, 42, 40, 46, 56, 41, 44, 39, 43, 57, 45, 40]
-  ];
   const phonePattern = phonePatterns[firstRowStyle % phonePatterns.length];
   const phoneLayoutMode = index % phonePattern.length;
-  const phoneWidthPattern = phonePattern;
-  const patternedPhoneWidth = phoneWidthPattern[phoneLayoutMode] + randomBetween(-2, 2);
+  const patternedPhoneWidth = phonePattern[phoneLayoutMode] + randomBetween(-2, 2);
   const phoneWidthBase =
     isGif
       ? randomBetween(34, 40)
@@ -238,14 +221,7 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
       : desktopFirstRowStyle === 3
         ? randomBetween(0, 52)
         : randomBetween(0, 92);
-  const widthPattern = [285, 305, 325, 295, 315, 275];
   const steadyWidth = widthPattern[index % widthPattern.length] + randomBetween(-8, 8);
-  const desktopSpaceTopPattern = [42, 58, 50, 70, 46, 62, 54, 66];
-  const desktopSpaceRightPattern = [54, 72, 64, 82, 58, 76, 68, 86];
-  const desktopSpaceBottomPattern = [68, 84, 76, 92, 72, 88, 80, 96];
-  const desktopSpaceLeftPattern = [36, 54, 44, 62, 40, 58, 48, 66];
-  const desktopOffsetXPattern = [0, 6, -4, 8, -2, 5, 0, 7];
-  const desktopOffsetYPattern = [0, 4, 2, 6, 0, 5, 3, 7];
   const width = isOpeningImage ? firstRowDesktopWidth : clamp(steadyWidth, 275, 335);
   const mobileWidth = clamp(mobileWidthBase, 190, 285);
   const tabletWidth = clamp(Math.round(mobileWidth * 0.9), 170, 260);
@@ -256,74 +232,11 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
         ? [40, 44, 41, 43]
         : [43, 40, 45, 41];
   const firstRowPhoneWidth = openingPhoneWidths[index % openingPhoneWidths.length] + randomBetween(0, 2);
-  const firstRowPhoneMax = isOpeningImage ? firstRowPhoneWidth + 2 : firstRowStyle === 1 ? 46 : firstRowStyle === 3 ? 40 : 44;
-  const openingPhoneShift = [8, 14, 5, 12][index % 4];
-  const phoneShift = isOpeningImage ? openingPhoneShift : index % 5 === 1 || index % 5 === 4 ? randomBetween(3, 9) : randomBetween(0, 5);
-  const firstRowSpaceRight =
-    firstRowStyle === 3
-      ? randomBetween(4, 16)
-      : firstRowStyle === 1
-        ? randomBetween(5, 22)
-        : randomBetween(4, 24);
-  const firstRowSpaceLeft =
-    firstRowStyle === 3
-      ? randomBetween(0, 16)
-      : firstRowStyle === 1
-        ? randomBetween(0, 18)
-        : randomBetween(0, 20);
-  const phoneSideShiftPatterns = [
-    [1, 5, 2, 4, 7, 1, 4, 2, 5, 1],
-    [6, 1, 4, 2, 7, 3, 1, 5, 2, 4],
-    [2, 7, 1, 5, 3, 6, 1, 4, 7, 2],
-    [4, 2, 8, 1, 5, 2, 6, 1, 3, 5]
-  ];
-  const phoneSideShiftPattern = isOpeningImage
-    ? [2, 4, 1, 5]
-    : phoneSideShiftPatterns[firstRowStyle % phoneSideShiftPatterns.length];
-  const phoneSideShift = phoneSideShiftPattern[index % phoneSideShiftPattern.length];
-  const phoneRightPatterns = [
-    [4, 7, 2, 5, 8, 1, 6, 3, 7, 2],
-    [8, 2, 5, 3, 9, 1, 4, 6, 3, 7],
-    [3, 9, 1, 6, 4, 8, 2, 5, 7, 3],
-    [6, 3, 8, 1, 5, 7, 2, 6, 4, 8]
-  ];
-  const phoneRightPattern = isOpeningImage
-    ? [4, 2, 5, 3]
-    : phoneRightPatterns[firstRowStyle % phoneRightPatterns.length];
-  const phoneRightSpace = phoneRightPattern[index % phoneRightPattern.length] + randomBetween(-2, 2);
-  const phoneLeftSpace =
-    (isOpeningImage ? Math.round(firstRowSpaceLeft * 0.35) + phoneShift + phoneSideShift : phoneSideShift + phoneShift) +
-    randomBetween(0, 3);
-  const previousPhoneWidth = phoneWidthPattern[(phoneLayoutMode + phoneWidthPattern.length - 1) % phoneWidthPattern.length];
-  const nextPhoneWidth = phoneWidthPattern[(phoneLayoutMode + 1) % phoneWidthPattern.length];
+  const previousPhoneWidth = phonePattern[(phoneLayoutMode + phonePattern.length - 1) % phonePattern.length];
+  const nextPhoneWidth = phonePattern[(phoneLayoutMode + 1) % phonePattern.length];
   const isNearPhoneSingle = previousPhoneWidth >= 48 || nextPhoneWidth >= 48;
   const phoneWidth = isOpeningImage ? firstRowPhoneWidth : clamp(phoneWidthBase + randomBetween(-1, 1), 39, 59);
   const isPhoneSingleWidth = phoneWidth >= 48;
-  const phoneMaxWidth = isOpeningImage ? Math.min(firstRowPhoneMax + 4, 48) : isPhoneSingleWidth ? 59 : isNearPhoneSingle || phoneWidth <= 40 ? 44 : 48;
-  const phoneOffsetPatterns = [
-    [-4, 8, 1, 10, -3, 5, 12, 2, 8, -5, 6, 10],
-    [9, -4, 11, 3, 7, -1, 10, -3, 5, 12, 2, 8],
-    [1, 10, -4, 6, 12, 3, 8, -2, 11, 4, -1, 9],
-    [11, 2, 7, -5, 9, 1, 12, 5, -2, 10, 3, 6]
-  ];
-  const phoneVerticalOffsetPatterns = [
-    [-32, 46, 12, 68, -18, 34, 76, 8, 54, -26, 28, 62],
-    [58, -24, 42, 10, 72, -14, 30, 80, 5, 48, -30, 64],
-    [14, 70, -28, 38, 84, 6, 52, -18, 66, 24, -34, 44],
-    [78, 18, -24, 56, 8, 40, -16, 82, 26, 68, -30, 36]
-  ];
-  const phoneTopStaggerPatterns = [
-    [0, 38, 8, 54, 16, 44, 4, 62],
-    [42, 6, 50, 14, 34, 58, 10, 46],
-    [12, 56, 4, 40, 64, 18, 48, 8],
-    [52, 16, 36, 60, 6, 44, 20, 54]
-  ];
-  const phoneBottomStaggerPatterns = [
-    [18, 4, 24, 8, 14, 28, 6, 20],
-    [6, 22, 10, 26, 4, 18, 30, 12],
-    [24, 8, 16, 32, 10, 20, 6, 28],
-    [12, 30, 6, 22, 16, 4, 26, 10]
-  ];
   const phoneOffsetPattern = phoneOffsetPatterns[firstRowStyle % phoneOffsetPatterns.length];
   const phoneVerticalOffsetPattern = phoneVerticalOffsetPatterns[firstRowStyle % phoneVerticalOffsetPatterns.length];
   const phoneTopStaggerPattern = phoneTopStaggerPatterns[firstRowStyle % phoneTopStaggerPatterns.length];
@@ -377,12 +290,8 @@ function createLayoutItem(image, index, firstRowStyle, desktopFirstRowStyle) {
       "--card-width": `${width}px`,
       "--mobile-card-width": `${mobileWidth}px`,
       "--tablet-card-width": `${tabletWidth}px`,
-      "--phone-card-width": `${phoneWidth}%`,
-      "--phone-card-max": `${phoneMaxWidth}%`,
       "--phone-space-top": `${phoneTopSpace}px`,
-      "--phone-space-right": `${Math.max(2, phoneRightSpace - 2)}px`,
       "--phone-space-bottom": `${(isPhoneSingleWidth || isNearPhoneSingle ? randomBetween(48, 78) : randomBetween(42, 68)) + phoneBottomStagger}px`,
-      "--phone-space-left": `${Math.max(2, phoneLeftSpace - 3)}px`,
       "--phone-offset-x": `${phoneOffsetX}px`,
       "--phone-offset-y": `${phoneOffsetY - phoneRightColumnLift}px`,
       "--phone-card-align": phoneAlign,
@@ -514,7 +423,6 @@ function applyStyles(element, styles) {
 function renderLayout(layout) {
   let imageCount = 0;
   const fragment = document.createDocumentFragment();
-  const priorityPictures = [];
 
   layout.forEach((item) => {
     if (item.type === "void") {
@@ -534,12 +442,6 @@ function renderLayout(layout) {
     const card = createProjectCard(image, {
       isPriority: imageCount < 3
     });
-    if (imageCount < 2) {
-      const picture = card.querySelector("img");
-      if (picture) {
-        priorityPictures.push(picture);
-      }
-    }
     imageCount += 1;
     applyStyles(card, item.styles);
 
@@ -547,41 +449,6 @@ function renderLayout(layout) {
   });
 
   projectIndex.appendChild(fragment);
-  return priorityPictures;
-}
-
-function settlePhoneHomeLayout(pictures) {
-  if (!window.matchMedia("(max-width: 560px)").matches) {
-    document.documentElement.classList.remove("is-phone-home-preparing");
-    return;
-  }
-
-  const waitForPicture = (picture) => {
-    if (picture.complete && picture.naturalWidth > 0) {
-      return Promise.resolve();
-    }
-
-    if (typeof picture.decode === "function") {
-      return picture.decode().catch(() => undefined);
-    }
-
-    return new Promise((resolve) => {
-      picture.addEventListener("load", resolve, { once: true });
-      picture.addEventListener("error", resolve, { once: true });
-    });
-  };
-
-  const reveal = () => {
-    protectFirstRowFromHeader();
-    document.documentElement.classList.remove("is-phone-home-preparing");
-  };
-
-  Promise.race([
-    Promise.all(pictures.map(waitForPicture)),
-    new Promise((resolve) => window.setTimeout(resolve, 900))
-  ]).then(() => {
-    window.requestAnimationFrame(reveal);
-  });
 }
 
 function restoreHomePosition() {
@@ -612,19 +479,16 @@ function restoreHomePosition() {
 }
 
 function protectFirstRowFromHeader() {
+  if (window.matchMedia("(max-width: 560px)").matches) return;
+
   const header = document.querySelector(".topbar");
   const cards = [...document.querySelectorAll(".project-card")];
 
   cards.forEach((card) => {
-    delete card.dataset.firstRow;
     card.style.setProperty("--header-drop", "0px");
   });
 
   if (!header || cards.length === 0) {
-    return;
-  }
-
-  if (window.matchMedia("(max-width: 560px)").matches) {
     return;
   }
 
@@ -645,7 +509,6 @@ function protectFirstRowFromHeader() {
 
   cardBoundsList.forEach(({ card, top, left, right }) => {
     if (top <= firstRowTop + 56) {
-      card.dataset.firstRow = "true";
       if (left < headerRight && right > headerBounds.left && top < headerBottom) {
         card.style.setProperty("--header-drop", `${Math.ceil(headerBottom - top)}px`);
       }
@@ -653,87 +516,7 @@ function protectFirstRowFromHeader() {
   });
 }
 
-function createWorkMenu() {
-  const menu = document.querySelector("[data-work-menu]");
-  const menuTrigger = document.querySelector("[data-work-count-menu]");
-
-  if (!menu || !menuTrigger) {
-    return;
-  }
-
-  const list = document.createElement("nav");
-  list.className = "work-menu-list";
-
-  homeImageGroups.forEach((group) => {
-    const link = document.createElement("a");
-    const dot = document.createElement("span");
-    const title = document.createElement("span");
-
-    dot.className = "work-menu-dot";
-    dot.textContent = "\u25cf";
-    title.textContent = group.title;
-    link.href = `viewer.html?image=${encodeURIComponent(getGroupStart(group))}`;
-    link.style.setProperty("--text-hover-color", hoverMarkerColors[Math.floor(Math.random() * hoverMarkerColors.length)]);
-    link.append(dot, title);
-    link.addEventListener("click", () => {
-      const currentPage = window.location.pathname.split("/").pop() || "index.html";
-      const currentScroll = String(window.scrollY);
-
-      if (currentPage === "index.html") {
-        sessionStorage.setItem("viewer-return-url", `index.html?return=${Date.now()}&scroll=${encodeURIComponent(currentScroll)}`);
-      } else {
-        sessionStorage.setItem("viewer-return-url", `${currentPage}${window.location.search}${window.location.hash}`);
-      }
-
-      sessionStorage.setItem(returnScrollKey, currentScroll);
-      sessionStorage.removeItem(returnImageKey);
-      menu.classList.remove("is-open", "is-closing");
-      menu.setAttribute("aria-hidden", "true");
-    });
-    list.appendChild(link);
-  });
-
-  menu.appendChild(list);
-
-  const closeMenu = () => {
-    menu.classList.remove("is-open");
-    menu.classList.add("is-closing");
-    menu.setAttribute("aria-hidden", "true");
-
-    window.setTimeout(() => {
-      menu.classList.remove("is-closing");
-    }, 160);
-  };
-
-  const openMenu = () => {
-    menu.classList.remove("is-closing");
-    menu.classList.add("is-open");
-    menu.setAttribute("aria-hidden", "false");
-  };
-
-  menuTrigger.addEventListener("click", (event) => {
-    event.preventDefault();
-    if (menu.classList.contains("is-open")) {
-      closeMenu();
-    } else {
-      openMenu();
-    }
-  });
-
-  menu.addEventListener("click", (event) => {
-    if (event.target === menu) {
-      closeMenu();
-    }
-  });
-}
-
-createWorkMenu();
-
 if (projectIndex) {
-  if (window.matchMedia("(max-width: 560px)").matches) {
-    document.documentElement.classList.add("is-phone-home-preparing");
-  }
-
   const navigationEntry = performance.getEntriesByType("navigation")[0];
   const isReload = navigationEntry?.type === "reload";
   const savedLayout = sessionStorage.getItem(layoutStorageKey);
@@ -754,18 +537,10 @@ if (projectIndex) {
   });
 
   sessionStorage.setItem(layoutStorageKey, JSON.stringify(layout));
-  const priorityPictures = renderLayout(layout);
-  if (window.matchMedia("(max-width: 560px)").matches) {
-    settlePhoneHomeLayout(priorityPictures);
-  } else {
-    protectFirstRowFromHeader();
-  }
+  renderLayout(layout);
+  protectFirstRowFromHeader();
   restoreHomePosition();
 
-  if (returnScrollFromUrl) {
-    window.requestAnimationFrame(() => window.scrollTo(0, Number(returnScrollFromUrl)));
-    window.setTimeout(() => window.scrollTo(0, Number(returnScrollFromUrl)), 80);
-  }
 }
 
 if (projectIndex) {

@@ -1,26 +1,5 @@
 @font-face {
   font-family: "Henley";
-  src: url("assets/fonts/Henley-Light.woff2?v=2.005") format("woff2");
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Henley";
-  src: url("assets/fonts/Henley-Bold.woff2?v=2.005") format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Henley";
-  src: url("assets/fonts/Henley-Italic.woff2?v=2.005") format("woff2");
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Henley";
   src: url("assets/fonts/Henley-Regular.woff2?v=2.005") format("woff2");
   font-weight: 400;
   font-style: normal;
@@ -50,22 +29,20 @@ body {
   font-synthesis: none;
 
   font-size: 17px;
-  font-weight: 400;
+  font-weight: 500;
+  -webkit-text-stroke: 0.28px currentColor;
   line-height: 1.35;
   letter-spacing: 0;
   font-kerning: normal;
 }
 
 a {
+  position: relative;
   color: inherit;
   text-decoration: none;
 }
 
-a:not(.project-card a) {
-  position: relative;
-}
-
-a:not(.project-card a):not(.work-menu-list a)::before {
+a::before {
   position: absolute;
   top: 50%;
   left: -0.95em;
@@ -77,12 +54,14 @@ a:not(.project-card a):not(.work-menu-list a)::before {
   content: "";
   opacity: 0;
   pointer-events: none;
-  transform: translateY(-50%);
+  transform: translateY(-50%) scale(0.65);
+  transition: opacity 140ms ease, transform 140ms ease;
 }
 
-a:not(.project-card a):not(.work-menu-list a):hover::before,
-a:not(.project-card a):not(.work-menu-list a):focus-visible::before {
+a:hover::before,
+a:focus-visible::before {
   opacity: 1;
+  transform: translateY(-50%) scale(1);
 }
 
 img {
@@ -109,57 +88,21 @@ img {
 .mark-row {
   display: flex;
   align-items: baseline;
-  gap: 0.35em;
+  gap: 0;
 }
 
 .mark,
 .nav a {
   font-size: 17px;
-  font-weight: 400;
+  font-weight: 500;
   text-transform: lowercase;
 }
 
-.nav a {
-  font-weight: 400;
-}
-
-.header-count-trigger {
-  appearance: none;
-  position: relative;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: inherit;
-  cursor: pointer;
-  font-family: inherit;
-  font-size: inherit;
-  font-weight: 400;
-  line-height: inherit;
-  text-align: left;
-}
-
-.header-home-count {
-  font-weight: 400;
-}
-
-.header-count-trigger::before {
-  position: absolute;
-  top: 50%;
-  right: -0.95em;
-  width: 0;
-  height: 0;
-  border-top: 0.36em solid transparent;
+.mark[data-work-count-menu]::before {
+  left: auto;
+  right: -0.8em;
+  border-left: 0;
   border-right: 0.62em solid var(--text-hover-color, #25abe2);
-  border-bottom: 0.36em solid transparent;
-  content: "";
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(-50%);
-}
-
-.header-count-trigger:hover::before,
-.header-count-trigger:focus-visible::before {
-  opacity: 1;
 }
 
 .number {
@@ -213,26 +156,19 @@ img {
   gap: 8px;
 }
 
-.project-card a::after {
-  position: absolute;
-  top: 0;
+.project-card a::before {
+  /* Half the number's 1.35em line height keeps the triangle centered. */
+  top: 0.675em;
   left: -18px;
   z-index: 2;
-  width: 0;
-  height: 0;
-  border-top: 8px solid transparent;
-  border-bottom: 8px solid transparent;
+  border-top-width: 8px;
+  border-bottom-width: 8px;
   border-left: 14px solid var(--hover-marker-color, #25abe2);
-  content: "";
-  opacity: 0;
-  pointer-events: none;
-  visibility: hidden;
 }
 
-.project-card:hover a::after,
-.project-card a:focus-visible::after {
+.project-card:hover a::before {
   opacity: 1;
-  visibility: visible;
+  transform: translateY(-50%) scale(1);
 }
 
 .project-card img {
@@ -253,17 +189,14 @@ img {
   place-items: center;
   padding: clamp(20px, 6vw, 72px);
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
 }
 
 .work-menu.is-open {
   opacity: 1;
+  visibility: visible;
   pointer-events: auto;
-}
-
-.work-menu.is-closing {
-  opacity: 1;
-  pointer-events: none;
 }
 
 .work-menu-list {
@@ -280,34 +213,10 @@ img {
   align-items: flex-start;
   justify-self: center;
   padding: 0 0.22em;
-  background: linear-gradient(to right, #fff 50%, #fff 50%);
-  background-position: 0 0;
-  background-size: 200% 100%;
+  background: #fff;
   font-size: 17px;
   line-height: 1.12;
   white-space: nowrap;
-  transition: background-position 180ms ease, transform 180ms ease;
-}
-
-.work-menu-list a::after {
-  position: absolute;
-  top: 50%;
-  left: -0.95em;
-  display: block;
-  width: 0;
-  height: 0;
-  border-top: 0.36em solid transparent;
-  border-bottom: 0.36em solid transparent;
-  border-left: 0.62em solid var(--text-hover-color, #25abe2);
-  content: "";
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(-50%);
-}
-
-.work-menu-list a:hover::after,
-.work-menu-list a:focus-visible::after {
-  opacity: 1;
 }
 
 .work-menu-dot {
@@ -316,44 +225,6 @@ img {
   font-size: 1em;
   line-height: 1;
   padding-top: 0.04em;
-}
-
-.work-menu-list a:hover,
-.work-menu-list a:focus-visible {
-  background-position: -100% 0;
-  transform: translateX(4px);
-}
-
-.work-menu.is-open .work-menu-list a {
-  animation: titleSlideIn 160ms ease both;
-}
-
-.work-menu.is-closing .work-menu-list a {
-  animation: titleSlideOut 160ms ease both;
-}
-
-@keyframes titleSlideIn {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes titleSlideOut {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  to {
-    opacity: 0;
-    transform: translateY(6px);
-  }
 }
 
 @media (max-width: 1100px) {
@@ -404,7 +275,7 @@ img {
 }
 
 .viewer-item {
-  width: min(100%, var(--viewer-width, 1120px));
+  width: min(72.9%, calc(var(--viewer-width, 1120px) * 0.729));
   margin: 0;
   justify-self: var(--viewer-align, center);
   transform: translateX(var(--viewer-offset, 0));
@@ -523,7 +394,7 @@ img {
   }
 
   .viewer-item {
-    width: min(var(--viewer-mobile-width, 90%), calc(100vw - 24px));
+    width: min(calc(var(--viewer-mobile-width, 90%) * 0.81), calc(100vw - 24px));
     transform: translateX(calc(var(--viewer-offset, 0) * 0.25));
   }
 
@@ -561,14 +432,6 @@ img {
 }
 
 @media (max-width: 560px) {
-  .nav a {
-    font-weight: 400;
-  }
-
-  .header-home-count {
-    font-weight: 400;
-  }
-
   .info-page {
     margin-top: 0;
     padding-top: var(--header-safe-space);
@@ -596,10 +459,6 @@ img {
     overflow-x: clip;
   }
 
-  .is-phone-home-preparing .project-index {
-    visibility: hidden;
-  }
-
   .layout-void {
     display: block;
     justify-self: center;
@@ -624,26 +483,8 @@ img {
   }
 }
 
-/* Use the spacing and pair adjustments built into Henley. */
-body { font-kerning: normal; letter-spacing: 0; }
-
-/* Subtle weight increase for the current Henley font. */
-body { -webkit-text-stroke: 0.28px currentColor; }
-
-
-/* Keep the counter and its menu stationary during interaction. */
-.header-count-trigger,
-.header-count-trigger:active {
-  transform: none;
-  animation: none;
+@media (prefers-reduced-motion: reduce) {
+  a::before {
+    transition: none;
+  }
 }
-.work-menu.is-open .work-menu-list a,
-.work-menu.is-closing .work-menu-list a {
-  animation: none;
-}
-.work-menu-list a:hover,
-.work-menu-list a:focus-visible {
-  transform: none;
-}
-/* Medium appearance using the supplied static regular font. */
-body, button, input, select, textarea, .mark, .nav a, .header-home-count { font-weight: 500; }
