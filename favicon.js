@@ -14,3 +14,50 @@ document.querySelectorAll("a").forEach((link) => {
     link.style.setProperty("--text-hover-color", color);
   }
 });
+
+function createMovingTriangle() {
+  const marker = document.createElement("span");
+  marker.className = "moving-hover-marker";
+  marker.setAttribute("aria-hidden", "true");
+  document.body.appendChild(marker);
+  let activeTarget;
+  let motion;
+
+  const moveTo = (target, animate = true) => {
+    const card = target.closest(".project-card");
+    const label = card ? card.querySelector(".number") : target;
+    const bounds = label.getBoundingClientRect();
+    const fontSize = parseFloat(getComputedStyle(label).fontSize);
+    const pointsLeft = target.hasAttribute("data-work-count-menu");
+    const x = pointsLeft ? bounds.right + fontSize * 0.18 : bounds.left - (card ? 18 : fontSize * 0.95);
+    const transform = `translate(${x}px, ${bounds.top + bounds.height / 2}px) translateY(-50%)`;
+    const previous = getComputedStyle(marker).transform;
+    motion?.cancel();
+    marker.classList.toggle("is-header", !card);
+    marker.classList.toggle("points-left", pointsLeft);
+    marker.style.setProperty("--marker-color", getComputedStyle(card || target).getPropertyValue(card ? "--hover-marker-color" : "--text-hover-color"));
+    marker.style.transform = transform;
+    if (activeTarget && animate && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      motion = marker.animate([{ transform: previous }, { transform }], {
+        duration: 220,
+        easing: "ease-out"
+      });
+    }
+    marker.classList.add("is-visible");
+    activeTarget = target;
+  };
+
+  const followTarget = (event) => {
+    if (event.pointerType === "touch") return;
+    const target = event.target.closest(".topbar a, .project-card a");
+    if (target && target !== activeTarget) moveTo(target);
+  };
+  document.addEventListener("pointerover", followTarget);
+  document.addEventListener("focusin", followTarget);
+  const reposition = () => activeTarget && moveTo(activeTarget, false);
+  window.addEventListener("resize", reposition);
+  window.addEventListener("scroll", reposition, { passive: true });
+  document.addEventListener("load", reposition, true);
+}
+
+createMovingTriangle();

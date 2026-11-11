@@ -98,13 +98,6 @@ img {
   text-transform: lowercase;
 }
 
-.mark[data-work-count-menu]::before {
-  left: auto;
-  right: -0.8em;
-  border-left: 0;
-  border-right: 0.62em solid var(--text-hover-color, #25abe2);
-}
-
 .number {
   font-size: 17px;
   font-weight: 400;
@@ -156,19 +149,38 @@ img {
   gap: 8px;
 }
 
+.topbar a::before,
 .project-card a::before {
-  /* Half the number's 1.35em line height keeps the triangle centered. */
-  top: 0.675em;
-  left: -18px;
-  z-index: 2;
-  border-top-width: 8px;
-  border-bottom-width: 8px;
-  border-left: 14px solid var(--hover-marker-color, #25abe2);
+  content: none;
 }
 
-.project-card:hover a::before {
-  opacity: 1;
-  transform: translateY(-50%) scale(1);
+.moving-hover-marker {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 21;
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 14px solid var(--marker-color, #25abe2);
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.moving-hover-marker.is-header {
+  border-top-width: 0.36em;
+  border-bottom-width: 0.36em;
+  border-left-width: 0.62em;
+}
+
+.moving-hover-marker.points-left {
+  border-left-width: 0;
+  border-right: 0.62em solid var(--marker-color, #25abe2);
+}
+
+.moving-hover-marker.is-visible {
+  visibility: visible;
 }
 
 .project-card img {
@@ -188,13 +200,11 @@ img {
   display: grid;
   place-items: center;
   padding: clamp(20px, 6vw, 72px);
-  opacity: 0;
   visibility: hidden;
   pointer-events: none;
 }
 
 .work-menu.is-open {
-  opacity: 1;
   visibility: visible;
   pointer-events: auto;
 }
