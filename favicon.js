@@ -37,8 +37,11 @@ function createMovingTriangle() {
     marker.classList.toggle("points-left", pointsLeft);
     marker.style.setProperty("--marker-color", getComputedStyle(card || target).getPropertyValue(card ? "--hover-marker-color" : "--text-hover-color"));
     marker.style.transform = transform;
-    if (activeTarget && animate && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      motion = marker.animate([{ transform: previous }, { transform }], {
+    if (animate && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      const keyframes = activeTarget
+        ? [{ transform: previous }, { transform }]
+        : [{ transform: `${transform} scale(0.65)`, opacity: 0 }, { transform, opacity: 1 }];
+      motion = marker.animate(keyframes, {
         duration: 220,
         easing: "ease-out"
       });
