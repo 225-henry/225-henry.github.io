@@ -143,7 +143,8 @@ img {
 
 .topbar a::before,
 .project-card a::before,
-.info-catalog-list a::before {
+.info-catalog-list a::before,
+.info-links a::before {
   content: none;
 }
 
@@ -321,20 +322,6 @@ img {
   margin-top: 1.08em;
 }
 
-.info-note {
-  position: fixed;
-  bottom: 16px;
-  right: clamp(16px, 3vw, 36px);
-  width: min(900px, calc(100vw - 32px));
-  margin-top: 0;
-}
-
-.info-note-text {
-  background: #fff;
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
-}
-
 @media (max-width: 1100px) {
   .viewer-title {
     width: calc(100vw - 32px);
@@ -366,10 +353,6 @@ img {
   .info-copy {
     grid-column: auto;
     grid-row: auto;
-  }
-
-  .info-note {
-    width: min(720px, calc(100vw - 32px));
   }
 
   .project-index {
