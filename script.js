@@ -1,7 +1,7 @@
 ﻿const projectIndex = document.querySelector(".project-index");
 const images = window.portfolioImages || [];
 const imageMap = new Map(images.map((image) => [image.number, image]));
-const layoutStorageKey = "home-layout-v120";
+const layoutStorageKey = "home-layout-v121";
 const returnImageKey = "home-return-image";
 const returnScrollKey = "home-return-scroll";
 const hoverMarkerColors = faviconColors;
@@ -41,7 +41,7 @@ function createProjectCard(image, options = {}) {
   card.className = "project-card";
   card.dataset.number = image.number;
 
-  link.href = `viewer.html?image=${encodeURIComponent(image.number)}`;
+  link.href = projectViewerUrl(findProjectForImage(image.number));
   number.className = "number";
   number.textContent = image.number;
   picture.src = image.src.trim();
@@ -106,22 +106,23 @@ function getBalancedHomeImages() {
   const groupedImages = homeImageGroups
     .map((homeGroup) => {
       const group = shuffleList(getImagesForGroup(homeGroup));
-      return typeof homeGroup.max === "number" ? group.slice(0, homeGroup.max) : group;
+      const selected = typeof homeGroup.max === "number" ? group.slice(0, homeGroup.max) : group;
+      return { images: selected, minimum: Math.min(selected.length, homeGroup.homeMin || 1) };
     })
-    .filter((group) => group.length > 0);
-  const totalImages = groupedImages.reduce((sum, group) => sum + group.length, 0);
+    .filter((group) => group.images.length > 0);
+  const totalImages = groupedImages.reduce((sum, group) => sum + group.images.length, 0);
   let remainingSlots = Math.min(homeImageLimit, totalImages);
-  const quotas = groupedImages.map((group) => {
+  const quotas = groupedImages.map(({ images: group, minimum }) => {
     const proportionalCount = Math.round((group.length / totalImages) * homeImageLimit);
-    const count = Math.min(group.length, Math.max(1, proportionalCount));
+    const count = Math.min(group.length, Math.max(minimum, proportionalCount));
     remainingSlots -= count;
     return count;
   });
 
   while (remainingSlots !== 0) {
     const candidates = groupedImages
-      .map((group, index) => ({ group, index, room: group.length - quotas[index] }))
-      .filter(({ index, room }) => (remainingSlots > 0 ? room > 0 : quotas[index] > 1));
+      .map(({ images: group, minimum }, index) => ({ index, minimum, room: group.length - quotas[index] }))
+      .filter(({ index, minimum, room }) => (remainingSlots > 0 ? room > 0 : quotas[index] > minimum));
 
     if (candidates.length === 0) {
       break;
@@ -132,7 +133,7 @@ function getBalancedHomeImages() {
     remainingSlots += remainingSlots > 0 ? -1 : 1;
   }
 
-  return groupedImages.flatMap((group, index) => group.slice(0, quotas[index]));
+  return groupedImages.flatMap(({ images: group }, index) => group.slice(0, quotas[index]));
 }
 
 const phonePatterns = [
@@ -533,6 +534,8 @@ if (projectIndex) {
 
     if (card) {
       sessionStorage.setItem(returnImageKey, card.dataset.number);
+      const project = findProjectForImage(card.dataset.number);
+      sessionStorage.setItem("viewer-selected:" + project.slug, card.dataset.number);
     }
   });
 

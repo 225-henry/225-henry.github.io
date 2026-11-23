@@ -110,7 +110,17 @@ if (viewer) {
   });
 
   const params = new URLSearchParams(window.location.search);
-  const selectedNumber = params.get("image") || "001";
+  const project = imageGroups.find((group) => group.slug === params.get("project"))
+    || findProjectForImage(params.get("image") || "001")
+    || imageGroups[0];
+  const selectedKey = "viewer-selected:" + project.slug;
+  const requestedNumber = params.get("image") || sessionStorage.getItem(selectedKey)
+    || window.history.state?.selectedImage;
+  const selectedNumber = findProjectForImage(requestedNumber) === project
+    ? requestedNumber
+    : (project.ranges || [project.range])[0][0];
+  sessionStorage.removeItem(selectedKey);
+  window.history.replaceState({ ...window.history.state, selectedImage: selectedNumber }, "", projectViewerUrl(project));
   const groupInfo = getGroupInfo(selectedNumber);
   const groupTitle = document.createElement("h1");
   const group = rotateFromSelected(groupInfo.images, selectedNumber);
