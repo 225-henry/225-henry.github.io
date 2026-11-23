@@ -60,7 +60,7 @@ window.portfolioGroups = [
     slug: "a-cliche-love-story",
     range: ["090", "094"],
     homeMin: 5,
-    title: "A Cliche Love Story/ Tutor: Chris L. Smith + CC Williams/ Thesis Studio/ Sem 2 2026/ University of Sydney"
+    title: "A Cliché Love Story/ Tutor: Chris L. Smith + CC Williams/ Thesis Studio/ Sem 2 2026/ University of Sydney"
   }
 ];
 
