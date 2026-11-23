@@ -7,7 +7,7 @@ window.portfolioGroups = [
   {
     slug: "house-of-brazil-student-residence",
     range: ["015", "020"],
-    title: "House of Brazil (Le Corbusier) + Student Residence (Bruther + Baukunst)/ Tutor: Jessica Spresser/ Sem 1 2025/ University of Sydney"
+    title: "House of Brazil (Le Corbusier + Lúcio Costa) + Student Residence (Bruther + Baukunst)/ Tutor: Jessica Spresser/ Sem 1 2025/ University of Sydney"
   },
   {
     slug: "the-continuous-line",
