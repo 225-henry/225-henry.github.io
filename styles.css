@@ -189,7 +189,7 @@ img {
 
 .info-catalog-list {
   display: grid;
-  gap: 20px;
+  gap: 22px;
   margin: 0;
   padding-left: 1em;
   font-size: 17px;
@@ -204,12 +204,12 @@ img {
 
 .education-projects,
 .experience-projects {
-  margin-top: 1.08em;
+  margin-top: 22px;
   scroll-margin-top: var(--header-safe-space);
 }
 
 .education-university + .education-university {
-  margin-top: 80px;
+  margin-top: 22px;
 }
 
 .caption {
@@ -298,6 +298,10 @@ img {
 
 .info-section {
   margin-top: 80px;
+}
+
+.info-section + .info-section {
+  margin-top: 22px;
 }
 
 .info-section h2 {

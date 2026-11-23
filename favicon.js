@@ -26,7 +26,7 @@ function createMovingTriangle() {
   const moveTo = (target, animate = true) => {
     const card = target.closest(".project-card");
     const label = card ? card.querySelector(".number") : target;
-    const bounds = label.getBoundingClientRect();
+    const bounds = label.getClientRects()[0] || label.getBoundingClientRect();
     const fontSize = parseFloat(getComputedStyle(label).fontSize);
     const pointsLeft = target.hasAttribute("data-marker-left");
     const x = pointsLeft ? bounds.right + fontSize * 0.18 : bounds.left - (card ? 18 : fontSize * 0.95);
